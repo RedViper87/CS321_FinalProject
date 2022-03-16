@@ -1,6 +1,4 @@
-import java.util.Scanner;
-
-public class main_driver {
+public class Movie_Library {
     /**
      *  This is the main driver for CS321 Final Project ~ My Movie Library
      */
