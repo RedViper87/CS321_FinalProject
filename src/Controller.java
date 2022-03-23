@@ -1,3 +1,7 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 /**
  *  This is the Controller class that handles the
  *  functions and interactions between the views
@@ -19,6 +23,63 @@ public class Controller {
     //Delete user profile, update both User_Model & User_View
     //Modify username, update both User_Model & User_View
     //Modify password, update User_Model
+
+    private User_View userView;
+    private User_Model userModel;
+
+    public Controller(User_View userView, User_Model userModel){
+        this.userView = userView;
+        this.userModel = userModel;
+        this.userView.checkUserListener(new checkListener());
+        this.userView.newUserListener(new addUserListener());
+    }
+
+    class checkListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String username;
+            String password;
+            username = userView.getUsername();
+            password = userView.getPassword();
+            if(username.length() == 0 || password.length() == 0){
+                userView.displayErrorMessage("Please Enter a Username AND Password");
+            }else{
+                userModel.setUsername(username);
+                userModel.setPassword(password);
+                // load the user data
+            }
+
+        }
+    }
+    class addUserListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String username;
+            String password;
+            username = userView.getUsername();
+            password = userView.getPassword();
+            userView.eraseUsername();
+            userView.erasePassword();
+            if(username.length() == 0 || password.length() == 0){
+                userView.displayErrorMessage("Please Enter a Username AND Password");
+            }else{
+                userModel.setUsername(username);
+                userModel.setPassword(password);
+                try {
+                    userModel.addNewUser();
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            userView.displayOK();
+        }
+    }
+
+
 
     /* Rating Functions */
     //Add new rating to a movie, update Rating_Model & Rating_View
