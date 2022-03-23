@@ -60,6 +60,8 @@ public class Controller {
             String password;
             username = userView.getUsername();
             password = userView.getPassword();
+            userView.eraseUsername();
+            userView.erasePassword();
             if(username.length() == 0 || password.length() == 0){
                 userView.displayErrorMessage("Please Enter a Username AND Password");
             }else{
@@ -73,6 +75,7 @@ public class Controller {
                     ex.printStackTrace();
                 }
             }
+            userView.displayOK();
         }
     }
 

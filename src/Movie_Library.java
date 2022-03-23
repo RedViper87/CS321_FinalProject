@@ -1,4 +1,7 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.*;
+import javax.swing.*;
 public class Movie_Library {
     /**
      *  This is the main driver for CS321 Final Project ~ My Movie Library
@@ -11,9 +14,13 @@ public class Movie_Library {
         User_View  userView = new User_View();
         User_Model userModel = new User_Model();
         Controller userController = new Controller(userView, userModel);
+        JFrame movieLibrary = new JFrame();
+        movieLibrary.setSize(500,500);
+        movieLibrary.add(userView);
+        movieLibrary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        userView.setVisible(true);
 
+        movieLibrary.setVisible(true);
 
     }
 }

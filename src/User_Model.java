@@ -59,4 +59,8 @@ public class User_Model {
 
     }
 
+    public void checkUser() {
+
+    }
+
 }
