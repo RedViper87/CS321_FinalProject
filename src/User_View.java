@@ -3,7 +3,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-public class User_View extends JInternalFrame{
+public class User_View extends JPanel{
 
     private JLabel usernameLabel = new JLabel("Username:");
     private JTextField usernameField = new JTextField(10);
@@ -34,12 +34,6 @@ public class User_View extends JInternalFrame{
         outer.add(buttonPanel);
 
         this.add(outer);
-
-        this.setFrameIcon(null);
-        this.setBorder(null);
-        BasicInternalFrameUI titlePane = (BasicInternalFrameUI) getUI();
-        titlePane.setNorthPane(null); // gets rid of title bar
-
         this.setVisible(true);
     }
 
@@ -71,14 +65,13 @@ public class User_View extends JInternalFrame{
         newUser.addActionListener(listenerForNewUser);
     }
 
-    /* error message if fields are empty*/
-    void displayErrorMessage(String errorMessage){
-        JOptionPane.showMessageDialog(this, errorMessage);
+    /* display success */
+    void displaySuccess(String success){
+        JOptionPane.showMessageDialog(this,success);
     }
-
-    /* successful user creation */
-    void displayOK(){
-        JOptionPane.showMessageDialog(this,"Account successfully created! Please login.");
+    /* display error */
+    void displayError(String error){
+        JOptionPane.showMessageDialog(this,error);
     }
 
 

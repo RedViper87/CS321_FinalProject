@@ -40,14 +40,27 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             String username;
             String password;
+            boolean check = false;
             username = userView.getUsername();
             password = userView.getPassword();
+            userView.eraseUsername();
+            userView.erasePassword();
             if(username.length() == 0 || password.length() == 0){
-                userView.displayErrorMessage("Please Enter a Username AND Password");
+                userView.displayError("Please Enter a Username AND Password");
             }else{
-                userModel.setUsername(username);
-                userModel.setPassword(password);
-                // load the user data
+                try {
+                    userModel.setUsername(username);
+                    userModel.setPassword(password);
+                    check = userModel.checkUser();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                if(check){
+                    // take to home page
+                }else{
+                    userView.displayError("Username and Password do not match or does not exist.");
+                }
+
             }
 
         }
@@ -58,24 +71,30 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             String username;
             String password;
+            boolean check = false;
             username = userView.getUsername();
             password = userView.getPassword();
             userView.eraseUsername();
             userView.erasePassword();
             if(username.length() == 0 || password.length() == 0){
-                userView.displayErrorMessage("Please Enter a Username AND Password");
+                userView.displayError("Please Enter a Username AND Password");
             }else{
                 userModel.setUsername(username);
                 userModel.setPassword(password);
                 try {
-                    userModel.addNewUser();
+                    check = userModel.addNewUser();
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
-            userView.displayOK();
+            if(check){
+                userView.displaySuccess("Account successfully created! Please login.");
+            }else{
+                userView.displayError("User already exists.");
+            }
+
         }
     }
 
