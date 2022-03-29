@@ -16,7 +16,7 @@ public class User_Model {
 
     private String username;
     private String password;
-    // Watchlist_Model list
+    // ArrayList<Watchlist_Model> listOfWatchlists;
     public void setUsername(String u){
         username = u;
     }
