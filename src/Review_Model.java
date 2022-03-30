@@ -1,4 +1,4 @@
-public class Review_Model {
+public class Review_Model extends Movie_Model{
     /* ATTRIBUTES */
     private Integer NumericalRating;
     private String UserInputReview;
@@ -16,5 +16,10 @@ public class Review_Model {
     }
     public String getUserInputReview() {
         return UserInputReview;
+    }
+
+    public void addUserReview(){
+        // when dropdown button for movie is clicked and button to enter review is clicked
+        // add review to movie in json
     }
 }
