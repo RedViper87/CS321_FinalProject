@@ -27,6 +27,7 @@ public class Controller {
     private User_View userView;
     private User_Model userModel;
 
+    // other views and models will go in this controller
     public Controller(User_View userView, User_Model userModel){
         this.userView = userView;
         this.userModel = userModel;
@@ -88,13 +89,12 @@ public class Controller {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+                if(check){
+                    userView.displaySuccess("Account successfully created! Please login.");
+                }else{
+                    userView.displayError("User already exists.");
+                }
             }
-            if(check){
-                userView.displaySuccess("Account successfully created! Please login.");
-            }else{
-                userView.displayError("User already exists.");
-            }
-
         }
     }
 

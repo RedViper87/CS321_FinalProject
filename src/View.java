@@ -1,2 +1,2 @@
-public interface View {
+public interface View { // do something with this
 }

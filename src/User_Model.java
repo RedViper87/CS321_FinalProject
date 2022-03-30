@@ -12,11 +12,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class User_Model {
+public class User_Model extends Watchlist_Model{
 
     private String username;
     private String password;
-    // ArrayList<Watchlist_Model> listOfWatchlists;
+    private ArrayList<Watchlist_Model> listOfWatchlists;
+
+    public User_Model() {
+    }
+
     public void setUsername(String u){
         username = u;
     }
@@ -51,9 +55,7 @@ public class User_Model {
         /* check if user is in list */
         for(User_Model user:arrayList){
             if(user.getUsername().equals(username)){
-                if(user.getPassword().equals(password)){
-                    return false;
-                }
+                return false;
             }
         }
 

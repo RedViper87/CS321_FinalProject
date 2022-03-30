@@ -34,5 +34,5 @@ public class Watchlist_Model {
     public void RemoveMovieFromList(Movie_Model movieModel) {
         ListOfMovies.remove(movieModel);
     }
-
+    // make and delete watchlist
 }
