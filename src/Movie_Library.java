@@ -13,10 +13,13 @@ public class Movie_Library {
 
         User_View  userView = new User_View();
         User_Model userModel = new User_Model();
+        Watchlist_View watchlistView = new Watchlist_View();
         Controller userController = new Controller(userView, userModel);
         JFrame movieLibrary = new JFrame();
         movieLibrary.setSize(500,500);
+        movieLibrary.setLayout(new FlowLayout());
         movieLibrary.add(userView);
+        movieLibrary.add(watchlistView);
         movieLibrary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
