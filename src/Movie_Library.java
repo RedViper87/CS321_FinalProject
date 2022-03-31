@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import javax.swing.border.Border;
 
 public class Movie_Library {
     /**
@@ -28,6 +27,10 @@ public class Movie_Library {
         movieLibrary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         movieLibrary.setVisible(true);
+
+    }
+
+    public void addMovieListPanel() {
 
     }
 }

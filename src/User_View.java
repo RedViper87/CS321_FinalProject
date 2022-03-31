@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class User_View extends JPanel{
 
