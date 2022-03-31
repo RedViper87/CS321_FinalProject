@@ -1,5 +1,6 @@
 import javax.swing.border.Border;
 import java.awt.*;
+import javax.swing.*;
 
 public class Watchlist_View extends JPanel {
 
