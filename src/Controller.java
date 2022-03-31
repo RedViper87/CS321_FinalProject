@@ -24,6 +24,16 @@ public class Controller {
     //Modify username, update both User_Model & User_View
     //Modify password, update User_Model
 
+    private Movie_View movieView;
+    private Movie_Model movieModel;
+    private Watchlist_View watchlistView;
+    private Watchlist_Model watchlistModel;
+    private Review_View reviewView;
+    private Review_Model reviewModel;
+    private Search_View searchView;
+    private Search_Model searchModel;
+    private Recommendations_Model recommendationsModel;
+    private Recommendations_View recommendationsView;
     private User_View userView;
     private User_Model userModel;
 

@@ -1,7 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import javax.swing.*;
+
+
 public class Movie_Library {
     /**
      *  This is the main driver for CS321 Final Project ~ My Movie Library
@@ -21,6 +22,10 @@ public class Movie_Library {
 
 
         movieLibrary.setVisible(true);
+
+    }
+
+    public void addMovieListPanel() {
 
     }
 }
