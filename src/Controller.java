@@ -100,10 +100,10 @@ public class Controller {
 
 
 
-    /* Rating Functions */
-    //Add new rating to a movie, update Rating_Model & Rating_View
-    //Edit your rating, update Rating_Model & Rating_View
-    //Delete your rating, update Rating_Model & Rating_View
+    /* Review Functions */
+    //Add new review to a movie, update Review_Model & Review_View
+    //Edit your review, update Review_Model & Review_View
+    //Delete your review, update Review_Model & Review_View
 
     /* Search Functions */
     //Filter by Title, ask Search_Model to search database, return list of matching movies to Search_View

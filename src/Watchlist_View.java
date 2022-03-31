@@ -21,6 +21,8 @@ public class Watchlist_View extends JPanel {
 
         /* This panel is on the left side of the main panel */
         JPanel moviesPanel = new JPanel();  //holds all the movies as buttons
+        //set size of panel
+        //moviesPanel.setPreferredSize(new Dimension(100, 200));
         //Create a border to go around movies panel
         moviesPanel.setBorder(blackline1);
         //Set movies panel layout
