@@ -16,17 +16,19 @@ public class Movie_Library {
         Watchlist_View watchlistView = new Watchlist_View();
         Recommendations_View recommendationsView = new Recommendations_View();
         Review_View reviewView = new Review_View();
+        Search_View searchView = new Search_View();
         Controller userController = new Controller(userView, userModel);
 
         JFrame movieLibrary = new JFrame();
         movieLibrary.setTitle("CPE 321 Final Project - My Movie Library");
-        movieLibrary.setSize(960,540);  //960x540, same ratio as 1920x1080, but smaller
+        movieLibrary.setSize(1152,648); //keep aspect ratio same as 1920x1080
         //movieLibrary.setResizable(false);   //prevents frame from being resized
         movieLibrary.getContentPane().setBackground(new Color(70, 70, 70));    //change color of background
         movieLibrary.setLayout(new FlowLayout());
         movieLibrary.add(userView);
-        movieLibrary.add(watchlistView);
+        movieLibrary.add(searchView);
         movieLibrary.add(recommendationsView);
+        movieLibrary.add(watchlistView);
         movieLibrary.add(reviewView);
         movieLibrary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
