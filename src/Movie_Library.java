@@ -14,6 +14,8 @@ public class Movie_Library {
         User_View  userView = new User_View();
         User_Model userModel = new User_Model();
         Watchlist_View watchlistView = new Watchlist_View();
+        Recommendations_View recommendationsView = new Recommendations_View();
+        Review_View reviewView = new Review_View();
         Controller userController = new Controller(userView, userModel);
 
         JFrame movieLibrary = new JFrame();
@@ -24,6 +26,8 @@ public class Movie_Library {
         movieLibrary.setLayout(new FlowLayout());
         movieLibrary.add(userView);
         movieLibrary.add(watchlistView);
+        movieLibrary.add(recommendationsView);
+        movieLibrary.add(reviewView);
         movieLibrary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         movieLibrary.setVisible(true);
