@@ -1,26 +1,6 @@
 import java.util.ArrayList;
 
-public class Movie_Model {
-    //separate struct for Ratings, composed of 2 strings each
-    private class Rating {
-        //attributes
-        private String Source;
-        private String Value;
-        //functions
-        public void setSource(String source) {
-            Source = source;
-        }
-        public String getSource() {
-            return Source;
-        }
-
-        public void setValue(String value) {
-            Value = value;
-        }
-        public String getValue() {
-            return Value;
-        }
-    }
+public class Movie_Model extends Rating{
 
     /* ATTRIBUTES */
     private String Title;
@@ -37,7 +17,7 @@ public class Movie_Model {
     private String Country;
     private String Awards;
     private String Poster;      //url to movie poster
-    private ArrayList<Rating> Ratings;
+    private ArrayList<Rating> Ratings = new ArrayList<>();
     private Integer numRatings;
     private String Metascore;
     private String imdbRating;

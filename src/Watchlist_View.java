@@ -1,5 +1,7 @@
+import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+
 
 public class Watchlist_View extends JPanel {
 
@@ -46,7 +48,8 @@ public class Watchlist_View extends JPanel {
         JButton button8 = new JButton("Movie 8");
         moviesPanel.add(button8);
         //add scroll bar
-
+        JScrollPane scroll = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setPreferredSize(new Dimension(100,100));
         /* This panel is on the right side of the main panel */
         JPanel watchlistDisplayPanel = new JPanel();
         BoxLayout wdpLayout = new BoxLayout(watchlistDisplayPanel, BoxLayout.Y_AXIS);
@@ -63,7 +66,7 @@ public class Watchlist_View extends JPanel {
 
         /* This main panel holds the movies panel and watchlist panel */
         JPanel mainPanel = new JPanel();
-        mainPanel.add(moviesPanel);
+        mainPanel.add(scroll);
         mainPanel.add(watchlistDisplayPanel);
 
         /* Deal with outer panel */
