@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class User_View extends JPanel{
 
@@ -13,6 +14,7 @@ public class User_View extends JPanel{
     private JLabel welcomeLabel = new JLabel("Welcome to My Movie Library!");
 
     User_View(){
+        Border blackline = BorderFactory.createLineBorder(Color.black, 2);
         JPanel welcomePanel = new JPanel();
         JPanel loginPanel = new JPanel();
         JPanel buttonPanel = new JPanel();
@@ -31,7 +33,8 @@ public class User_View extends JPanel{
         outer.add(welcomePanel);
         outer.add(loginPanel);
         outer.add(buttonPanel);
-
+        outer.setBorder(blackline);
+        JButton n = new JButton();
         this.add(outer);
         this.setVisible(true);
     }
