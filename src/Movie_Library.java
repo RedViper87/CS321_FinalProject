@@ -1,12 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.*;
 
 public class Movie_Library {
     /**
      *  This is the main driver for CS321 Final Project ~ My Movie Library
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //main code goes here
         ArrayList <User_Model> users = new ArrayList<User_Model>();
         ArrayList <Movie_Model> movies = new ArrayList<Movie_Model>();
@@ -17,6 +18,7 @@ public class Movie_Library {
         Recommendations_View recommendationsView = new Recommendations_View();
         Review_View reviewView = new Review_View();
         Search_View searchView = new Search_View();
+        Movie_View movieView = new Movie_View();
         Controller userController = new Controller(userView, userModel);
 
         JFrame movieLibrary = new JFrame();
@@ -25,6 +27,7 @@ public class Movie_Library {
         //movieLibrary.setResizable(false);   //prevents frame from being resized
         movieLibrary.getContentPane().setBackground(new Color(70, 70, 70));    //change color of background
         movieLibrary.setLayout(new FlowLayout());
+        movieLibrary.add(movieView);
         movieLibrary.add(userView);
         movieLibrary.add(searchView);
         movieLibrary.add(recommendationsView);
