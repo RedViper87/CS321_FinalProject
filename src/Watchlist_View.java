@@ -4,10 +4,12 @@ import java.awt.*;
 
 public class Watchlist_View extends JPanel {
 
-    private JLabel watchlistNameLabel = new JLabel("Watchlist Name:");
+    JLabel watchlistTitleLabel = new JLabel("Watchlist View");
+    private JLabel watchlistNameLabel = new JLabel("Watchlist Name to Add or Delete:");
     private JTextField watchlistNameField = new JTextField(10);
     private JButton addWatchlistButton = new JButton("Add Watchlist");
     private JButton deleteWatchlistButton = new JButton("Delete Watchlist");
+    private JLabel currentWatchlistName = new JLabel("Current Watchlist Name");
 
     Watchlist_View() {
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
@@ -15,7 +17,6 @@ public class Watchlist_View extends JPanel {
 
         /* Title panel goes at the top of outer panel */
         JPanel titlePanel = new JPanel();
-        JLabel watchlistTitleLabel = new JLabel("Watchlist View");
         watchlistTitleLabel.setFont(new Font(null, Font.BOLD, 20));
         titlePanel.add(watchlistTitleLabel);
 
@@ -47,31 +48,47 @@ public class Watchlist_View extends JPanel {
         JButton button8 = new JButton("Movie 8");
         moviesPanel.add(button8);
         //add scroll bar
+        JScrollPane movieScroller = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        movieScroller.setPreferredSize(new Dimension(100, 150));
 
         /* This panel is on the right side of the main panel */
+        //MAIN
         JPanel watchlistDisplayPanel = new JPanel();
         BoxLayout wdpLayout = new BoxLayout(watchlistDisplayPanel, BoxLayout.Y_AXIS);
         watchlistDisplayPanel.setLayout(wdpLayout);
+        //NAME PANEL
         JPanel wdpName = new JPanel();
         wdpName.add(watchlistNameLabel);
         wdpName.add(watchlistNameField);
+        //ADD & DELETE BUTTONS PANEL
         JPanel wdpAddDeleteButtons = new JPanel();
         wdpAddDeleteButtons.add(addWatchlistButton);
         wdpAddDeleteButtons.add(deleteWatchlistButton);
+        //CURRENT WATCHLIST PANEL
+        JPanel wdpCurrentWatchlist = new JPanel();
+        wdpCurrentWatchlist.setBorder(blackline1);
+        JLabel wdpCurrentName = new JLabel("Current Watchlist:");
+        wdpCurrentWatchlist.add(wdpCurrentName);
+        wdpCurrentWatchlist.add(currentWatchlistName);
+        //--add a grid layout panel for watchlist movies
+        //Add separate panels to Main
         watchlistDisplayPanel.setBorder(blackline1);    //Create a border to go around panel
         watchlistDisplayPanel.add(wdpName);
         watchlistDisplayPanel.add(wdpAddDeleteButtons);
+        watchlistDisplayPanel.add(wdpCurrentWatchlist);
 
-        /* This main panel holds the movies panel and watchlist panel */
+        /* This main panel holds the movies panel(attached to movieScroller) and watchlist panel */
         JPanel mainPanel = new JPanel();
-        mainPanel.add(moviesPanel);
+        BoxLayout mainPanelLayout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanel.add(movieScroller);
         mainPanel.add(watchlistDisplayPanel);
 
         /* Deal with outer panel */
         JPanel outer = new JPanel();
-        //outer.setPreferredSize(new Dimension(200, 200));
-        BoxLayout outerLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
-        outer.setLayout(outerLayout);
+        outer.setPreferredSize(new Dimension(450, 300));
+        //BoxLayout outerLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
+        //outer.setLayout(outerLayout);
         //Create a border to go around outer panel
         outer.setBorder(blackline2);
 
@@ -84,6 +101,10 @@ public class Watchlist_View extends JPanel {
 
     public void eraseWatchlistName() {
         watchlistNameField.setText("");
+    }
+
+    public void setCurrentWatchlistName(String currentName) {
+        currentWatchlistName.setText(currentName);
     }
 
 }
