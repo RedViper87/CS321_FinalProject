@@ -116,7 +116,11 @@ public class Movie_View extends JPanel {
             if(Icon.equals("N/A")){
                 movie = new JButton(Title);
             }else{
-                movie = new JButton(new ImageIcon(new URL(Icon)));
+                ImageIcon imageIcon = new ImageIcon(new URL(Icon));
+                Image image = imageIcon.getImage();
+                Image newImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH);
+                imageIcon = new ImageIcon(newImage);
+                movie = new JButton(imageIcon);
             }
             moviesPanel.add(movie);
             movie.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -152,7 +156,7 @@ public class Movie_View extends JPanel {
 
         /* Add scroll bar */
         JScrollPane scroll = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scroll.setPreferredSize(new Dimension(350,500));
+        scroll.setPreferredSize(new Dimension(200,400));
 
         /* This panel is on the right side of the main panel */
         JPanel displayMovie = new JPanel();
@@ -194,7 +198,7 @@ public class Movie_View extends JPanel {
 
         /* This main panel holds the movies panel and view panel */
         JPanel mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(1800, 510));
+        mainPanel.setPreferredSize(new Dimension(1800, 410));
         mainPanel.add(scroll);
         mainPanel.add(displayMovie);
 
