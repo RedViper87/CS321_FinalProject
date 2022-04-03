@@ -72,7 +72,7 @@ public class Watchlist_View extends JPanel {
         wdpCurrentWatchlist.add(wdpCurrentName);
         wdpCurrentWatchlist.add(currentWatchlistName);
         JPanel cwlMoviesPanel = new JPanel();
-        GridLayout watchlistGridLayout = new GridLayout(0, 3);
+        GridLayout watchlistGridLayout = new GridLayout(0, 1);
         cwlMoviesPanel.setLayout(watchlistGridLayout);
         JButton currentButton1 = new JButton("Movie 1");
         cwlMoviesPanel.add(currentButton1);
