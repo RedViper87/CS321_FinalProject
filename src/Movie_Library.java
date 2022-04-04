@@ -22,34 +22,39 @@ public class Movie_Library {
         Controller userController = new Controller(userView, userModel);
 
         JFrame movieLibrary = new JFrame();
-        movieLibrary.setLayout(new BoxLayout(movieLibrary, BoxLayout.Y_AXIS));
+        //movieLibrary.setLayout(new BoxLayout(movieLibrary, BoxLayout.Y_AXIS));
         JPanel topPanel = new JPanel();
         JPanel midPanel = new JPanel();
         JPanel botPanel = new JPanel();
-        JPanel all = new JPanel();
+        //JPanel all = new JPanel();
         movieLibrary.setTitle("CPE 321 Final Project - My Movie Library");
         movieLibrary.setLayout(new BorderLayout());
-       // movieLibrary.setSize(1152,648); //keep aspect ratio same as 1920x1080
+        movieLibrary.setSize(960,540); //keep aspect ratio same as 1920x1080
         //movieLibrary.setResizable(false);   //prevents frame from being resized
         movieLibrary.getContentPane().setBackground(new Color(70, 70, 70));    //change color of background
-       // movieLibrary.setLayout(new FlowLayout());
+        movieLibrary.setLayout(new FlowLayout());
 
         topPanel.add(userView);
-        midPanel.add(movieView);
+        topPanel.add(searchView);
 
-        botPanel.add(searchView);
-        botPanel.add(watchlistView);
+        midPanel.add(movieView);
+        midPanel.add(watchlistView);
+
         botPanel.add(recommendationsView);
         botPanel.add(reviewView);
-        all.add(topPanel);
-        all.add(midPanel);
-        all.add(botPanel);
-        BoxLayout layout = new BoxLayout(all, BoxLayout.Y_AXIS);
-        all.setLayout(layout);
-        JScrollPane scroll = new JScrollPane(all, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scroll.setPreferredSize(new Dimension(1920,1080));
-        movieLibrary.add(scroll, BorderLayout.CENTER);
-        movieLibrary.pack();
+
+        movieLibrary.add(topPanel);
+        movieLibrary.add(midPanel);
+        movieLibrary.add(botPanel);
+        //all.add(topPanel);
+        //all.add(midPanel);
+        //all.add(botPanel);
+        //BoxLayout layout = new BoxLayout(all, BoxLayout.Y_AXIS);
+        //all.setLayout(layout);
+        //JScrollPane scroll = new JScrollPane(all, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        //scroll.setPreferredSize(new Dimension(1920,1080));
+        //movieLibrary.add(scroll, BorderLayout.CENTER);
+        //movieLibrary.pack();
 
         movieLibrary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
