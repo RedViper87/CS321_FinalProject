@@ -50,8 +50,4 @@ public class Movie_Library {
         movieLibrary.setVisible(true);
 
     }
-
-    public void addMovieListPanel() {
-
-    }
 }
