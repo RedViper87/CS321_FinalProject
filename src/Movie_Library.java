@@ -22,17 +22,29 @@ public class Movie_Library {
         Controller userController = new Controller(userView, userModel);
 
         JFrame movieLibrary = new JFrame();
+        movieLibrary.setLayout(new BoxLayout(movieLibrary, BoxLayout.Y_AXIS));
+        JPanel topPanel = new JPanel();
+        JPanel midPanel = new JPanel();
+        JPanel botPanel = new JPanel();
+
         movieLibrary.setTitle("CPE 321 Final Project - My Movie Library");
         movieLibrary.setSize(1152,648); //keep aspect ratio same as 1920x1080
         //movieLibrary.setResizable(false);   //prevents frame from being resized
         movieLibrary.getContentPane().setBackground(new Color(70, 70, 70));    //change color of background
         movieLibrary.setLayout(new FlowLayout());
-        movieLibrary.add(movieView);
-        movieLibrary.add(userView);
-        movieLibrary.add(searchView);
-        movieLibrary.add(recommendationsView);
-        movieLibrary.add(watchlistView);
-        movieLibrary.add(reviewView);
+
+        topPanel.add(userView);
+        movieLibrary.add(topPanel);
+
+        midPanel.add(movieView);
+        movieLibrary.add(midPanel);
+
+        botPanel.add(searchView);
+        botPanel.add(watchlistView);
+        botPanel.add(recommendationsView);
+        botPanel.add(reviewView);
+        movieLibrary.add(botPanel);
+
         movieLibrary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         movieLibrary.setVisible(true);

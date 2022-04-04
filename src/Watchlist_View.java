@@ -50,6 +50,7 @@ public class Watchlist_View extends JPanel {
         //add scroll bar
         JScrollPane movieScroller = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         movieScroller.setPreferredSize(new Dimension(100, 150));
+        movieScroller.getVerticalScrollBar().setUnitIncrement(16);
 
         /* This panel is on the right side of the main panel */
         //MAIN
@@ -72,7 +73,7 @@ public class Watchlist_View extends JPanel {
         wdpCurrentWatchlist.add(wdpCurrentName);
         wdpCurrentWatchlist.add(currentWatchlistName);
         JPanel cwlMoviesPanel = new JPanel();
-        GridLayout watchlistGridLayout = new GridLayout(0, 3);
+        GridLayout watchlistGridLayout = new GridLayout(0, 1);
         cwlMoviesPanel.setLayout(watchlistGridLayout);
         JButton currentButton1 = new JButton("Movie 1");
         cwlMoviesPanel.add(currentButton1);
@@ -88,7 +89,8 @@ public class Watchlist_View extends JPanel {
         cwlMoviesPanel.add(currentButton6);
         //add scroll bar to cwlMoviesPanel
         JScrollPane cwlMovieScroller = new JScrollPane(cwlMoviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        //cwlMovieScroller.setPreferredSize(new Dimension(100, 150));
+        cwlMovieScroller.setPreferredSize(new Dimension(210, 210));
+        cwlMovieScroller.getVerticalScrollBar().setUnitIncrement(16);
         //Add separate panels to Main
         watchlistDisplayPanel.setBorder(blackline1);    //Create a border to go around panel
         watchlistDisplayPanel.add(wdpName);
@@ -105,9 +107,9 @@ public class Watchlist_View extends JPanel {
 
         /* Deal with outer panel */
         JPanel outer = new JPanel();
-        outer.setPreferredSize(new Dimension(450, 300));
-        //BoxLayout outerLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
-        //outer.setLayout(outerLayout);
+        //outer.setPreferredSize(new Dimension(450, 300));
+        BoxLayout outerLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
+        outer.setLayout(outerLayout);
         //Create a border to go around outer panel
         outer.setBorder(blackline2);
 
