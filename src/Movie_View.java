@@ -161,7 +161,6 @@ public class Movie_View extends JPanel {
 
         /* This panel is on the right side of the main panel */
         JPanel displayMovie = new JPanel();
-        displayMovie.setPreferredSize(new Dimension(1400, 400));
         BoxLayout detailsLayout = new BoxLayout(displayMovie, BoxLayout.Y_AXIS);
         displayMovie.setLayout(detailsLayout);
         JPanel detailsTitle = new JPanel();
@@ -197,11 +196,15 @@ public class Movie_View extends JPanel {
         displayMovie.add(detailsTitle);
         displayMovie.add(details);
 
+        JScrollPane scroll2 = new JScrollPane(displayMovie, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scroll2.setPreferredSize(new Dimension(800,400));
+
+
         /* This main panel holds the movies panel and view panel */
         JPanel mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(1800, 410));
+        mainPanel.setPreferredSize(new Dimension(1500, 410));
         mainPanel.add(scroll);
-        mainPanel.add(displayMovie);
+        mainPanel.add(scroll2);
 
         /* Deal with outer panel */
         JPanel outer = new JPanel();
@@ -213,6 +216,7 @@ public class Movie_View extends JPanel {
 
         outer.add(titlePanel);
         outer.add(mainPanel);
+
 
         this.add(outer);
         this.setVisible(true);
