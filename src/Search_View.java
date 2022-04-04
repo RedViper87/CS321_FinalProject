@@ -13,7 +13,7 @@ public class Search_View extends JPanel{
 
         /* Main Outer Panel */
         JPanel outer = new JPanel();
-        outer.setPreferredSize(new Dimension(450, 75));
+        outer.setPreferredSize(new Dimension(900, 105));
         outer.setBorder(blackline2);
         //add stuff to outer panel
         outer.add(searchViewLabel);

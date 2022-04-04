@@ -88,7 +88,7 @@ public class Watchlist_View extends JPanel {
         wdpCurrentWatchlist.add(wdpCurrentName);
         wdpCurrentWatchlist.add(currentWatchlistName);
         JPanel cwlMoviesPanel = new JPanel();
-        GridLayout watchlistGridLayout = new GridLayout(0, 1);
+        GridLayout watchlistGridLayout = new GridLayout(0, 2);
         cwlMoviesPanel.setLayout(watchlistGridLayout);
         JButton currentButton1 = new JButton("Movie 1");
         cwlMoviesPanel.add(currentButton1);
@@ -122,7 +122,7 @@ public class Watchlist_View extends JPanel {
 
         /* Deal with outer panel */
         JPanel outer = new JPanel();
-        //outer.setPreferredSize(new Dimension(450, 300));
+        outer.setPreferredSize(new Dimension(500, 450));
         BoxLayout outerLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
         outer.setLayout(outerLayout);
         //Create a border to go around outer panel

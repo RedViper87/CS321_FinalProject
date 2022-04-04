@@ -36,7 +36,7 @@ public class User_View extends JPanel{
         outer.setBorder(blackline);
         JButton n = new JButton();
         this.add(outer);
-        this.setVisible(true);
+        this.setVisible(false);
     }
 
     public void eraseUsername(){

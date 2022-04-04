@@ -14,7 +14,7 @@ public class Review_View extends JPanel {
 
         /* Main Outer Panel */
         JPanel outer = new JPanel();
-        outer.setPreferredSize(new Dimension(450, 150));
+        outer.setPreferredSize(new Dimension(600, 200));
         outer.setBorder(blackline2);
         //add stuff to outer panel
         outer.add(reviewViewLabel);

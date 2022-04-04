@@ -198,11 +198,11 @@ public class Movie_View extends JPanel {
 
         JScrollPane scroll2 = new JScrollPane(displayMovie, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll2.setPreferredSize(new Dimension(800,400));
-
+        scroll2.getHorizontalScrollBar().setUnitIncrement(16);
 
         /* This main panel holds the movies panel and view panel */
         JPanel mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(1500, 410));
+        mainPanel.setPreferredSize(new Dimension(1100, 410));
         mainPanel.add(scroll);
         mainPanel.add(scroll2);
 
