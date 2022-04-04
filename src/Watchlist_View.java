@@ -25,12 +25,11 @@ public class Watchlist_View extends JPanel {
         //set size of panel
         //moviesPanel.setPreferredSize(new Dimension(100, 200));
         //Create a border to go around movies panel
-        //moviesPanel.setBorder(blackline1);
+        moviesPanel.setBorder(blackline1);
         //Set movies panel layout
         BoxLayout moviesPanelLayout = new BoxLayout(moviesPanel, BoxLayout.Y_AXIS);
         moviesPanel.setLayout(moviesPanelLayout);
-        //Here we will put a function that creates a button for every movie and links it with its movie model
-        //but just using example buttons for now
+        // add buttons
         JButton button1 = new JButton("Movie 1");
         moviesPanel.add(button1);
         JButton button2 = new JButton("Movie 2");
@@ -47,6 +46,22 @@ public class Watchlist_View extends JPanel {
         moviesPanel.add(button7);
         JButton button8 = new JButton("Movie 8");
         moviesPanel.add(button8);
+        JButton button9 = new JButton("Movie 9");
+        moviesPanel.add(button9);
+        JButton button10 = new JButton("Movie 10");
+        moviesPanel.add(button10);
+        JButton button11 = new JButton("Movie 11");
+        moviesPanel.add(button11);
+        JButton button12 = new JButton("Movie 12");
+        moviesPanel.add(button12);
+        JButton button13 = new JButton("Movie 13");
+        moviesPanel.add(button13);
+        JButton button14 = new JButton("Movie 14");
+        moviesPanel.add(button14);
+        JButton button15 = new JButton("Movie 15");
+        moviesPanel.add(button15);
+        JButton button16 = new JButton("Movie 16");
+        moviesPanel.add(button16);
         //add scroll bar
         JScrollPane movieScroller = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         movieScroller.setPreferredSize(new Dimension(100, 150));
