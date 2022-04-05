@@ -1,5 +1,17 @@
+import com.google.gson.Gson;
+
 import javax.swing.border.Border;
 import java.awt.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.*;
 
 public class Watchlist_View extends JPanel {
@@ -10,8 +22,19 @@ public class Watchlist_View extends JPanel {
     private JButton addWatchlistButton = new JButton("Add Watchlist");
     private JButton deleteWatchlistButton = new JButton("Delete Watchlist");
     private JLabel currentWatchlistName = new JLabel("Current Watchlist Name");
+    private JButton movie = new JButton();
 
-    Watchlist_View() {
+    Watchlist_View() throws IOException {
+        /* Get movie data from json */
+        Path path = Paths.get("SampleMovieFile.json");
+        Charset charset = StandardCharsets.UTF_8;
+        String content = new String(Files.readAllBytes(path), charset);
+        Gson gson = new Gson();
+        Movie_Model[] list;
+        list = gson.fromJson(content, Movie_Model[].class);
+        ArrayList<Movie_Model> arrayList = new ArrayList<>();
+        Collections.addAll(arrayList, list);
+
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
 
@@ -30,41 +53,61 @@ public class Watchlist_View extends JPanel {
         BoxLayout moviesPanelLayout = new BoxLayout(moviesPanel, BoxLayout.Y_AXIS);
         moviesPanel.setLayout(moviesPanelLayout);
         // add buttons
-        JButton button1 = new JButton("Movie 1");
-        moviesPanel.add(button1);
-        JButton button2 = new JButton("Movie 2");
-        moviesPanel.add(button2);
-        JButton button3 = new JButton("Movie 3");
-        moviesPanel.add(button3);
-        JButton button4 = new JButton("Movie 4");
-        moviesPanel.add(button4);
-        JButton button5 = new JButton("Movie 5");
-        moviesPanel.add(button5);
-        JButton button6 = new JButton("Movie 6");
-        moviesPanel.add(button6);
-        JButton button7 = new JButton("Movie 7");
-        moviesPanel.add(button7);
-        JButton button8 = new JButton("Movie 8");
-        moviesPanel.add(button8);
-        JButton button9 = new JButton("Movie 9");
-        moviesPanel.add(button9);
-        JButton button10 = new JButton("Movie 10");
-        moviesPanel.add(button10);
-        JButton button11 = new JButton("Movie 11");
-        moviesPanel.add(button11);
-        JButton button12 = new JButton("Movie 12");
-        moviesPanel.add(button12);
-        JButton button13 = new JButton("Movie 13");
-        moviesPanel.add(button13);
-        JButton button14 = new JButton("Movie 14");
-        moviesPanel.add(button14);
-        JButton button15 = new JButton("Movie 15");
-        moviesPanel.add(button15);
-        JButton button16 = new JButton("Movie 16");
-        moviesPanel.add(button16);
+        for(Movie_Model movies:arrayList) {
+            String Icon = movies.getPoster();
+            String Title = movies.getTitle();
+            String Year = movies.getYear();
+            String Rated = movies.getRated();
+            String Released = movies.getReleased();
+            String Runtime = movies.getRuntime();
+            String Genre = movies.getGenre();
+            String Director = movies.getDirector();
+            String Writer = movies.getWriter();
+            String Actors = movies.getActors();
+            String Plot = movies.getPlot();
+            String Language = movies.getLanguage();
+            String Country = movies.getCountry();
+            String Awards = movies.getAwards();
+            String Metascore = movies.getMetascore();
+            String Imdbrating = movies.getImdbRating();
+            String Imdbvotes = movies.getImdbVotes();
+            String Imdbid = movies.getImdbID();
+            String Type = movies.getType();
+            String Dvd = movies.getDVD();
+            String Boxoffice = movies.getBoxOffice();
+            String Production = movies.getProduction();
+            String Website = movies.getWebsite();
+            String Response = movies.getResponse();
+            String s = null;
+            String v = null;
+            String Ratings;
+            ArrayList<String> rate = new ArrayList<>();
+            for (Rating r : movies.getRatings()) {
+                s = r.getSource();
+                v = r.getValue();
+                rate.add("{Source: " + s + ", Value: " + v + "} ");
+            }
+            StringBuffer sb = new StringBuffer();
+            for (String string : rate) {
+                sb.append(string);
+            }
+            Ratings = sb.toString();
+
+            if (Icon.equals("N/A")) {
+                movie = new JButton(Title);
+            } else {
+                ImageIcon imageIcon = new ImageIcon(new URL(Icon));
+                Image image = imageIcon.getImage();
+                Image newImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH);
+                imageIcon = new ImageIcon(newImage);
+                movie = new JButton(imageIcon);
+            }
+            moviesPanel.add(movie);
+            movie.setAlignmentX(Component.CENTER_ALIGNMENT);
+        }
         //add scroll bar
-        JScrollPane movieScroller = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        movieScroller.setPreferredSize(new Dimension(100, 150));
+        JScrollPane movieScroller = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        movieScroller.setPreferredSize(new Dimension(210, 400));
         movieScroller.getVerticalScrollBar().setUnitIncrement(16);
 
         /* This panel is on the right side of the main panel */
