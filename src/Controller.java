@@ -85,11 +85,12 @@ public class Controller {
             boolean check = false;
             username = userView.getUsername();
             password = userView.getPassword();
-            userView.eraseUsername();
-            userView.erasePassword();
+
             if(username.length() == 0 || password.length() == 0){
                 userView.displayError("Please Enter a Username AND Password");
             }else{
+                userView.eraseUsername();
+                userView.erasePassword();
                 userModel.setUsername(username);
                 userModel.setPassword(password);
                 try {

@@ -44,7 +44,7 @@ public class Movie_View extends JPanel {
 
     Movie_View() throws IOException {
         /* Get movie data from json */
-        Path path = Paths.get("SampleMovieFile.json");
+        Path path = Paths.get("../SampleMovieFile.json");
         Charset charset = StandardCharsets.UTF_8;
         String content = new String(Files.readAllBytes(path), charset);
         Gson gson = new Gson();
