@@ -52,6 +52,6 @@ public class Movie_Library {
         movieLibrary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         movieLibrary.setVisible(true);
-
+        movieLibrary.setExtendedState(movieLibrary.getExtendedState() | JFrame.MAXIMIZED_BOTH); //auto maximize screen
     }
 }
