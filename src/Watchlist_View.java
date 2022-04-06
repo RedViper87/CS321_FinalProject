@@ -23,6 +23,7 @@ public class Watchlist_View extends JPanel {
     private JButton deleteWatchlistButton = new JButton("Delete Watchlist");
     private JLabel currentWatchlistName = new JLabel("Current Watchlist Name");
     private JButton movie = new JButton();
+    private JButton watchlist = new JButton();
 
     Watchlist_View() throws IOException {
         /* Get movie data from json */
@@ -35,6 +36,10 @@ public class Watchlist_View extends JPanel {
         ArrayList<Movie_Model> arrayList = new ArrayList<>();
         Collections.addAll(arrayList, list);
 
+        /* Get watchlists */
+        ArrayList<Watchlist_Model> watchlistList = new ArrayList<>();
+        //for number of watchlists, grab the models and store them in watchlistList
+
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
 
@@ -45,8 +50,6 @@ public class Watchlist_View extends JPanel {
 
         /* This panel is on the left side of the main panel */
         JPanel moviesPanel = new JPanel();  //holds all the movies as buttons
-        //set size of panel
-        //moviesPanel.setPreferredSize(new Dimension(100, 200));
         //Create a border to go around movies panel
         moviesPanel.setBorder(blackline1);
         //Set movies panel layout
@@ -110,7 +113,7 @@ public class Watchlist_View extends JPanel {
         movieScroller.setPreferredSize(new Dimension(210, 400));
         movieScroller.getVerticalScrollBar().setUnitIncrement(16);
 
-        /* This panel is on the right side of the main panel */
+        /* This panel is in the middle of the main panel */
         //MAIN
         JPanel watchlistDisplayPanel = new JPanel();
         BoxLayout wdpLayout = new BoxLayout(watchlistDisplayPanel, BoxLayout.Y_AXIS);
@@ -133,6 +136,7 @@ public class Watchlist_View extends JPanel {
         JPanel cwlMoviesPanel = new JPanel();
         GridLayout watchlistGridLayout = new GridLayout(0, 2);
         cwlMoviesPanel.setLayout(watchlistGridLayout);
+        //add buttons of the movies in the currently selected watchlist
         JButton currentButton1 = new JButton("Movie 1");
         cwlMoviesPanel.add(currentButton1);
         JButton currentButton2 = new JButton("Movie 2");
@@ -156,16 +160,49 @@ public class Watchlist_View extends JPanel {
         watchlistDisplayPanel.add(wdpCurrentWatchlist);
         watchlistDisplayPanel.add(cwlMovieScroller);
 
-        /* This main panel holds the movies panel(attached to movieScroller) and watchlist panel */
+        /* This panel is on the right side of the main panel */
+        JPanel watchlistPanel = new JPanel();
+        //Create a border to go around watchlist panel
+        watchlistPanel.setBorder(blackline1);
+        //Set movies panel layout
+        BoxLayout watchlistPanelLayout = new BoxLayout(watchlistPanel, BoxLayout.Y_AXIS);
+        watchlistPanel.setLayout(watchlistPanelLayout);
+        //add buttons
+        JButton button1 = new JButton("Watchlist 1");   //example button
+        watchlistPanel.add(button1);
+        JButton button2 = new JButton("Watchlist 2");   //example button
+        watchlistPanel.add(button2);
+        JButton button3 = new JButton("Watchlist 3");   //example button
+        watchlistPanel.add(button3);
+        for(Watchlist_Model watchlists:watchlistList) {
+            String Name = watchlists.getName();
+            //String Description = watchlists.getDescription();
+
+            watchlist = new JButton(Name);
+            watchlistPanel.add(watchlist);
+            watchlist.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            watchlist.addActionListener(event ->
+            {
+                currentWatchlistName.setText(Name);
+            });
+        }
+        //add scroll bar
+        JScrollPane watchlistScroller = new JScrollPane(watchlistPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        watchlistScroller.setPreferredSize(new Dimension(210, 400));
+        watchlistScroller.getVerticalScrollBar().setUnitIncrement(16);
+
+        /* This main panel holds the movies panel, watchlist display panel, and watchlists panel */
         JPanel mainPanel = new JPanel();
         BoxLayout mainPanelLayout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
         mainPanel.setLayout(mainPanelLayout);
         mainPanel.add(movieScroller);
         mainPanel.add(watchlistDisplayPanel);
+        mainPanel.add(watchlistScroller);
 
         /* Deal with outer panel */
         JPanel outer = new JPanel();
-        outer.setPreferredSize(new Dimension(500, 450));
+        outer.setPreferredSize(new Dimension(700, 450));
         BoxLayout outerLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
         outer.setLayout(outerLayout);
         //Create a border to go around outer panel

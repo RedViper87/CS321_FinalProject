@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Watchlist_Model {
     /* ATTRIBUTES */
     private String Name;
-    private String Description;
-    private ArrayList<Movie_Model> ListOfMovies;
+    //private String Description;
+    private ArrayList<Movie_Model> ListOfMovies = new ArrayList<>();
 
     /* FUNCTIONS */
     public void setName(String name) {
@@ -14,12 +14,12 @@ public class Watchlist_Model {
         return Name;
     }
 
-    public void setDescription(String description) {
+    /*public void setDescription(String description) {
         Description = description;
     }
     public String getDescription() {
         return Description;
-    }
+    }*/
 
     public void AddMovieToList(Movie_Model movieModel) {
         //if the movie isn't already in the list, add it

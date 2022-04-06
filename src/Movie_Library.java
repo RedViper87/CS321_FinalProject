@@ -45,7 +45,7 @@ public class Movie_Library {
         BoxLayout layout = new BoxLayout(all, BoxLayout.Y_AXIS);
         all.setLayout(layout);
         JScrollPane scroll = new JScrollPane(all, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scroll.setPreferredSize(new Dimension(1920,1080));
+        scroll.setPreferredSize(new Dimension(960,540));
         movieLibrary.add(scroll);
         movieLibrary.pack();
 
