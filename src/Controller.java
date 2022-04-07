@@ -1,7 +1,17 @@
+import com.google.gson.Gson;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  *  This is the Controller class that handles the
  *  functions and interactions between the views
@@ -38,17 +48,24 @@ public class Controller {
     private User_Model userModel;
 
     // other views and models will go in this controller
-    public Controller(User_View userView, User_Model userModel){
+    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel){
         this.userView = userView;
         this.userModel = userModel;
         this.userView.checkUserListener(new checkListener());
         this.userView.newUserListener(new addUserListener());
+
+        this.reviewView = reviewView;
+        this.reviewModel = reviewModel;
+        this.reviewView.addReviewListener(new addReviewListener());
+
     }
+
 
     class checkListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            String UserReviews = "";
             String username;
             String password;
             boolean check = false;
@@ -67,9 +84,16 @@ public class Controller {
                     ex.printStackTrace();
                 }
                 if(check){
-                    // take to home page
+                    // set other views equal to true
+                    try {
+                        UserReviews = userModel.grabUserDataReview(username);
+                        reviewView.updateReview(UserReviews);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }else{
                     userView.displayError("Username and Password do not match or does not exist.");
+
                 }
 
             }
@@ -108,7 +132,31 @@ public class Controller {
         }
     }
 
+    class addReviewListener implements ActionListener{
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String userdata = "";
+            String movieTitle = reviewView.getMovie();
+            String rating = String.valueOf(reviewView.getRating());
+            String comment = reviewView.getComment();
+            reviewModel.setMovieName(movieTitle);
+            reviewModel.setUserInputReview(comment);
+            reviewModel.setNumericalRating(rating);
+            try {
+                reviewModel.addUserReview(userModel.getUsername());
+                reviewView.eraseComment();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try {
+               userdata = reviewModel.grabUserData(userModel.getUsername());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            reviewView.updateReview(userdata);
+        }
+    }
 
     /* Review Functions */
     //Add new review to a movie, update Review_Model & Review_View
