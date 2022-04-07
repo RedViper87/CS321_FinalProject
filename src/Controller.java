@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -18,21 +19,6 @@ import java.util.Collections;
  *  and the models.
  */
 public class Controller {
-    /* Movie Functions */
-    //Get movie data from the Movie_Model
-    //Send movie data to the Movie_View
-
-    /* Watchlist Functions */
-    //Get watchlist name from Watchlist_Model
-    //Add movie to watchlist, updates both Watchlist_Model & Watchlist_View
-    //Remove movie from watchlist, updates Watchlist_Model & Watchlist_View
-    //Get titles in watchlist from Watchlist_Model, send to Watchlist_View
-
-    /* User Profile Functions */
-    //Add new user profile, update both User_Model & User_View
-    //Delete user profile, update both User_Model & User_View
-    //Modify username, update both User_Model & User_View
-    //Modify password, update User_Model
 
     private Movie_View movieView;
     private Movie_Model movieModel;
@@ -48,7 +34,10 @@ public class Controller {
     private User_Model userModel;
 
     // other views and models will go in this controller
-    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel){
+    public Controller(User_View userView, User_Model userModel,
+                      Review_View reviewView, Review_Model reviewModel,
+                      Watchlist_View watchlistView, Watchlist_Model watchlistModel){
+
         this.userView = userView;
         this.userModel = userModel;
         this.userView.checkUserListener(new checkListener());
@@ -58,7 +47,47 @@ public class Controller {
         this.reviewModel = reviewModel;
         this.reviewView.addReviewListener(new addReviewListener());
 
+        this.watchlistView = watchlistView;
+        this.watchlistModel = watchlistModel;
+        this.watchlistView.addWatchlistListener(new addWatchlistListener());
+
     }
+
+
+    /* Movie Functions */
+    //Get movie data from the Movie_Model
+    //Send movie data to the Movie_View
+
+    /* Watchlist Functions */
+    //Get watchlist name from Watchlist_Model
+    //Add movie to watchlist, updates both Watchlist_Model & Watchlist_View
+    //Remove movie from watchlist, updates Watchlist_Model & Watchlist_View
+    //Get titles in watchlist from Watchlist_Model, send to Watchlist_View
+
+    class addWatchlistListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String watchlistName;
+
+            watchlistName = watchlistView.getWatchlistName();
+            watchlistView.eraseWatchlistName();
+            if(watchlistName.length() == 0){
+                watchlistView.displayError("Please Enter a Watchlist Name");
+            }
+            else{
+                //Add watchlist to list of watchlists for user
+                userModel.addWatchlist(watchlistName);
+            }
+        }
+
+    }
+
+    /* User Profile Functions */
+    //Add new user profile, update both User_Model & User_View
+    //Delete user profile, update both User_Model & User_View
+    //Modify username, update both User_Model & User_View
+    //Modify password, update User_Model
 
 
     class checkListener implements ActionListener{
@@ -132,6 +161,11 @@ public class Controller {
         }
     }
 
+    /* Review Functions */
+    //Add new review to a movie, update Review_Model & Review_View
+    //Edit your review, update Review_Model & Review_View
+    //Delete your review, update Review_Model & Review_View
+
     class addReviewListener implements ActionListener{
 
         @Override
@@ -150,18 +184,13 @@ public class Controller {
                 ex.printStackTrace();
             }
             try {
-               userdata = reviewModel.grabUserData(userModel.getUsername());
+                userdata = reviewModel.grabUserData(userModel.getUsername());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             reviewView.updateReview(userdata);
         }
     }
-
-    /* Review Functions */
-    //Add new review to a movie, update Review_Model & Review_View
-    //Edit your review, update Review_Model & Review_View
-    //Delete your review, update Review_Model & Review_View
 
     /* Search Functions */
     //Filter by Title, ask Search_Model to search database, return list of matching movies to Search_View

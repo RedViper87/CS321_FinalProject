@@ -2,6 +2,7 @@ import com.google.gson.Gson;
 
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -221,5 +222,24 @@ public class Watchlist_View extends JPanel {
 
     public void setCurrentWatchlistName(String currentName) {
         currentWatchlistName.setText(currentName);
+    }
+
+    /* Get the watchlist name that is entered in the box */
+    public String getWatchlistName() {
+        return watchlistNameField.getText();
+    }
+
+    /* alert controller that this button is pressed */
+    void addWatchlistListener(ActionListener listenerForAddWatchlist) {
+        addWatchlistButton.addActionListener(listenerForAddWatchlist);
+    }
+
+    /* display success */
+    void displaySuccess(String success) {
+        JOptionPane.showMessageDialog(this, success);
+    }
+    /* display error */
+    void displayError(String error) {
+        JOptionPane.showMessageDialog(this, error);
     }
 }

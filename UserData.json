@@ -48,5 +48,60 @@
         "userinputreview": "Awesome"
       }
     ]
+  },
+  {
+    "username": "shane",
+    "password": "password",
+    "listOfWatchlists": [
+      {
+        "Name": "",
+        "ListOfMovies": [
+          {
+            "Title": "",
+            "Year": "",
+            "Rated": "",
+            "Released": "",
+            "Runtime": "",
+            "Genre": "",
+            "Director": "",
+            "Writer": "",
+            "Actors": "",
+            "Plot": "",
+            "Language": "",
+            "Country": "",
+            "Awards": "",
+            "Poster": "",
+            "Ratings": [
+              {
+                "Source": "",
+                "Value": ""
+              }
+            ],
+            "Metascore": "",
+            "imdbRating": "",
+            "imdbVotes": "",
+            "imdbID": "",
+            "Type": "",
+            "DVD": "",
+            "BoxOffice": "",
+            "Production": "",
+            "Website": "",
+            "Response": ""
+          }
+        ]
+      }
+    ],
+    "listOfUserReviews": [
+      {
+        "moviename": "",
+        "numericalrating": "",
+        "userinputreview": ""
+      },
+      {
+        "moviename": "The Fast and the Furious",
+        "numericalrating": "9",
+        "userinputreview": "Loved it! This movie got me interested in cars!"
+      }
+    ]
   }
 ]

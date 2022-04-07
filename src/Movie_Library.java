@@ -15,12 +15,15 @@ public class Movie_Library {
         User_View  userView = new User_View();
         User_Model userModel = new User_Model();
         Watchlist_View watchlistView = new Watchlist_View();
+        Watchlist_Model watchlistModel = new Watchlist_Model();
         Recommendations_View recommendationsView = new Recommendations_View();
         Review_View reviewView = new Review_View();
         Review_Model reviewModel = new Review_Model();
         Search_View searchView = new Search_View();
         Movie_View movieView = new Movie_View();
-        Controller userController = new Controller(userView, userModel, reviewView, reviewModel);
+        Controller userController = new Controller(userView, userModel,
+                                                   reviewView, reviewModel,
+                                                    watchlistView, watchlistModel);
 
         JFrame movieLibrary = new JFrame();
         JPanel topPanel = new JPanel();
