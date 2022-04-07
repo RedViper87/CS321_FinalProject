@@ -17,9 +17,10 @@ public class Movie_Library {
         Watchlist_View watchlistView = new Watchlist_View();
         Recommendations_View recommendationsView = new Recommendations_View();
         Review_View reviewView = new Review_View();
+        Review_Model reviewModel = new Review_Model();
         Search_View searchView = new Search_View();
         Movie_View movieView = new Movie_View();
-        Controller userController = new Controller(userView, userModel);
+        Controller userController = new Controller(userView, userModel, reviewView, reviewModel);
 
         JFrame movieLibrary = new JFrame();
         JPanel topPanel = new JPanel();

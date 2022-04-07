@@ -2,6 +2,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -12,13 +13,18 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class User_Model extends Watchlist_Model{
+public class User_Model{
 
     private String username;
     private String password;
     private ArrayList<Watchlist_Model> listOfWatchlists;
+    private ArrayList<User_Reviews> listOfUserReviews;
 
     public User_Model() {
+    }
+
+    public ArrayList<User_Reviews> getRatings() {
+        return listOfUserReviews;
     }
 
     public void setUsername(String u){
@@ -35,6 +41,19 @@ public class User_Model extends Watchlist_Model{
 
     public void setPassword(String p){
         password = p;
+    }
+
+    public void addUserReview(String name, String number, String comment) {
+        User_Reviews review = new User_Reviews();
+        review.setMovieName(name);
+        review.setNumericalRating(number);
+        review.setUserInputReview(comment);
+        listOfUserReviews.add(review);
+    }
+    public void addWatchlist(String name){
+        Watchlist_Model watchlist = new Watchlist_Model();
+        watchlist.setName(name);
+        listOfWatchlists.add(watchlist);
     }
 
     public boolean addNewUser() throws IOException {
@@ -58,22 +77,22 @@ public class User_Model extends Watchlist_Model{
                 return false;
             }
         }
+        String name = "\""+username+"\"";
+        String pass = "\""+password+"\"";
+        String newUser = "{\"username\": "+name+", \"password\":"+pass+", \"listOfWatchlists\": [{\"Name\": \"\",\"ListOfMovies\": [{\"Title\":\"\",\"Year\":\"\",\"Rated\":\"\",\"Released\":\"\",\"Runtime\":\"\",\"Genre\":\"\",\"Director\":\"\",\"Writer\":\"\",\"Actors\":\"\",\"Plot\":\"\",\"Language\":\"\",\"Country\":\"\",\"Awards\":\"\",\"Poster\":\"\",\"Ratings\":[{\"Source\":\"\",\"Value\":\"\"}],\"Metascore\":\"\",\"imdbRating\":\"\",\"imdbVotes\":\"\",\"imdbID\":\"\",\"Type\":\"\",\"DVD\":\"\",\"BoxOffice\":\"\",\"Production\":\"\",\"Website\":\"\",\"Response\":\"\"}]}],\n" + "  \"listOfUserReviews\": [{\"moviename\": \"\", \"numericalrating\": \"\", \"userinputreview\": \"\"}]\n" + "  }";
 
-        JsonObject newUser = new JsonObject();
-        newUser.addProperty("username", username);
-        newUser.addProperty("password", password);
-        /* Cannot figure out GSON right now, works but fix later*/
+
        File f = new File("UserData.json");
         if(f.length() == 0){
             try (FileWriter file = new FileWriter("UserData.json", true)){
-                file.write("[\n"+String.valueOf(newUser));
+                file.write("[\n"+newUser);
                 file.write("\n]");
                 file.flush();
             }catch(IOException ex){
                 ex.printStackTrace();
             }
         }else{
-            content = content.replaceAll("]", "");
+            content = content.replaceAll("]$", "");
             Files.write(path, content.getBytes(charset));
             String content2 = new String(Files.readAllBytes(path), charset);
             int index = content2.lastIndexOf("}");
@@ -81,7 +100,7 @@ public class User_Model extends Watchlist_Model{
             Files.write(path, content3.getBytes(charset));
 
             try (FileWriter file = new FileWriter("UserData.json", true)){
-                file.write(String.valueOf(newUser));
+                file.write(newUser);
                 file.write("\n]");
                 file.flush();
             }catch(IOException ex){
@@ -114,6 +133,44 @@ public class User_Model extends Watchlist_Model{
             }
         }
         return false;
+    }
+
+    public String grabUserDataReview(String username) throws IOException {
+        /* get user data into arraylist*/
+        Path path2 = Paths.get("UserData.json");
+        Charset charset2 = StandardCharsets.UTF_8;
+        String content2 = new String(Files.readAllBytes(path2), charset2);
+        Gson gson2 = new Gson();
+        User_Model[] list2;
+        list2 = gson2.fromJson(content2, User_Model[].class);
+        ArrayList<User_Model> arrayList2 = new ArrayList<>();
+        Collections.addAll(arrayList2, list2);
+
+        for(User_Model user: arrayList2){
+            if(user.getUsername().equals(username)){
+                String movieName = null;
+                String number = null;
+                String comment = null;
+                String Ratings;
+                ArrayList <String> rate = new ArrayList<>();
+                for(User_Reviews r: user.getRatings()){
+                    movieName = r.getMovieName();
+                    number = r.getNumericalRating();
+                    comment = r.getUserInputReview();
+                    if(!movieName.equals(null)){
+                        rate.add("{Movie Name: "+movieName+", Score: "+number+"/10, "+"Comment: "+comment+"}");
+                    }
+                }
+                StringBuffer sb = new StringBuffer();
+                for(String string: rate){
+                    sb.append(string);
+                }
+                Ratings = sb.toString();
+                return Ratings;
+            }
+        }
+
+        return "";
     }
 
 }

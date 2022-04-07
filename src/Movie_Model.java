@@ -1,6 +1,15 @@
-import java.util.ArrayList;
+import com.google.gson.Gson;
 
-public class Movie_Model extends Rating{
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Movie_Model{
 
     /* ATTRIBUTES */
     private String Title;
@@ -18,7 +27,6 @@ public class Movie_Model extends Rating{
     private String Awards;
     private String Poster;      //url to movie poster
     private ArrayList<Rating> Ratings = new ArrayList<>();
-    private Integer numRatings;
     private String Metascore;
     private String imdbRating;
     private String imdbVotes;
@@ -129,21 +137,8 @@ public class Movie_Model extends Rating{
         return Poster;
     }
 
-    public void addRating(String source, String value) {
-        Rating theRating = new Rating();
-        theRating.setSource(source);
-        theRating.setValue(value);
-        Ratings.add(theRating);
-    }
     public ArrayList<Rating> getRatings() {
         return Ratings;
-    }
-
-    public void setNumRatings(int num) {
-        numRatings = num;
-    }
-    public Integer getNumRatings() {
-        return numRatings;
     }
 
     public void setMetascore(String metascore) {
@@ -215,4 +210,5 @@ public class Movie_Model extends Rating{
     public String getResponse() {
         return Response;
     }
+
 }
