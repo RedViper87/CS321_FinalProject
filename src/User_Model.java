@@ -157,7 +157,7 @@ public class User_Model{
                     movieName = r.getMovieName();
                     number = r.getNumericalRating();
                     comment = r.getUserInputReview();
-                    if(!movieName.equals(null)){
+                    if(!movieName.equals("")){
                         rate.add("{Movie Name: "+movieName+", Score: "+number+"/10, "+"Comment: "+comment+"}");
                     }
                 }

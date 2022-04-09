@@ -83,15 +83,13 @@ public class Review_Model extends Movie_Model{
                 String comment = null;
                 String Ratings;
                 ArrayList <String> rate = new ArrayList<>();
-                int i = 0;
                 for(User_Reviews r: user.getRatings()){
                     movieName = r.getMovieName();
                     number = r.getNumericalRating();
                     comment = r.getUserInputReview();
-                    if(i == 1){
+                    if(!movieName.equals("")){
                         rate.add("{Movie Name: "+movieName+", Score: "+number+"/10, "+"Comment: "+comment+"}");
                     }
-                    i++;
                 }
                 StringBuffer sb = new StringBuffer();
                 for(String string: rate){
