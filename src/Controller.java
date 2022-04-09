@@ -30,10 +30,7 @@ public class Controller {
 
     /* User Profile Functions */
     //Add new user profile, update both User_Model & User_View
-    //Delete user profile, update both User_Model & User_View
-    //Modify username, update both User_Model & User_View
-    //Modify password, update User_Model
-
+    private Movie_Library movieLibrary;
     private Movie_View movieView;
     private Movie_Model movieModel;
     private Watchlist_View watchlistView;
@@ -48,7 +45,7 @@ public class Controller {
     private User_Model userModel;
 
     // other views and models will go in this controller
-    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel){
+    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel, Watchlist_View watchlistView, Recommendations_View recommendationsView, Search_View searchView, Movie_View movieView, Movie_Library movieLibrary){
         this.userView = userView;
         this.userModel = userModel;
         this.userView.checkUserListener(new checkListener());
@@ -58,8 +55,13 @@ public class Controller {
         this.reviewModel = reviewModel;
         this.reviewView.addReviewListener(new addReviewListener());
 
+        this.watchlistView = watchlistView;
+        this.recommendationsView = recommendationsView;
+        this.searchView = searchView;
+        this.movieView = movieView;
+        this.movieLibrary = movieLibrary;
+        this.movieLibrary.logoutListener(new logoutListener());
     }
-
 
     class checkListener implements ActionListener{
 
@@ -85,7 +87,15 @@ public class Controller {
                 }
                 if(check){
                     // set other views equal to true
+                    reviewView.setVisible(true);
+                    watchlistView.setVisible(true);
+                    searchView.setVisible(true);
+                    recommendationsView.setVisible(true);
+                    movieView.setVisible(true);
+                    movieLibrary.setLogoutTrue();
+                    userView.setVisible(false);
                     try {
+                        reviewView.erase(); // erase text
                         UserReviews = userModel.grabUserDataReview(username);
                         reviewView.updateReview(UserReviews);
                     } catch (IOException ex) {
@@ -144,7 +154,7 @@ public class Controller {
             reviewModel.setUserInputReview(comment);
             reviewModel.setNumericalRating(rating);
             try {
-                reviewModel.addUserReview(userModel.getUsername());
+                reviewModel.addUserReview(userModel.getUsername()); // add review in userdata.json
                 reviewView.eraseComment();
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -154,9 +164,23 @@ public class Controller {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            reviewView.updateReview(userdata);
+            reviewView.updateReview(userdata); // update review in view
         }
     }
+    class logoutListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            reviewView.setVisible(false);
+            watchlistView.setVisible(false);
+            searchView.setVisible(false);
+            recommendationsView.setVisible(false);
+            movieView.setVisible(false);
+            movieLibrary.setLogoutFalse();
+            userView.setVisible(true);
+        }
+    }
+
 
     /* Review Functions */
     //Add new review to a movie, update Review_Model & Review_View
