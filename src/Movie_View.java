@@ -217,8 +217,8 @@ public class Movie_View extends JPanel {
         outer.add(titlePanel);
         outer.add(mainPanel);
 
-
+        this.setVisible(false);
         this.add(outer);
-        this.setVisible(true);
     }
+
 }

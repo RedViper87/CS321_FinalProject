@@ -99,14 +99,16 @@ public class Review_View extends JPanel {
         //add stuff to outer panel
         outer.add(reviewViewLabel);
         outer.add(scroll);
-
+        this.setVisible(false);
         this.add(outer);
-        this.setVisible(true);
     }
 
     /* alert controller that this button is pressed */
     void addReviewListener(ActionListener listenerForAddReview){
         addReview.addActionListener(listenerForAddReview);
+    }
+    public void erase(){
+        userReview.setText("");
     }
     public void updateReview(String s){
         userReview.setText(userReview.getText()+s);

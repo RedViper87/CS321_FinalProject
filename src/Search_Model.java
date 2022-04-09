@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Search_Model extends Movie_Model{
+public class Search_Model{
     /* ATTRIBUTES */
     private String SearchParameter;
     private String UserInputSearch;
@@ -22,8 +22,6 @@ public class Search_Model extends Movie_Model{
         return UserInputSearch;
     }
 
-    public void SearchDatabase() { // pass in the string that is to be searched
-        //some useful code goes here...probably
-        // make the gson array of movies and search
+    public void SearchDatabase() {
     }
 }
