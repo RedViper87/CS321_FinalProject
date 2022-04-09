@@ -17,8 +17,7 @@ public class Recommendations_View extends JPanel{
         outer.setBorder(blackline2);
         //add stuff to outer panel
         outer.add(recViewLabel);
-
+        this.setVisible(false);
         this.add(outer);
-        this.setVisible(true);
     }
 }
