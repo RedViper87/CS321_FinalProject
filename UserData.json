@@ -103,5 +103,60 @@
         "userinputreview": "Loved it! This movie got me interested in cars!"
       }
     ]
+  },
+  {
+    "username": "lily",
+    "password": "j",
+    "listOfWatchlists": [
+      {
+        "Name": "",
+        "ListOfMovies": [
+          {
+            "Title": "",
+            "Year": "",
+            "Rated": "",
+            "Released": "",
+            "Runtime": "",
+            "Genre": "",
+            "Director": "",
+            "Writer": "",
+            "Actors": "",
+            "Plot": "",
+            "Language": "",
+            "Country": "",
+            "Awards": "",
+            "Poster": "",
+            "Ratings": [
+              {
+                "Source": "",
+                "Value": ""
+              }
+            ],
+            "Metascore": "",
+            "imdbRating": "",
+            "imdbVotes": "",
+            "imdbID": "",
+            "Type": "",
+            "DVD": "",
+            "BoxOffice": "",
+            "Production": "",
+            "Website": "",
+            "Response": ""
+          }
+        ]
+      }
+    ],
+    "listOfUserReviews": [
+      {
+        "moviename": "",
+        "numericalrating": "",
+        "userinputreview": ""
+      },
+      {
+        "moviename": "Spiderman",
+        "numericalrating": "1",
+        "userinputreview": ""
+      }
+    ]
   }
 ]
