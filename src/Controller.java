@@ -68,19 +68,21 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String watchlistName;
-
-            watchlistName = watchlistView.getWatchlistName();
+            String userdata = "";
+            String watchlistName = watchlistView.getWatchlistName();
             watchlistView.eraseWatchlistName();
+            watchlistModel.setName(watchlistName);
             if(watchlistName.length() == 0){
                 watchlistView.displayError("Please Enter a Watchlist Name");
             }
             else{
-                //Add watchlist to list of watchlists for user
-                userModel.addWatchlist(watchlistName);
+                try {
+                    watchlistModel.addNewWatchlist(userModel.getUsername());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
-
     }
 
     /* User Profile Functions */

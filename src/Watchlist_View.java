@@ -40,6 +40,18 @@ public class Watchlist_View extends JPanel {
         /* Get watchlists */
         ArrayList<Watchlist_Model> watchlistList = new ArrayList<>();
         //for number of watchlists, grab the models and store them in watchlistList
+        //grab the data from the UserData.json, store it in gson arraylist, grab names
+        Path path2 = Paths.get("UserData.json");
+        Charset charset2 = StandardCharsets.UTF_8;
+        String content2 = new String(Files.readAllBytes(path2), charset2);
+        Gson gson2 = new Gson();
+        User_Model[] list2;
+        list2 = gson2.fromJson(content2, User_Model[].class);
+        ArrayList<User_Model> arrayList2 = new ArrayList<>();
+        Collections.addAll(arrayList2, list2);
+
+
+
 
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
@@ -169,15 +181,10 @@ public class Watchlist_View extends JPanel {
         BoxLayout watchlistPanelLayout = new BoxLayout(watchlistPanel, BoxLayout.Y_AXIS);
         watchlistPanel.setLayout(watchlistPanelLayout);
         //add buttons
-        JButton button1 = new JButton("Watchlist 1");   //example button
+        JButton button1 = new JButton("Example Watchlist");   //example button
         watchlistPanel.add(button1);
-        JButton button2 = new JButton("Watchlist 2");   //example button
-        watchlistPanel.add(button2);
-        JButton button3 = new JButton("Watchlist 3");   //example button
-        watchlistPanel.add(button3);
         for(Watchlist_Model watchlists:watchlistList) {
             String Name = watchlists.getName();
-            //String Description = watchlists.getDescription();
 
             watchlist = new JButton(Name);
             watchlistPanel.add(watchlist);

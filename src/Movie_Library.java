@@ -50,6 +50,7 @@ public class Movie_Library {
         all.setLayout(layout);
         JScrollPane scroll = new JScrollPane(all, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setPreferredSize(new Dimension(960,540));
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
         movieLibrary.add(scroll);
         movieLibrary.pack();
 
