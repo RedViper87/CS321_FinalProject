@@ -24,7 +24,7 @@ public class Watchlist_View extends JPanel {
     private JButton deleteWatchlistButton = new JButton("Delete Watchlist");
     private JLabel currentWatchlistName = new JLabel("Current Watchlist Name");
     private JButton movie = new JButton();
-    private JButton watchlist = new JButton();
+    public JComboBox watchlistsComboBox = new JComboBox();
 
     Watchlist_View() throws IOException {
         /* Get movie data from json */
@@ -36,21 +36,6 @@ public class Watchlist_View extends JPanel {
         list = gson.fromJson(content, Movie_Model[].class);
         ArrayList<Movie_Model> arrayList = new ArrayList<>();
         Collections.addAll(arrayList, list);
-
-        /* Get watchlists */
-        ArrayList<Watchlist_Model> watchlistList = new ArrayList<>();
-        //for number of watchlists, grab the models and store them in watchlistList
-        //grab the data from the UserData.json, store it in gson arraylist, grab names
-        Path path2 = Paths.get("UserData.json");
-        Charset charset2 = StandardCharsets.UTF_8;
-        String content2 = new String(Files.readAllBytes(path2), charset2);
-        Gson gson2 = new Gson();
-        User_Model[] list2;
-        list2 = gson2.fromJson(content2, User_Model[].class);
-        ArrayList<User_Model> arrayList2 = new ArrayList<>();
-        Collections.addAll(arrayList2, list2);
-
-
 
 
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
@@ -180,21 +165,8 @@ public class Watchlist_View extends JPanel {
         //Set movies panel layout
         BoxLayout watchlistPanelLayout = new BoxLayout(watchlistPanel, BoxLayout.Y_AXIS);
         watchlistPanel.setLayout(watchlistPanelLayout);
-        //add buttons
-        JButton button1 = new JButton("Example Watchlist");   //example button
-        watchlistPanel.add(button1);
-        for(Watchlist_Model watchlists:watchlistList) {
-            String Name = watchlists.getName();
-
-            watchlist = new JButton(Name);
-            watchlistPanel.add(watchlist);
-            watchlist.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            watchlist.addActionListener(event ->
-            {
-                currentWatchlistName.setText(Name);
-            });
-        }
+        //add watchlists combo box
+        watchlistPanel.add(watchlistsComboBox);
         //add scroll bar
         JScrollPane watchlistScroller = new JScrollPane(watchlistPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         watchlistScroller.setPreferredSize(new Dimension(210, 400));

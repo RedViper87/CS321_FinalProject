@@ -54,7 +54,7 @@
     "password": "password",
     "listOfWatchlists": [
       {
-        "Name": "",
+        "Name": "example",
         "ListOfMovies": [
           {
             "Title": "",

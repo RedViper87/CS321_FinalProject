@@ -31,8 +31,9 @@ public class Movie_Library extends JPanel{
         Review_View reviewView = new Review_View();
         Review_Model reviewModel = new Review_Model();
         Search_View searchView = new Search_View();
+        Search_Model searchModel = new Search_Model();
         Movie_View movieView = new Movie_View();
-        Controller userController = new Controller(userView, userModel, reviewView, reviewModel, watchlistView, recommendationsView, searchView, movieView, movieLibrary);
+        Controller userController = new Controller(userView, userModel, reviewView, reviewModel, watchlistView, recommendationsView, searchView, searchModel,movieView, movieLibrary);
 
         JFrame library = new JFrame();
         JPanel logout = new JPanel();
@@ -61,11 +62,8 @@ public class Movie_Library extends JPanel{
         BoxLayout layout = new BoxLayout(all, BoxLayout.Y_AXIS);
         all.setLayout(layout);
         JScrollPane scroll = new JScrollPane(all, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scroll.setPreferredSize(new Dimension(960,540));
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
-        movieLibrary.add(scroll);
-        movieLibrary.pack();
         scroll.setPreferredSize(new Dimension(1920,1080));
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
         library.add(scroll);
         library.pack();
 

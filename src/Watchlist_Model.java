@@ -50,7 +50,8 @@ public class Watchlist_Model{
         Watchlist_Model[] list;
         list = gson.fromJson(content, Watchlist_Model[].class);
         if(list == null){
-            return false;
+            Watchlist_View errorMessage = null;
+            errorMessage.displayError("That movie is already in this list.");
         }
         ArrayList<Watchlist_Model> arrayList = new ArrayList<>();
         Collections.addAll(arrayList, list);
@@ -58,7 +59,8 @@ public class Watchlist_Model{
         /* check if watchlist is in list */
         for(Watchlist_Model watchlist:arrayList) {
             if(watchlist.getName().equals(Name)) {
-                return false;
+                Watchlist_View errorMessage = null;
+                errorMessage.displayError("That movie is already in this list.");
             }
         }
 
