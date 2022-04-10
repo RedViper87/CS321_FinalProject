@@ -19,5 +19,7 @@ public class Recommendations_View extends JPanel{
         outer.add(recViewLabel);
         this.setVisible(false);
         this.add(outer);
+
+        // refresh reccomendations button
     }
 }

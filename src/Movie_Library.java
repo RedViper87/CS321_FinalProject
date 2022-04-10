@@ -22,6 +22,7 @@ public class Movie_Library extends JPanel{
     void setLogoutTrue(){
         Logout.setVisible(true);
     }
+
     public static void main(String[] args) throws IOException {
         Movie_Library movieLibrary = new Movie_Library();
         User_View  userView = new User_View();

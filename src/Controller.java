@@ -64,7 +64,7 @@ public class Controller {
         this.movieView = movieView;
         this.movieLibrary = movieLibrary;
         this.movieLibrary.logoutListener(new logoutListener());
-        //this.searchView.searchListener(new searchListener());
+        this.searchView.searchListener(new searchListener());
     }
 
     class checkListener implements ActionListener{
@@ -185,18 +185,33 @@ public class Controller {
         }
     }
 
-    /*class searchListener implements ActionListener{
+    class searchListener implements ActionListener{
+		
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean cb1 = searchView.getcb1();
             boolean cb2 = searchView.getcb2();
             boolean cb3 = searchView.getcb3();
             boolean cb4 = searchView.getcb4();
-
-            searchModel.SearchDatabase(cb1, cb2, cb3, cb4);
-
+			ArrayList<Movie_Model> movies = new ArrayList<>();
+            String search = searchView.getSearch();
+            try {
+               movies = searchModel.SearchDatabase(cb1, cb2, cb3, cb4, search);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if(movies.size() > 0){
+                try {
+                    searchView.displaySearchMovies(movies);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }else{
+                searchView.displayError("No results from search.");
+            }
         }
-    }*/
+    }
+			
 
     class addWatchlistListener implements ActionListener{
         @Override
