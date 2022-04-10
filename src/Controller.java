@@ -45,7 +45,7 @@ public class Controller {
     private User_Model userModel;
 
     // other views and models will go in this controller
-    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel, Watchlist_View watchlistView, Recommendations_View recommendationsView, Search_View searchView, Movie_View movieView, Movie_Library movieLibrary){
+    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel, Watchlist_View watchlistView, Recommendations_View recommendationsView, Search_View searchView, Search_Model searchModel,Movie_View movieView, Movie_Library movieLibrary){
         this.userView = userView;
         this.userModel = userModel;
         this.userView.checkUserListener(new checkListener());
@@ -58,9 +58,11 @@ public class Controller {
         this.watchlistView = watchlistView;
         this.recommendationsView = recommendationsView;
         this.searchView = searchView;
+        this.searchModel = searchModel;
         this.movieView = movieView;
         this.movieLibrary = movieLibrary;
         this.movieLibrary.logoutListener(new logoutListener());
+        this.searchView.searchListener(new searchListener());
     }
 
     class checkListener implements ActionListener{
@@ -178,6 +180,34 @@ public class Controller {
             movieView.setVisible(false);
             movieLibrary.setLogoutFalse();
             userView.setVisible(true);
+        }
+    }
+
+    class searchListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            boolean cb1 = searchView.getcb1();
+            boolean cb2 = searchView.getcb2();
+            boolean cb3 = searchView.getcb3();
+            boolean cb4 = searchView.getcb4();
+            ArrayList<Movie_Model> movies = new ArrayList<>();
+            String search = searchView.getSearch();
+            try {
+               movies = searchModel.SearchDatabase(cb1, cb2, cb3, cb4, search);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if(movies.size() > 0){
+                try {
+                    searchView.displaySearchMovies(movies);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }else{
+                searchView.displayError("No results from search.");
+            }
+
+
         }
     }
 

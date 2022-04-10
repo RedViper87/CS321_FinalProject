@@ -22,6 +22,7 @@ public class Movie_Library extends JPanel{
     void setLogoutTrue(){
         Logout.setVisible(true);
     }
+
     public static void main(String[] args) throws IOException {
         Movie_Library movieLibrary = new Movie_Library();
         User_View  userView = new User_View();
@@ -31,8 +32,9 @@ public class Movie_Library extends JPanel{
         Review_View reviewView = new Review_View();
         Review_Model reviewModel = new Review_Model();
         Search_View searchView = new Search_View();
+        Search_Model searchModel = new Search_Model();
         Movie_View movieView = new Movie_View();
-        Controller userController = new Controller(userView, userModel, reviewView, reviewModel, watchlistView, recommendationsView, searchView, movieView, movieLibrary);
+        Controller userController = new Controller(userView, userModel, reviewView, reviewModel, watchlistView, recommendationsView, searchView, searchModel,movieView, movieLibrary);
 
         JFrame library = new JFrame();
         JPanel logout = new JPanel();
