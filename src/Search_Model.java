@@ -43,6 +43,20 @@ public class Search_Model{
         ArrayList<Movie_Model> arrayList = new ArrayList<>();
         Collections.addAll(arrayList,list);
 
+        if(!cb1 && cb2 && !cb3 && !cb4) {
+            for (Movie_Model movie : arrayList) {
+                if (movie.getActors().contains(searchParameter)) {
+                    returnMovies.add(movie);
+                }
+            }
+        }
+        if(!cb1 && !cb2 && cb3 && !cb4) {
+            for (Movie_Model movie : arrayList) {
+                if (movie.getGenre().contains(searchParameter)) {
+                    returnMovies.add(movie);
+                }
+            }
+        }
         if(!cb1 && cb2 && cb3 && cb4){
             for(Movie_Model movie:arrayList){
                 if(movie.getActors().contains(searchParameter)){
