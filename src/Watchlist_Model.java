@@ -1,7 +1,6 @@
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.GsonBuilder;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -32,55 +31,35 @@ public class Watchlist_Model{
         }
         else {
             //movie is already in list
-            /* PRINT AN ERROR MESSAGE */
+            Watchlist_View errorMessage = null;
+            errorMessage.displayError("That movie is already in this list.");
         }
     }
     public void RemoveMovieFromList(Movie_Model movieModel) {
         ListOfMovies.remove(movieModel);
     }
-    // add a new watchlist
-    public boolean addNewWatchlist() throws IOException {
-        //get username so we know where to add watchlist data in UserData.json
 
-
-        /* Make sure there is not a duplicate */
+    public void addUserWatchlist(String username) throws IOException {
+        //add watchlist
         Path path = Paths.get("UserData.json");
         Charset charset = StandardCharsets.UTF_8;
         String content = new String(Files.readAllBytes(path), charset);
         Gson gson = new Gson();
-        Watchlist_Model[] list;
-        list = gson.fromJson(content, Watchlist_Model[].class);
-        if(list == null){
-            return false;
-        }
-        ArrayList<Watchlist_Model> arrayList = new ArrayList<>();
+        User_Model[] list;
+        list = gson.fromJson(content, User_Model[].class);
+        ArrayList<User_Model> arrayList = new ArrayList<>();
         Collections.addAll(arrayList, list);
 
-        /* check if watchlist is in list */
-        for(Watchlist_Model watchlist:arrayList) {
-            if(watchlist.getName().equals(Name)) {
-                return false;
+        Gson g = new GsonBuilder().setPrettyPrinting().create();
+
+        for(User_Model user:arrayList){
+            if(user.getUsername().equals(username)){
+                user.addWatchlist(Name);
             }
         }
-
-        JsonObject newWatchlist = new JsonObject();
-        newWatchlist.addProperty("watchlist_name", Name);
-        File f = new File("UserData.json");
-        //NEED TO DO: Add the watchlist name and list of movies to the user data file here
-        if(f.length() == 0) {
-            try (FileWriter file = new FileWriter("UserData.json", true)){
-                file.write("[\n" + String.valueOf(newWatchlist));
-                file.write("\n]");
-                file.flush();
-            }catch(IOException ex){
-                ex.printStackTrace();
-            }
-        }else{
-
-        }
-
-        return true;
+        String json = g.toJson(arrayList);
+        FileWriter file = new FileWriter("UserData.json");
+        file.write(json);
+        file.flush();
     }
-
-    // delete a watchlist
 }

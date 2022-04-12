@@ -59,7 +59,7 @@
     "password": "password",
     "listOfWatchlists": [
       {
-        "Name": "",
+        "Name": "Test Watchlist #1",
         "ListOfMovies": [
           {
             "Title": "",
@@ -94,6 +94,46 @@
             "Response": ""
           }
         ]
+      },
+      {
+        "Name": "Test Watchlist #2",
+        "ListOfMovies": [
+          {
+            "Title": "",
+            "Year": "",
+            "Rated": "",
+            "Released": "",
+            "Runtime": "",
+            "Genre": "",
+            "Director": "",
+            "Writer": "",
+            "Actors": "",
+            "Plot": "",
+            "Language": "",
+            "Country": "",
+            "Awards": "",
+            "Poster": "",
+            "Ratings": [
+              {
+                "Source": "",
+                "Value": ""
+              }
+            ],
+            "Metascore": "",
+            "imdbRating": "",
+            "imdbVotes": "",
+            "imdbID": "",
+            "Type": "",
+            "DVD": "",
+            "BoxOffice": "",
+            "Production": "",
+            "Website": "",
+            "Response": ""
+          }
+        ]
+      },
+      {
+        "Name": "This list!"
       }
     ],
     "listOfUserReviews": [

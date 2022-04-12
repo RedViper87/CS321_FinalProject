@@ -27,6 +27,10 @@ public class User_Model{
         return listOfUserReviews;
     }
 
+    public ArrayList<Watchlist_Model> getListOfWatchlists() {
+        return listOfWatchlists;
+    }
+
     public void setUsername(String u){
         username = u;
     }
@@ -171,6 +175,35 @@ public class User_Model{
         }
 
         return "";
+    }
+
+    public ArrayList<Watchlist_Model> grabUserWatchlists(String username) throws IOException {
+        /* get user data into arrayList */
+        Path path = Paths.get("UserData.json");
+        Charset charset = StandardCharsets.UTF_8;
+        String content = new String(Files.readAllBytes(path), charset);
+        Gson gson = new Gson();
+        User_Model[] list;
+        list = gson.fromJson(content, User_Model[].class);
+        ArrayList<User_Model> arrayList = new ArrayList<>();
+        Collections.addAll(arrayList, list);
+
+        for(User_Model user: arrayList){
+            if(user.getUsername().equals(username)){
+                String watchlistName = null;
+
+                ArrayList<Watchlist_Model> watchlists = new ArrayList<>();
+                for(Watchlist_Model wl: user.getListOfWatchlists()){
+                    watchlistName = wl.getName();
+                    if(!watchlistName.equals("")){
+                        watchlists.add(wl);
+                    }
+                }
+                return watchlists;
+            }
+        }
+        ArrayList<Watchlist_Model> theArray = new ArrayList<Watchlist_Model>();
+        return theArray;
     }
 
 }

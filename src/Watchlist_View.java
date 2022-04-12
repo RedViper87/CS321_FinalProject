@@ -24,10 +24,11 @@ public class Watchlist_View extends JPanel {
     private JButton deleteWatchlistButton = new JButton("Delete Watchlist");
     private JLabel currentWatchlistName = new JLabel("Current Watchlist Name");
     private JButton movie = new JButton();
-    private JButton watchlist = new JButton();
+    private JButton watchlistButton;
+    JPanel watchlistPanel = new JPanel();
 
     Watchlist_View() throws IOException {
-        /* Get movie data from json */
+        /* Get movie data from json and put in arrayList */
         Path path = Paths.get("SampleMovieFile.json");
         Charset charset = StandardCharsets.UTF_8;
         String content = new String(Files.readAllBytes(path), charset);
@@ -37,10 +38,7 @@ public class Watchlist_View extends JPanel {
         ArrayList<Movie_Model> arrayList = new ArrayList<>();
         Collections.addAll(arrayList, list);
 
-        /* Get watchlists */
-        ArrayList<Watchlist_Model> watchlistList = new ArrayList<>();
-        //for number of watchlists, grab the models and store them in watchlistList
-
+        /* Create borderlines */
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
 
@@ -129,7 +127,6 @@ public class Watchlist_View extends JPanel {
         wdpAddDeleteButtons.add(deleteWatchlistButton);
         //CURRENT WATCHLIST PANEL
         JPanel wdpCurrentWatchlist = new JPanel();
-        //wdpCurrentWatchlist.setBorder(blackline1);
         //set layout here
         JLabel wdpCurrentName = new JLabel("Current Watchlist:");
         wdpCurrentWatchlist.add(wdpCurrentName);
@@ -162,36 +159,19 @@ public class Watchlist_View extends JPanel {
         watchlistDisplayPanel.add(cwlMovieScroller);
 
         /* This panel is on the right side of the main panel */
-        JPanel watchlistPanel = new JPanel();
+
         //Create a border to go around watchlist panel
         watchlistPanel.setBorder(blackline1);
-        //Set movies panel layout
+        //Set watchlist panel layout
         BoxLayout watchlistPanelLayout = new BoxLayout(watchlistPanel, BoxLayout.Y_AXIS);
         watchlistPanel.setLayout(watchlistPanelLayout);
-        //add buttons
-        JButton button1 = new JButton("Watchlist 1");   //example button
-        watchlistPanel.add(button1);
-        JButton button2 = new JButton("Watchlist 2");   //example button
-        watchlistPanel.add(button2);
-        JButton button3 = new JButton("Watchlist 3");   //example button
-        watchlistPanel.add(button3);
-        for(Watchlist_Model watchlists:watchlistList) {
-            String Name = watchlists.getName();
-            //String Description = watchlists.getDescription();
-
-            watchlist = new JButton(Name);
-            watchlistPanel.add(watchlist);
-            watchlist.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            watchlist.addActionListener(event ->
-            {
-                currentWatchlistName.setText(Name);
-            });
-        }
         //add scroll bar
         JScrollPane watchlistScroller = new JScrollPane(watchlistPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         watchlistScroller.setPreferredSize(new Dimension(210, 400));
         watchlistScroller.getVerticalScrollBar().setUnitIncrement(16);
+        //add a test button
+        /*JButton testButton = new JButton("Test Button");
+        watchlistPanel.add(testButton);*/
 
         /* This main panel holds the movies panel, watchlist display panel, and watchlists panel */
         JPanel mainPanel = new JPanel();
@@ -231,6 +211,23 @@ public class Watchlist_View extends JPanel {
     /* alert controller that this button is pressed */
     void addWatchlistListener(ActionListener listenerForAddWatchlist) {
         addWatchlistButton.addActionListener(listenerForAddWatchlist);
+    }
+
+    public void updateWatchlists(ArrayList<Watchlist_Model> watchlists){
+        for(Watchlist_Model wl:watchlists){
+            //do some stuff
+            String Name = wl.getName();
+            watchlistButton = new JButton(Name);
+            //add button to watchlistPanel
+            watchlistPanel.add(watchlistButton);
+            watchlistButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            watchlistButton.addActionListener(event ->
+            {
+                currentWatchlistName.setText(Name);
+                // TO DO: Populate currentWatchlistPanel with buttons of movies in the watchlist 'wl'
+            });
+        }
     }
 
     /* display success */

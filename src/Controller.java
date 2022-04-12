@@ -1,8 +1,12 @@
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -45,7 +49,7 @@ public class Controller {
     private User_Model userModel;
 
     // other views and models will go in this controller
-    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel, Watchlist_View watchlistView, Recommendations_View recommendationsView, Search_View searchView, Search_Model searchModel,Movie_View movieView, Movie_Library movieLibrary){
+    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel, Watchlist_View watchlistView, Watchlist_Model watchlistModel, Recommendations_View recommendationsView, Search_View searchView, Search_Model searchModel,Movie_View movieView, Movie_Library movieLibrary){
         this.userView = userView;
         this.userModel = userModel;
         this.userView.checkUserListener(new checkListener());
@@ -56,6 +60,9 @@ public class Controller {
         this.reviewView.addReviewListener(new addReviewListener());
 
         this.watchlistView = watchlistView;
+        this.watchlistModel = watchlistModel;
+        this.watchlistView.addWatchlistListener(new addWatchlistListener());
+
         this.recommendationsView = recommendationsView;
         this.searchView = searchView;
         this.searchModel = searchModel;
@@ -70,6 +77,7 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             String UserReviews = "";
+            ArrayList<Watchlist_Model> UserWatchlists;
             String username;
             String password;
             boolean check = false;
@@ -100,16 +108,16 @@ public class Controller {
                         reviewView.erase(); // erase text
                         UserReviews = userModel.grabUserDataReview(username);
                         reviewView.updateReview(UserReviews);
+
+                        UserWatchlists = userModel.grabUserWatchlists(username);
+                        watchlistView.updateWatchlists(UserWatchlists);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
                 }else{
                     userView.displayError("Username and Password do not match or does not exist.");
-
                 }
-
             }
-
         }
     }
     class addUserListener implements ActionListener{
@@ -184,13 +192,14 @@ public class Controller {
     }
 
     class searchListener implements ActionListener{
+		
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean cb1 = searchView.getcb1();
             boolean cb2 = searchView.getcb2();
             boolean cb3 = searchView.getcb3();
             boolean cb4 = searchView.getcb4();
-            ArrayList<Movie_Model> movies = new ArrayList<>();
+			ArrayList<Movie_Model> movies = new ArrayList<>();
             String search = searchView.getSearch();
             try {
                movies = searchModel.SearchDatabase(cb1, cb2, cb3, cb4, search);
@@ -206,11 +215,38 @@ public class Controller {
             }else{
                 searchView.displayError("No results from search.");
             }
-
-
         }
     }
 
+    class addWatchlistListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String watchlistName = watchlistView.getWatchlistName();
+            watchlistView.eraseWatchlistName();
+            if(watchlistName.length() == 0) {
+                watchlistView.displayError("Please Enter a Watchlist Name");
+            }
+            else{
+                //create a watchlist with that name, and add to user model
+                watchlistModel.setName(watchlistName);
+                try {
+                    watchlistModel.addUserWatchlist(userModel.getUsername());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                userModel.addWatchlist(watchlistName);
+                //add button to the list of watchlists
+                JButton watchlistButton = new JButton(watchlistName);
+                watchlistView.watchlistPanel.add(watchlistButton);
+                watchlistButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                watchlistButton.addActionListener(event ->
+                {
+                    watchlistView.setCurrentWatchlistName(watchlistName);
+                });
+            }
+        }
+    }
 
     /* Review Functions */
     //Add new review to a movie, update Review_Model & Review_View
