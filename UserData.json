@@ -133,7 +133,8 @@
         ]
       },
       {
-        "Name": "This list!"
+        "Name": "new list",
+        "ListOfMovies": []
       }
     ],
     "listOfUserReviews": [
@@ -146,6 +147,11 @@
         "moviename": "The Fast and the Furious",
         "numericalrating": "9",
         "userinputreview": "Loved it! This movie got me interested in cars!"
+      },
+      {
+        "moviename": "X-Men: Days of Future Past",
+        "numericalrating": "8",
+        "userinputreview": "Great movie!"
       }
     ]
   },

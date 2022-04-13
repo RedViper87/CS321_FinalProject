@@ -3,6 +3,9 @@ import com.google.gson.Gson;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,7 +26,7 @@ public class Watchlist_View extends JPanel {
     private JButton addWatchlistButton = new JButton("Add Watchlist");
     private JButton deleteWatchlistButton = new JButton("Delete Watchlist");
     private JLabel currentWatchlistName = new JLabel("Current Watchlist Name");
-    private JButton movie = new JButton();
+    private JTextField movie = new JTextField();
     private JButton watchlistButton;
     JPanel watchlistPanel = new JPanel();
 
@@ -96,19 +99,20 @@ public class Watchlist_View extends JPanel {
             Ratings = sb.toString();
 
             if (Icon.equals("N/A")) {
-                movie = new JButton(Title);
+                movie = new JTextField(Title);
             } else {
-                ImageIcon imageIcon = new ImageIcon(new URL(Icon));
+                /*ImageIcon imageIcon = new ImageIcon(new URL(Icon));
                 Image image = imageIcon.getImage();
                 Image newImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH);
-                imageIcon = new ImageIcon(newImage);
-                movie = new JButton(imageIcon);
+                imageIcon = new ImageIcon(newImage);*/
+                movie = new JTextField(Title);
+                movie.setDragEnabled(true);
             }
             moviesPanel.add(movie);
             movie.setAlignmentX(Component.CENTER_ALIGNMENT);
         }
         //add scroll bar
-        JScrollPane movieScroller = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane movieScroller = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         movieScroller.setPreferredSize(new Dimension(210, 400));
         movieScroller.getVerticalScrollBar().setUnitIncrement(16);
 
@@ -131,22 +135,15 @@ public class Watchlist_View extends JPanel {
         JLabel wdpCurrentName = new JLabel("Current Watchlist:");
         wdpCurrentWatchlist.add(wdpCurrentName);
         wdpCurrentWatchlist.add(currentWatchlistName);
-        JPanel cwlMoviesPanel = new JPanel();
+        JTextField cwlMoviesPanel = new JTextField();
         GridLayout watchlistGridLayout = new GridLayout(0, 2);
         cwlMoviesPanel.setLayout(watchlistGridLayout);
-        //add buttons of the movies in the currently selected watchlist
-        JButton currentButton1 = new JButton("Movie 1");
-        cwlMoviesPanel.add(currentButton1);
-        JButton currentButton2 = new JButton("Movie 2");
-        cwlMoviesPanel.add(currentButton2);
-        JButton currentButton3 = new JButton("Movie 3");
-        cwlMoviesPanel.add(currentButton3);
-        JButton currentButton4 = new JButton("Movie 4");
-        cwlMoviesPanel.add(currentButton4);
-        JButton currentButton5 = new JButton("Movie 5");
-        cwlMoviesPanel.add(currentButton5);
-        JButton currentButton6 = new JButton("Movie 6");
-        cwlMoviesPanel.add(currentButton6);
+        //TO DO: add buttons of the movies in the currently selected watchlist
+        //grab movies that are in the watchlist, for each movie make a button and add to cwlMoviesPanel
+
+
+
+
         //add scroll bar to cwlMoviesPanel
         JScrollPane cwlMovieScroller = new JScrollPane(cwlMoviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         cwlMovieScroller.setPreferredSize(new Dimension(210, 210));
