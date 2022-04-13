@@ -68,6 +68,24 @@ public class Search_Model{
                 }
             }
         }
+        if(cb1 && !cb2 && !cb3 && cb4){
+            for(Movie_Model movie:arrayList){
+                if(movie.getTitle().contains(searchParameter)){
+                    returnMovies.add(movie);
+                }else if(movie.getYear().contains(searchParameter)) {
+                    returnMovies.add(movie);
+                }
+            }
+        }
+        if(!cb1 && cb2 && cb3 && !cb4){
+            for(Movie_Model movie:arrayList){
+                if(movie.getActors().contains(searchParameter)){
+                    returnMovies.add(movie);
+                }else if(movie.getGenre().contains(searchParameter)) {
+                    returnMovies.add(movie);
+                }
+            }
+        }
         if(cb1 && !cb2 && cb3 && cb4){
             for(Movie_Model movie:arrayList){
                 if(movie.getTitle().contains(searchParameter)){

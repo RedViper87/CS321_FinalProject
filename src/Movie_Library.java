@@ -29,13 +29,14 @@ public class Movie_Library extends JPanel{
         User_Model userModel = new User_Model();
         Watchlist_View watchlistView = new Watchlist_View();
         Watchlist_Model watchlistModel = new Watchlist_Model();
+        Recommendations_Model recommendationsModel = new Recommendations_Model();
         Recommendations_View recommendationsView = new Recommendations_View();
         Review_View reviewView = new Review_View();
         Review_Model reviewModel = new Review_Model();
         Search_View searchView = new Search_View();
         Search_Model searchModel = new Search_Model();
         Movie_View movieView = new Movie_View();
-        Controller userController = new Controller(userView, userModel, reviewView, reviewModel, watchlistView, watchlistModel, recommendationsView, searchView, searchModel,movieView, movieLibrary);
+        Controller userController = new Controller(userView, userModel, reviewView, reviewModel, watchlistView, watchlistModel, recommendationsView, recommendationsModel,searchView, searchModel,movieView, movieLibrary);
 
         JFrame library = new JFrame();
         JPanel logout = new JPanel();
