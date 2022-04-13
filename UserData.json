@@ -39,6 +39,9 @@
             "Response": ""
           }
         ]
+      },
+      {
+        "Name": "My Favorites"
       }
     ],
     "listOfUserReviews": [
@@ -51,6 +54,11 @@
         "moviename": "Dune",
         "numericalrating": "1",
         "userinputreview": ""
+      },
+      {
+        "moviename": "Toy Story",
+        "numericalrating": "5",
+        "userinputreview": "good"
       }
     ]
   },
@@ -201,6 +209,121 @@
         "moviename": "Spiderman",
         "numericalrating": "1",
         "userinputreview": ""
+      }
+    ]
+  },
+  {
+    "username": "ex",
+    "password": "ex",
+    "listOfWatchlists": [
+      {
+        "Name": "",
+        "ListOfMovies": [
+          {
+            "Title": "",
+            "Year": "",
+            "Rated": "",
+            "Released": "",
+            "Runtime": "",
+            "Genre": "",
+            "Director": "",
+            "Writer": "",
+            "Actors": "",
+            "Plot": "",
+            "Language": "",
+            "Country": "",
+            "Awards": "",
+            "Poster": "",
+            "Ratings": [
+              {
+                "Source": "",
+                "Value": ""
+              }
+            ],
+            "Metascore": "",
+            "imdbRating": "",
+            "imdbVotes": "",
+            "imdbID": "",
+            "Type": "",
+            "DVD": "",
+            "BoxOffice": "",
+            "Production": "",
+            "Website": "",
+            "Response": ""
+          }
+        ]
+      }
+    ],
+    "listOfUserReviews": [
+      {
+        "moviename": "",
+        "numericalrating": "",
+        "userinputreview": ""
+      },
+      {
+        "moviename": "Dune",
+        "numericalrating": "5",
+        "userinputreview": ""
+      }
+    ]
+  },
+  {
+    "username": "person",
+    "password": "person",
+    "listOfWatchlists": [
+      {
+        "Name": "",
+        "ListOfMovies": [
+          {
+            "Title": "",
+            "Year": "",
+            "Rated": "",
+            "Released": "",
+            "Runtime": "",
+            "Genre": "",
+            "Director": "",
+            "Writer": "",
+            "Actors": "",
+            "Plot": "",
+            "Language": "",
+            "Country": "",
+            "Awards": "",
+            "Poster": "",
+            "Ratings": [
+              {
+                "Source": "",
+                "Value": ""
+              }
+            ],
+            "Metascore": "",
+            "imdbRating": "",
+            "imdbVotes": "",
+            "imdbID": "",
+            "Type": "",
+            "DVD": "",
+            "BoxOffice": "",
+            "Production": "",
+            "Website": "",
+            "Response": ""
+          }
+        ]
+      }
+    ],
+    "listOfUserReviews": [
+      {
+        "moviename": "",
+        "numericalrating": "",
+        "userinputreview": ""
+      },
+      {
+        "moviename": "Toy Story",
+        "numericalrating": "1",
+        "userinputreview": "bad"
+      },
+      {
+        "moviename": "The Fast and the Furious",
+        "numericalrating": "1",
+        "userinputreview": "bad"
       }
     ]
   }

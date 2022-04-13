@@ -49,7 +49,7 @@ public class Controller {
     private User_Model userModel;
 
     // other views and models will go in this controller
-    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel, Watchlist_View watchlistView, Watchlist_Model watchlistModel, Recommendations_View recommendationsView, Search_View searchView, Search_Model searchModel,Movie_View movieView, Movie_Library movieLibrary){
+    public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel, Watchlist_View watchlistView, Watchlist_Model watchlistModel, Recommendations_View recommendationsView,Recommendations_Model recommendationsModel ,Search_View searchView, Search_Model searchModel,Movie_View movieView, Movie_Library movieLibrary){
         this.userView = userView;
         this.userModel = userModel;
         this.userView.checkUserListener(new checkListener());
@@ -63,7 +63,9 @@ public class Controller {
         this.watchlistModel = watchlistModel;
         this.watchlistView.addWatchlistListener(new addWatchlistListener());
 
+        this.recommendationsModel = recommendationsModel;
         this.recommendationsView = recommendationsView;
+        this.recommendationsView.refreshListener(new refreshListener());
         this.searchView = searchView;
         this.searchModel = searchModel;
         this.movieView = movieView;
@@ -111,6 +113,7 @@ public class Controller {
 
                         UserWatchlists = userModel.grabUserWatchlists(username);
                         watchlistView.updateWatchlists(UserWatchlists);
+
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -245,6 +248,27 @@ public class Controller {
                     watchlistView.setCurrentWatchlistName(watchlistName);
                 });
             }
+        }
+    }
+
+    class refreshListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ArrayList<Movie_Model> movies = new ArrayList<>();
+            try {
+                movies = recommendationsModel.getReccomendations(userModel.getUsername());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if(movies.size() == 0){
+                recommendationsView.displayError("Please enter in a review to get recommended movies.");
+            }
+            try {
+                recommendationsView.displayReccomendedMovies(movies);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
         }
     }
 
