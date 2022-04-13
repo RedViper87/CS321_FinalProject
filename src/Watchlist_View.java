@@ -29,6 +29,7 @@ public class Watchlist_View extends JPanel {
     private JTextField movie = new JTextField();
     private JButton watchlistButton;
     JPanel watchlistPanel = new JPanel();
+    JPanel cwlMoviesPanel = new JPanel();
 
     Watchlist_View() throws IOException {
         /* Get movie data from json and put in arrayList */
@@ -57,64 +58,21 @@ public class Watchlist_View extends JPanel {
         //Set movies panel layout
         BoxLayout moviesPanelLayout = new BoxLayout(moviesPanel, BoxLayout.Y_AXIS);
         moviesPanel.setLayout(moviesPanelLayout);
-        // add buttons
+        // add text field
         for(Movie_Model movies:arrayList) {
-            String Icon = movies.getPoster();
             String Title = movies.getTitle();
-            String Year = movies.getYear();
-            String Rated = movies.getRated();
-            String Released = movies.getReleased();
-            String Runtime = movies.getRuntime();
-            String Genre = movies.getGenre();
-            String Director = movies.getDirector();
-            String Writer = movies.getWriter();
-            String Actors = movies.getActors();
-            String Plot = movies.getPlot();
-            String Language = movies.getLanguage();
-            String Country = movies.getCountry();
-            String Awards = movies.getAwards();
-            String Metascore = movies.getMetascore();
-            String Imdbrating = movies.getImdbRating();
-            String Imdbvotes = movies.getImdbVotes();
-            String Imdbid = movies.getImdbID();
-            String Type = movies.getType();
-            String Dvd = movies.getDVD();
-            String Boxoffice = movies.getBoxOffice();
-            String Production = movies.getProduction();
-            String Website = movies.getWebsite();
-            String Response = movies.getResponse();
-            String s = null;
-            String v = null;
-            String Ratings;
-            ArrayList<String> rate = new ArrayList<>();
-            for (Rating r : movies.getRatings()) {
-                s = r.getSource();
-                v = r.getValue();
-                rate.add("{Source: " + s + ", Value: " + v + "} ");
-            }
-            StringBuffer sb = new StringBuffer();
-            for (String string : rate) {
-                sb.append(string);
-            }
-            Ratings = sb.toString();
 
-            if (Icon.equals("N/A")) {
-                movie = new JTextField(Title);
-            } else {
-                /*ImageIcon imageIcon = new ImageIcon(new URL(Icon));
-                Image image = imageIcon.getImage();
-                Image newImage = image.getScaledInstance(150, 225, Image.SCALE_SMOOTH);
-                imageIcon = new ImageIcon(newImage);*/
-                movie = new JTextField(Title);
-                movie.setDragEnabled(true);
-            }
+            movie = new JTextField(Title);
+            movie.setDragEnabled(true);
+            cwlMoviesPanel.add(new JTextField());
+
             moviesPanel.add(movie);
             movie.setAlignmentX(Component.CENTER_ALIGNMENT);
         }
         //add scroll bar
         JScrollPane movieScroller = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        movieScroller.setPreferredSize(new Dimension(210, 400));
-        movieScroller.getVerticalScrollBar().setUnitIncrement(16);
+        movieScroller.setPreferredSize(new Dimension(400, 400));
+        movieScroller.getVerticalScrollBar().setUnitIncrement(32);
 
         /* This panel is in the middle of the main panel */
         //MAIN
@@ -135,11 +93,11 @@ public class Watchlist_View extends JPanel {
         JLabel wdpCurrentName = new JLabel("Current Watchlist:");
         wdpCurrentWatchlist.add(wdpCurrentName);
         wdpCurrentWatchlist.add(currentWatchlistName);
-        JTextField cwlMoviesPanel = new JTextField();
-        GridLayout watchlistGridLayout = new GridLayout(0, 2);
+
+        GridLayout watchlistGridLayout = new GridLayout(0, 1);
         cwlMoviesPanel.setLayout(watchlistGridLayout);
-        //TO DO: add buttons of the movies in the currently selected watchlist
-        //grab movies that are in the watchlist, for each movie make a button and add to cwlMoviesPanel
+        //TO DO: add movies in the currently selected watchlist
+        //grab movies that are in the watchlist, for each movie add to cwlMoviesPanel
 
 
 
@@ -147,7 +105,7 @@ public class Watchlist_View extends JPanel {
         //add scroll bar to cwlMoviesPanel
         JScrollPane cwlMovieScroller = new JScrollPane(cwlMoviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         cwlMovieScroller.setPreferredSize(new Dimension(210, 210));
-        cwlMovieScroller.getVerticalScrollBar().setUnitIncrement(16);
+        cwlMovieScroller.getVerticalScrollBar().setUnitIncrement(32);
         //Add separate panels to Main
         watchlistDisplayPanel.setBorder(blackline1);    //Create a border to go around panel
         watchlistDisplayPanel.add(wdpName);
@@ -164,8 +122,8 @@ public class Watchlist_View extends JPanel {
         watchlistPanel.setLayout(watchlistPanelLayout);
         //add scroll bar
         JScrollPane watchlistScroller = new JScrollPane(watchlistPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        watchlistScroller.setPreferredSize(new Dimension(210, 400));
-        watchlistScroller.getVerticalScrollBar().setUnitIncrement(16);
+        watchlistScroller.setPreferredSize(new Dimension(400, 400));
+        watchlistScroller.getVerticalScrollBar().setUnitIncrement(32);
         //add a test button
         /*JButton testButton = new JButton("Test Button");
         watchlistPanel.add(testButton);*/
@@ -180,7 +138,7 @@ public class Watchlist_View extends JPanel {
 
         /* Deal with outer panel */
         JPanel outer = new JPanel();
-        outer.setPreferredSize(new Dimension(700, 450));
+        outer.setPreferredSize(new Dimension(1250, 450));
         BoxLayout outerLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
         outer.setLayout(outerLayout);
         //Create a border to go around outer panel

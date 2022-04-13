@@ -157,7 +157,7 @@ public class Movie_View extends JPanel {
         /* Add scroll bar */
         JScrollPane scroll = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setPreferredSize(new Dimension(210,400));
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        scroll.getVerticalScrollBar().setUnitIncrement(32);
 
         /* This panel is on the right side of the main panel */
         JPanel displayMovie = new JPanel();
@@ -197,12 +197,12 @@ public class Movie_View extends JPanel {
         displayMovie.add(details);
 
         JScrollPane scroll2 = new JScrollPane(displayMovie, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scroll2.setPreferredSize(new Dimension(600,400));
-        scroll2.getHorizontalScrollBar().setUnitIncrement(16);
+        scroll2.setPreferredSize(new Dimension(1000,400));
+        scroll2.getHorizontalScrollBar().setUnitIncrement(32);
 
         /* This main panel holds the movies panel and view panel */
         JPanel mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(850, 410));
+        mainPanel.setPreferredSize(new Dimension(1250, 410));
         mainPanel.add(scroll);
         mainPanel.add(scroll2);
 
