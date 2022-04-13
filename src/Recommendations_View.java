@@ -46,7 +46,7 @@ public class Recommendations_View extends JPanel{
         resultsPanel.setLayout(moviesPanelLayout);
         JScrollPane scroll = new JScrollPane(resultsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setPreferredSize(new Dimension(210,400));
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        scroll.getHorizontalScrollBar().setUnitIncrement(32);
         scroll.setBorder(blackline2);
 
         JPanel detailsPanel = new JPanel();
@@ -82,13 +82,13 @@ public class Recommendations_View extends JPanel{
         detailsPanel.add(response);
 
         JScrollPane scroll2 = new JScrollPane(detailsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scroll2.setPreferredSize(new Dimension(600,400));
-        scroll2.getHorizontalScrollBar().setUnitIncrement(16);
+        scroll2.setPreferredSize(new Dimension(1250,400));
+        scroll2.getVerticalScrollBar().setUnitIncrement(32);
         /* Main Outer Panel */
         JPanel outer = new JPanel();
         BoxLayout outerLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
         outer.setLayout(outerLayout);
-        outer.setPreferredSize(new Dimension(600, 600));
+        outer.setPreferredSize(new Dimension(1250, 600));
         outer.setBorder(blackline2);
         //add stuff to outer panel
         outer.add(recViewLabel);

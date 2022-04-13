@@ -89,12 +89,13 @@ public class Review_View extends JPanel {
         twoPanel.add(makeReview);
         twoPanel.add(review);
         JScrollPane scroll = new JScrollPane(twoPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scroll.setPreferredSize(new Dimension(600,200));
+        scroll.setPreferredSize(new Dimension(1250,300));
+        scroll.getHorizontalScrollBar().setUnitIncrement(32);
         /* Main Outer Panel */
         JPanel outer = new JPanel();
         BoxLayout revLayout2 = new BoxLayout(outer, BoxLayout.Y_AXIS);
         outer.setLayout(revLayout2);
-        outer.setPreferredSize(new Dimension(600, 200));
+        outer.setPreferredSize(new Dimension(1250, 300));
         outer.setBorder(blackline2);
         //add stuff to outer panel
         outer.add(reviewViewLabel);

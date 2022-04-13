@@ -218,6 +218,8 @@ public class Controller {
             }else{
                 searchView.displayError("No results from search.");
             }
+            searchView.revalidate();
+            searchView.repaint();
         }
     }
 
@@ -270,7 +272,8 @@ public class Controller {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
+            recommendationsView.revalidate();
+            recommendationsView.repaint();
         }
     }
 
