@@ -21,6 +21,7 @@ public class User_Model{
     private ArrayList<User_Reviews> listOfUserReviews;
 
     public User_Model() {
+        this.listOfWatchlists = new ArrayList<>();
     }
 
     public ArrayList<User_Reviews> getRatings() {

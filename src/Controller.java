@@ -248,6 +248,8 @@ public class Controller {
                     watchlistView.setCurrentWatchlistName(watchlistName);
                 });
             }
+            watchlistView.revalidate();
+            watchlistView.repaint();
         }
     }
 
