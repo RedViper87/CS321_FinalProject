@@ -49,24 +49,20 @@ public class Movie_Library extends JPanel{
         library.getContentPane().setBackground(new Color(70, 70, 70));    //change color of background
 
         logout.add(Logout);
-        topPanel.add(userView);
-        topPanel.add(searchView);
 
-
-        midPanel.add(movieView);
-        midPanel.add(watchlistView);
-
-        botPanel.add(recommendationsView);
-        botPanel.add(reviewView);
         all.add(logout);
-        all.add(topPanel);
-        all.add(midPanel);
-        all.add(botPanel);
+        all.add(userView);
+        all.add(searchView);
+        all.add(movieView);
+        all.add(watchlistView);
+        all.add(reviewView);
+        all.add(recommendationsView);
+
         BoxLayout layout = new BoxLayout(all, BoxLayout.Y_AXIS);
         all.setLayout(layout);
         JScrollPane scroll = new JScrollPane(all, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scroll.setPreferredSize(new Dimension(1920,1080));
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        scroll.setPreferredSize(new Dimension(960,540));
+        scroll.getVerticalScrollBar().setUnitIncrement(32);
         library.add(scroll);
         library.pack();
 

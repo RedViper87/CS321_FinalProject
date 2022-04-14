@@ -116,13 +116,13 @@ public class Search_View extends JPanel{
 
         JScrollPane scroll2 = new JScrollPane(detailsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll2.setPreferredSize(new Dimension(600,400));
-        scroll2.getHorizontalScrollBar().setUnitIncrement(16);
+        scroll2.getVerticalScrollBar().setUnitIncrement(32);
 
         BoxLayout moviesPanelLayout = new BoxLayout(resultsPanel, BoxLayout.Y_AXIS);
         resultsPanel.setLayout(moviesPanelLayout);
         JScrollPane scroll = new JScrollPane(resultsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setPreferredSize(new Dimension(210,400));
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        scroll.getVerticalScrollBar().setUnitIncrement(32);
         scroll.setBorder(blackline2);
 
 
@@ -134,7 +134,7 @@ public class Search_View extends JPanel{
 
 
         /* Main Outer Panel */
-        outer.setPreferredSize(new Dimension(700, 350));
+        outer.setPreferredSize(new Dimension(1250, 350));
         BoxLayout outerLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
         outer.setLayout(outerLayout);
         outer.setBorder(blackline2);
