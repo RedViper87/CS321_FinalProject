@@ -55,10 +55,25 @@ public class User_Model{
         review.setUserInputReview(comment);
         listOfUserReviews.add(review);
     }
-    public void addWatchlist(String name){
+    public boolean addWatchlist(String name){
         Watchlist_Model watchlist = new Watchlist_Model();
         watchlist.setName(name);
+        for(Watchlist_Model watchlists:listOfWatchlists){
+            if(watchlists.getName().equals(name)){
+                return false;
+            }
+        }
         listOfWatchlists.add(watchlist);
+        return true;
+    }
+    public boolean deleteWatchlist(String name){
+        for(Watchlist_Model watchlist:listOfWatchlists){
+            if(watchlist.getName().equals(name)){
+                listOfWatchlists.remove(watchlist);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean addNewUser() throws IOException {
