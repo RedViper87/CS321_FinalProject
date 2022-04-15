@@ -102,6 +102,10 @@
       {
         "Name": "new list",
         "ListOfMovies": []
+      },
+      {
+        "Name": "this list",
+        "ListOfMovies": []
       }
     ],
     "listOfUserReviews": [

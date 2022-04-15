@@ -200,6 +200,7 @@ public class Watchlist_View extends JPanel {
     }
 
     public void populateLeftMoviePanel(ArrayList<Movie_Model> movies){
+        //moviesPanel.removeAll();
         for(Movie_Model theMovie:movies) {
             String Title = theMovie.getTitle();
             String Year = theMovie.getYear();
