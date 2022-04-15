@@ -3,6 +3,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -39,7 +40,8 @@ public class Watchlist_Model{
         ListOfMovies.remove(movieModel);
     }
 
-    public void addUserWatchlist(String username) throws IOException {
+    public boolean addUserWatchlist(String username, String watchlist) throws IOException {
+        boolean add = true;
         //add watchlist
         Path path = Paths.get("UserData.json");
         Charset charset = StandardCharsets.UTF_8;
@@ -54,12 +56,60 @@ public class Watchlist_Model{
 
         for(User_Model user:arrayList){
             if(user.getUsername().equals(username)){
-                user.addWatchlist(Name);
+                add = user.addWatchlist(watchlist);
             }
         }
         String json = g.toJson(arrayList);
         FileWriter file = new FileWriter("UserData.json");
         file.write(json);
         file.flush();
+        return add;
+    }
+    public boolean deleteUserWatchlist(String username, String watchlist) throws IOException {
+        boolean delete = true;
+        //add watchlist
+        Path path = Paths.get("UserData.json");
+        Charset charset = StandardCharsets.UTF_8;
+        String content = new String(Files.readAllBytes(path), charset);
+        Gson gson = new Gson();
+        User_Model[] list;
+        list = gson.fromJson(content, User_Model[].class);
+        ArrayList<User_Model> arrayList = new ArrayList<>();
+        Collections.addAll(arrayList, list);
+
+        Gson g = new GsonBuilder().setPrettyPrinting().create();
+
+        for(User_Model user:arrayList){
+            if(user.getUsername().equals(username)){
+                delete = user.deleteWatchlist(watchlist);
+            }
+        }
+        String json = g.toJson(arrayList);
+        FileWriter file = new FileWriter("UserData.json");
+        file.write(json);
+        file.flush();
+        return delete;
+    }
+
+    public ArrayList<Watchlist_Model> returnWatchlists(String username) throws IOException {
+        ArrayList<Watchlist_Model> userWatchlists = new ArrayList<>();
+        // get userdata
+        Path path = Paths.get("UserData.json");
+        Charset charset = StandardCharsets.UTF_8;
+        String content = new String(Files.readAllBytes(path), charset);
+        Gson gson = new Gson();
+        User_Model[] list;
+        list = gson.fromJson(content, User_Model[].class);
+        ArrayList<User_Model> arrayList = new ArrayList<>();
+        Collections.addAll(arrayList, list);
+
+        Gson g = new GsonBuilder().setPrettyPrinting().create();
+
+        for(User_Model user:arrayList){
+            if(user.getUsername().equals(username)){
+                userWatchlists = user.getListOfWatchlists();
+            }
+        }
+        return userWatchlists;
     }
 }

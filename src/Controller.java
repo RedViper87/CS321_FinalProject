@@ -62,6 +62,7 @@ public class Controller {
         this.watchlistView = watchlistView;
         this.watchlistModel = watchlistModel;
         this.watchlistView.addWatchlistListener(new addWatchlistListener());
+        this.watchlistView.deleteWatchlistListener(new deleteWatchlistListener());
 
         this.recommendationsModel = recommendationsModel;
         this.recommendationsView = recommendationsView;
@@ -72,6 +73,7 @@ public class Controller {
         this.movieLibrary = movieLibrary;
         this.movieLibrary.logoutListener(new logoutListener());
         this.searchView.searchListener(new searchListener());
+
     }
 
     class checkListener implements ActionListener{
@@ -226,29 +228,66 @@ public class Controller {
     class addWatchlistListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
+            boolean add = true;
+            ArrayList <Watchlist_Model> watchlists = new ArrayList<>();
             String watchlistName = watchlistView.getWatchlistName();
             watchlistView.eraseWatchlistName();
             if(watchlistName.length() == 0) {
-                watchlistView.displayError("Please Enter a Watchlist Name");
+                watchlistView.displayError("Please enter a watchlist name.");
             }
             else{
                 //create a watchlist with that name, and add to user model
                 watchlistModel.setName(watchlistName);
                 try {
-                    watchlistModel.addUserWatchlist(userModel.getUsername());
+                   add = watchlistModel.addUserWatchlist(userModel.getUsername(), watchlistName);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                userModel.addWatchlist(watchlistName);
-                //add button to the list of watchlists
-                JButton watchlistButton = new JButton(watchlistName);
-                watchlistView.watchlistPanel.add(watchlistButton);
-                watchlistButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                if(add){
+                    try {
+                        watchlists = watchlistModel.returnWatchlists(userModel.getUsername());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    //add button to the list of watchlists
+                    watchlistView.updateWatchlists(watchlists);
+                }else{
+                    watchlistView.displayError(watchlistName+": already exists.");
 
-                watchlistButton.addActionListener(event ->
-                {
-                    watchlistView.setCurrentWatchlistName(watchlistName);
-                });
+                }
+
+            }
+            watchlistView.revalidate();
+            watchlistView.repaint();
+        }
+    }
+    class deleteWatchlistListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ArrayList <Watchlist_Model> watchlists = new ArrayList<>();
+            boolean delete = true;
+            String watchlistName = watchlistView.getWatchlistName();
+            watchlistView.eraseWatchlistName();
+            if(watchlistName.length() == 0) {
+                watchlistView.displayError("Please enter a watchlist name.");
+            }else{
+                try {
+                    delete = watchlistModel.deleteUserWatchlist(userModel.getUsername(),watchlistName);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                if(delete){
+                    watchlistView.displaySuccess(watchlistName+": has been deleted.");
+                    try {
+                        watchlists = watchlistModel.returnWatchlists(userModel.getUsername());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    // delete button from panel
+                    watchlistView.updateWatchlists(watchlists);
+                }else{
+                    watchlistView.displayError(watchlistName+": does not exist.");
+                }
             }
             watchlistView.revalidate();
             watchlistView.repaint();

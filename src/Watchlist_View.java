@@ -25,6 +25,7 @@ public class Watchlist_View extends JPanel {
     private JTextField watchlistNameField = new JTextField(10);
     private JButton addWatchlistButton = new JButton("Add Watchlist");
     private JButton deleteWatchlistButton = new JButton("Delete Watchlist");
+    private JButton saveWatchlistButton = new JButton("Save Watchlist");
     private JLabel currentWatchlistName = new JLabel("Current Watchlist Name");
     private JTextField movie = new JTextField();
     private JButton watchlistButton;
@@ -168,7 +169,13 @@ public class Watchlist_View extends JPanel {
         addWatchlistButton.addActionListener(listenerForAddWatchlist);
     }
 
+    /* alert controller that this button is pressed */
+    void deleteWatchlistListener(ActionListener listenerForDeleteWatchlist) {
+        deleteWatchlistButton.addActionListener(listenerForDeleteWatchlist);
+    }
+
     public void updateWatchlists(ArrayList<Watchlist_Model> watchlists){
+        watchlistPanel.removeAll();
         for(Watchlist_Model wl:watchlists){
             //do some stuff
             String Name = wl.getName();

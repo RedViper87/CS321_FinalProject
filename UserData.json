@@ -2,48 +2,7 @@
   {
     "username": "example",
     "password": "example",
-    "listOfWatchlists": [
-      {
-        "Name": "",
-        "ListOfMovies": [
-          {
-            "Title": "",
-            "Year": "",
-            "Rated": "",
-            "Released": "",
-            "Runtime": "",
-            "Genre": "",
-            "Director": "",
-            "Writer": "",
-            "Actors": "",
-            "Plot": "",
-            "Language": "",
-            "Country": "",
-            "Awards": "",
-            "Poster": "",
-            "Ratings": [
-              {
-                "Source": "",
-                "Value": ""
-              }
-            ],
-            "Metascore": "",
-            "imdbRating": "",
-            "imdbVotes": "",
-            "imdbID": "",
-            "Type": "",
-            "DVD": "",
-            "BoxOffice": "",
-            "Production": "",
-            "Website": "",
-            "Response": ""
-          }
-        ]
-      },
-      {
-        "Name": "My Favorites"
-      }
-    ],
+    "listOfWatchlists": [],
     "listOfUserReviews": [
       {
         "moviename": "Spiderman",
@@ -269,6 +228,16 @@
       {
         "moviename": "Dune",
         "numericalrating": "5",
+        "userinputreview": ""
+      },
+      {
+        "moviename": "Dune",
+        "numericalrating": "1",
+        "userinputreview": "meh"
+      },
+      {
+        "moviename": "Dune",
+        "numericalrating": "1",
         "userinputreview": ""
       }
     ]
