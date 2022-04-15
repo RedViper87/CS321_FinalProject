@@ -28,9 +28,11 @@ public class Watchlist_View extends JPanel {
     private JButton saveWatchlistButton = new JButton("Save Watchlist");
     private JLabel currentWatchlistName = new JLabel("Current Watchlist Name");
     private JTextField movie = new JTextField();
+    private JTextField movieInList;
     private JButton watchlistButton;
     JPanel watchlistPanel = new JPanel();
     JPanel cwlMoviesPanel = new JPanel();
+    JPanel moviesPanel = new JPanel();  //holds all the movies as buttons
 
     Watchlist_View() throws IOException {
         /* Get movie data from json and put in arrayList */
@@ -53,7 +55,7 @@ public class Watchlist_View extends JPanel {
         titlePanel.add(watchlistTitleLabel);
 
         /* This panel is on the left side of the main panel */
-        JPanel moviesPanel = new JPanel();  //holds all the movies as buttons
+
         //Create a border to go around movies panel
         moviesPanel.setBorder(blackline1);
         //Set movies panel layout
@@ -63,11 +65,12 @@ public class Watchlist_View extends JPanel {
         for(Movie_Model movies:arrayList) {
             String Title = movies.getTitle();
 
-            movie = new JTextField(Title);
-            movie.setDragEnabled(true);
-            cwlMoviesPanel.add(new JTextField());
-
-            moviesPanel.add(movie);
+            // movie = new JTextField(Title);
+            // movie.setDragEnabled(true);
+            movieInList = new JTextField();
+            movieInList.setDragEnabled(true);
+            cwlMoviesPanel.add(movieInList);
+            // moviesPanel.add(movie);
             movie.setAlignmentX(Component.CENTER_ALIGNMENT);
         }
         //add scroll bar
@@ -174,11 +177,12 @@ public class Watchlist_View extends JPanel {
         deleteWatchlistButton.addActionListener(listenerForDeleteWatchlist);
     }
 
-    public void updateWatchlists(ArrayList<Watchlist_Model> watchlists){
+    public void updateWatchlists(ArrayList<Watchlist_Model> watchlists, ArrayList<Movie_Model> Movies){
         watchlistPanel.removeAll();
         for(Watchlist_Model wl:watchlists){
             //do some stuff
             String Name = wl.getName();
+
             watchlistButton = new JButton(Name);
             //add button to watchlistPanel
             watchlistPanel.add(watchlistButton);
@@ -187,9 +191,27 @@ public class Watchlist_View extends JPanel {
             watchlistButton.addActionListener(event ->
             {
                 currentWatchlistName.setText(Name);
+                populateLeftMoviePanel(Movies);
                 // TO DO: Populate currentWatchlistPanel with buttons of movies in the watchlist 'wl'
+                // and left panel of movies
+
             });
         }
+    }
+
+    public void populateLeftMoviePanel(ArrayList<Movie_Model> movies){
+        for(Movie_Model theMovie:movies) {
+            String Title = theMovie.getTitle();
+            String Year = theMovie.getYear();
+            movie = new JTextField(Title+","+Year);
+            movie.setDragEnabled(true);
+            moviesPanel.add(movie);
+            movie.setAlignmentX(Component.CENTER_ALIGNMENT);
+        }
+    }
+
+    public JLabel getCurrentWatchlistName(){
+        return currentWatchlistName;
     }
 
     /* display success */

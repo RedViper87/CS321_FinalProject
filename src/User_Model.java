@@ -76,6 +76,8 @@ public class User_Model{
         return false;
     }
 
+
+
     public boolean addNewUser() throws IOException {
 
         /* Make sure there is not a duplicate */

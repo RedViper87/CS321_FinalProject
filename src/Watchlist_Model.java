@@ -17,12 +17,19 @@ public class Watchlist_Model{
     private String Name;
     private ArrayList<Movie_Model> ListOfMovies;
 
+    public Watchlist_Model() {
+        this.ListOfMovies = new ArrayList<>();
+    }
     /* FUNCTIONS */
     public void setName(String name) {
         Name = name;
     }
     public String getName() {
         return Name;
+    }
+
+    public ArrayList<Movie_Model> getListOfMovies() {
+        return ListOfMovies;
     }
 
     public void AddMovieToList(Movie_Model movieModel) {
@@ -112,4 +119,50 @@ public class Watchlist_Model{
         }
         return userWatchlists;
     }
+
+    public ArrayList<Movie_Model> returnMovies(String username, String watchlistName) throws IOException {
+        ArrayList<Movie_Model> MovieList = new ArrayList<>();
+        Path path = Paths.get("UserData.json");
+        Charset charset = StandardCharsets.UTF_8;
+        String content = new String(Files.readAllBytes(path), charset);
+        Gson gson = new Gson();
+        User_Model[] list;
+        list = gson.fromJson(content, User_Model[].class);
+        ArrayList<User_Model> arrayList = new ArrayList<>();
+        Collections.addAll(arrayList, list);
+
+        /* get movie data into arraylist*/
+        Path path2 = Paths.get("SampleMovieFile.json");
+        Charset charset2 = StandardCharsets.UTF_8;
+        String content2 = new String(Files.readAllBytes(path2), charset2);
+        Gson gson2 = new Gson();
+        Movie_Model[] list2;
+        list2 = gson2.fromJson(content2,Movie_Model[].class);
+        ArrayList<Movie_Model> arrayList2 = new ArrayList<>();
+        Collections.addAll(arrayList2,list2);
+
+        for(User_Model user:arrayList){
+            if(user.getUsername().equals(username)){
+                ArrayList<Watchlist_Model> watchlistList;
+                watchlistList = user.getListOfWatchlists();
+                for(Watchlist_Model watchlist: watchlistList){
+                    if(watchlist.getName().equals(watchlistName)){
+                        // get the list of movies from user
+                        MovieList = watchlist.getListOfMovies();
+                    }
+                }
+            }
+        }
+        // take out the movies that are already in the watchlist
+        for(int i = 0; i < MovieList.size(); i++){
+            for(Movie_Model movie:arrayList2){
+                if(MovieList.get(i).getTitle().equals(movie.getTitle()) && MovieList.get(i).getYear().equals(movie.getYear())){
+                    arrayList2.remove(movie);
+                }
+            }
+        }
+
+        return arrayList2;
+    }
+
 }

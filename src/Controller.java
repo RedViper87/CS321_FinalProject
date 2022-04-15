@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -112,10 +113,6 @@ public class Controller {
                         reviewView.erase(); // erase text
                         UserReviews = userModel.grabUserDataReview(username);
                         reviewView.updateReview(UserReviews);
-
-                        UserWatchlists = userModel.grabUserWatchlists(username);
-                        watchlistView.updateWatchlists(UserWatchlists);
-
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -197,17 +194,17 @@ public class Controller {
     }
 
     class searchListener implements ActionListener{
-		
+
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean cb1 = searchView.getcb1();
             boolean cb2 = searchView.getcb2();
             boolean cb3 = searchView.getcb3();
             boolean cb4 = searchView.getcb4();
-			ArrayList<Movie_Model> movies = new ArrayList<>();
+            ArrayList<Movie_Model> movies = new ArrayList<>();
             String search = searchView.getSearch();
             try {
-               movies = searchModel.SearchDatabase(cb1, cb2, cb3, cb4, search);
+                movies = searchModel.SearchDatabase(cb1, cb2, cb3, cb4, search);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -230,6 +227,7 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             boolean add = true;
             ArrayList <Watchlist_Model> watchlists = new ArrayList<>();
+            ArrayList <Movie_Model> movies = new ArrayList<>();
             String watchlistName = watchlistView.getWatchlistName();
             watchlistView.eraseWatchlistName();
             if(watchlistName.length() == 0) {
@@ -239,7 +237,7 @@ public class Controller {
                 //create a watchlist with that name, and add to user model
                 watchlistModel.setName(watchlistName);
                 try {
-                   add = watchlistModel.addUserWatchlist(userModel.getUsername(), watchlistName);
+                    add = watchlistModel.addUserWatchlist(userModel.getUsername(), watchlistName);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -249,8 +247,13 @@ public class Controller {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
+                    try {
+                        movies = watchlistModel.returnMovies(userModel.getUsername(), watchlistName);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                     //add button to the list of watchlists
-                    watchlistView.updateWatchlists(watchlists);
+                    watchlistView.updateWatchlists(watchlists, movies);
                 }else{
                     watchlistView.displayError(watchlistName+": already exists.");
 
@@ -265,6 +268,7 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             ArrayList <Watchlist_Model> watchlists = new ArrayList<>();
+            ArrayList <Movie_Model> movies = new ArrayList<>();
             boolean delete = true;
             String watchlistName = watchlistView.getWatchlistName();
             watchlistView.eraseWatchlistName();
@@ -283,8 +287,13 @@ public class Controller {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
+                    try {
+                        movies = watchlistModel.returnMovies(userModel.getUsername(), watchlistName);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                     // delete button from panel
-                    watchlistView.updateWatchlists(watchlists);
+                    watchlistView.updateWatchlists(watchlists, movies);
                 }else{
                     watchlistView.displayError(watchlistName+": does not exist.");
                 }
