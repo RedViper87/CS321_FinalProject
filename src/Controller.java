@@ -83,6 +83,8 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
             String UserReviews = "";
             ArrayList<Watchlist_Model> UserWatchlists;
+            ArrayList <Movie_Model> movies = new ArrayList<>();
+            String watchlistName = watchlistView.getWatchlistName();
             String username;
             String password;
             boolean check = false;
@@ -113,6 +115,10 @@ public class Controller {
                         reviewView.erase(); // erase text
                         UserReviews = userModel.grabUserDataReview(username);
                         reviewView.updateReview(UserReviews);
+
+                        UserWatchlists = userModel.grabUserWatchlists(username);
+                        movies = watchlistModel.returnMovies(userModel.getUsername(), watchlistName);
+                        watchlistView.updateWatchlists(UserWatchlists, movies);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
