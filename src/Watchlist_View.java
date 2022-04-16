@@ -3,12 +3,7 @@ import com.google.gson.Gson;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -18,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.*;
 
-public class Watchlist_View extends JPanel {
+public class Watchlist_View extends JPanel{
 
     JLabel watchlistTitleLabel = new JLabel("Watchlist View");
     private JLabel watchlistNameLabel = new JLabel("Watchlist Name to Add or Delete:");
@@ -26,9 +21,9 @@ public class Watchlist_View extends JPanel {
     private JButton addWatchlistButton = new JButton("Add Watchlist");
     private JButton deleteWatchlistButton = new JButton("Delete Watchlist");
     private JButton saveWatchlistButton = new JButton("Save Watchlist");
-    private JLabel currentWatchlistName = new JLabel("Current Watchlist Name");
+    private JLabel currentWatchlistName = new JLabel();
     private JTextField movie = new JTextField();
-    private JTextField movieInList;
+    private JTextArea movieInList;
     private JButton watchlistButton;
     JPanel watchlistPanel = new JPanel();
     JPanel cwlMoviesPanel = new JPanel();
@@ -62,17 +57,14 @@ public class Watchlist_View extends JPanel {
         BoxLayout moviesPanelLayout = new BoxLayout(moviesPanel, BoxLayout.Y_AXIS);
         moviesPanel.setLayout(moviesPanelLayout);
         // add text field
-        for(Movie_Model movies:arrayList) {
-            String Title = movies.getTitle();
 
-            // movie = new JTextField(Title);
-            // movie.setDragEnabled(true);
-            movieInList = new JTextField();
-            movieInList.setDragEnabled(true);
-            cwlMoviesPanel.add(movieInList);
-            // moviesPanel.add(movie);
-            movie.setAlignmentX(Component.CENTER_ALIGNMENT);
-        }
+        // watchlist of movies field
+        movieInList = new JTextArea();
+        movieInList.setDragEnabled(true);
+        cwlMoviesPanel.add(movieInList);
+        movieInList.setLineWrap(true);
+        movieInList.setWrapStyleWord(true);
+
         //add scroll bar
         JScrollPane movieScroller = new JScrollPane(moviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         movieScroller.setPreferredSize(new Dimension(400, 400));
@@ -93,17 +85,19 @@ public class Watchlist_View extends JPanel {
         wdpAddDeleteButtons.add(deleteWatchlistButton);
         //CURRENT WATCHLIST PANEL
         JPanel wdpCurrentWatchlist = new JPanel();
+        BoxLayout wdplLayout = new BoxLayout(wdpCurrentWatchlist, BoxLayout.Y_AXIS);
+        wdpCurrentWatchlist.setLayout(wdplLayout);
+
         //set layout here
         JLabel wdpCurrentName = new JLabel("Current Watchlist:");
         wdpCurrentWatchlist.add(wdpCurrentName);
         wdpCurrentWatchlist.add(currentWatchlistName);
+        wdpCurrentWatchlist.add(saveWatchlistButton);
 
         GridLayout watchlistGridLayout = new GridLayout(0, 1);
         cwlMoviesPanel.setLayout(watchlistGridLayout);
         //TO DO: add movies in the currently selected watchlist
         //grab movies that are in the watchlist, for each movie add to cwlMoviesPanel
-
-
 
 
         //add scroll bar to cwlMoviesPanel
@@ -176,8 +170,17 @@ public class Watchlist_View extends JPanel {
     void deleteWatchlistListener(ActionListener listenerForDeleteWatchlist) {
         deleteWatchlistButton.addActionListener(listenerForDeleteWatchlist);
     }
+    /* alert controller that this button is pressed */
+    void saveWatchlistListener(ActionListener listenerForSaveWatchlist) {
+        saveWatchlistButton.addActionListener(listenerForSaveWatchlist);
+    }
 
-    public void updateWatchlists(ArrayList<Watchlist_Model> watchlists, ArrayList<Movie_Model> Movies){
+    public String getWatchlistMovies(){
+        return movieInList.getText();
+    }
+
+
+    public void updateWatchlists(ArrayList<Watchlist_Model> watchlists, ArrayList<Movie_Model> Movies, String username, String watchlistname){
         watchlistPanel.removeAll();
         for(Watchlist_Model wl:watchlists){
             //do some stuff
@@ -191,7 +194,13 @@ public class Watchlist_View extends JPanel {
             watchlistButton.addActionListener(event ->
             {
                 currentWatchlistName.setText(Name);
+
                 populateLeftMoviePanel(Movies);
+                try {
+                    populateMiddlePanel(username, Name);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 // TO DO: Populate currentWatchlistPanel with buttons of movies in the watchlist 'wl'
                 // and left panel of movies
 
@@ -200,19 +209,57 @@ public class Watchlist_View extends JPanel {
     }
 
     public void populateLeftMoviePanel(ArrayList<Movie_Model> movies){
-        //moviesPanel.removeAll();
+        moviesPanel.removeAll();
         for(Movie_Model theMovie:movies) {
             String Title = theMovie.getTitle();
-            String Year = theMovie.getYear();
-            movie = new JTextField(Title+","+Year);
+            movie = new JTextField(Title+",");
             movie.setDragEnabled(true);
             moviesPanel.add(movie);
             movie.setAlignmentX(Component.CENTER_ALIGNMENT);
         }
     }
+    public void populateMiddlePanel(String username, String watchlistName) throws IOException {
+        movieInList.setText("");
+        Path path = Paths.get("UserData.json");
+        Charset charset = StandardCharsets.UTF_8;
+        String content = new String(Files.readAllBytes(path), charset);
+        Gson gson = new Gson();
+        User_Model[] list;
+        list = gson.fromJson(content, User_Model[].class);
+        ArrayList<User_Model> arrayList = new ArrayList<>();
+        Collections.addAll(arrayList, list);
 
-    public JLabel getCurrentWatchlistName(){
-        return currentWatchlistName;
+        ArrayList<Movie_Model> movies = new ArrayList<>();
+        for(User_Model user:arrayList){
+            if(user.getUsername().equals(username)){
+                ArrayList<Watchlist_Model> watchlistList;
+                watchlistList = user.getListOfWatchlists();
+                for(Watchlist_Model watchlist: watchlistList){
+                    if(watchlist.getName().equals(watchlistName)){
+                        movies = watchlist.getListOfMovies();
+                    }
+                }
+            }
+        }
+        if(!movies.isEmpty()){
+
+            for(Movie_Model movie:movies){
+                if(!movie.getTitle().equals("")){
+                    movieInList.append(movie.getTitle()+",");
+                }
+            }
+        }
+    }
+
+    public String getCurrentWatchlistName(){
+        return currentWatchlistName.getText();
+    }
+
+    public void setCurrentWatchlistName(){
+        currentWatchlistName.setText("");
+    }
+    public void setMiddlePanel(){
+        movieInList.setText("");
     }
 
     /* display success */
@@ -223,4 +270,5 @@ public class Watchlist_View extends JPanel {
     void displayError(String error) {
         JOptionPane.showMessageDialog(this, error);
     }
+
 }

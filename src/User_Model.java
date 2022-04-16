@@ -48,6 +48,12 @@ public class User_Model{
         password = p;
     }
 
+    public void addMovie(String movieName){
+        Movie_Model movie = new Movie_Model();
+        movie.setTitle(movieName);
+
+    }
+
     public void addUserReview(String name, String number, String comment) {
         User_Reviews review = new User_Reviews();
         review.setMovieName(name);

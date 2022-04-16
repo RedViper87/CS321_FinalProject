@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -64,6 +67,8 @@ public class Controller {
         this.watchlistModel = watchlistModel;
         this.watchlistView.addWatchlistListener(new addWatchlistListener());
         this.watchlistView.deleteWatchlistListener(new deleteWatchlistListener());
+        this.watchlistView.saveWatchlistListener(new saveWatchlistListener());
+
 
         this.recommendationsModel = recommendationsModel;
         this.recommendationsView = recommendationsView;
@@ -118,7 +123,7 @@ public class Controller {
 
                         UserWatchlists = userModel.grabUserWatchlists(username);
                         movies = watchlistModel.returnMovies(userModel.getUsername(), watchlistName);
-                        watchlistView.updateWatchlists(UserWatchlists, movies);
+                        watchlistView.updateWatchlists(UserWatchlists, movies, userModel.getUsername(), watchlistName);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -259,7 +264,7 @@ public class Controller {
                         ex.printStackTrace();
                     }
                     //add button to the list of watchlists
-                    watchlistView.updateWatchlists(watchlists, movies);
+                    watchlistView.updateWatchlists(watchlists, movies, userModel.getUsername(),watchlistName);
                 }else{
                     watchlistView.displayError(watchlistName+": already exists.");
 
@@ -299,7 +304,9 @@ public class Controller {
                         ex.printStackTrace();
                     }
                     // delete button from panel
-                    watchlistView.updateWatchlists(watchlists, movies);
+                    watchlistView.updateWatchlists(watchlists, movies, userModel.getUsername(), watchlistName);
+                    watchlistView.setMiddlePanel();
+                    watchlistView.setCurrentWatchlistName();
                 }else{
                     watchlistView.displayError(watchlistName+": does not exist.");
                 }
@@ -308,6 +315,26 @@ public class Controller {
             watchlistView.repaint();
         }
     }
+    class saveWatchlistListener implements ActionListener{
+
+        /**
+         * Invoked when an action occurs.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String movieText = watchlistView.getWatchlistMovies();
+            String[] movies = movieText.split(",");
+            try {
+                watchlistModel.AddMovieToList(movies, userModel.getUsername(), watchlistView.getCurrentWatchlistName());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
 
     class refreshListener implements ActionListener{
         @Override

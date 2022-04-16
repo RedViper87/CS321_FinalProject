@@ -32,16 +32,48 @@ public class Watchlist_Model{
         return ListOfMovies;
     }
 
-    public void AddMovieToList(Movie_Model movieModel) {
-        //if the movie isn't already in the list, add it
-        if (!ListOfMovies.contains(movieModel)) {
-            ListOfMovies.add(movieModel);
+    public void addMovie(String movieName){
+        Movie_Model movie = new Movie_Model();
+        movie.setTitle(movieName);
+        ListOfMovies.add(movie);
+    }
+    public void removeMovies(){
+        ListOfMovies.clear();
+    }
+
+    public void AddMovieToList(String [] listOfMovies, String username, String watchlistName) throws IOException {
+        Path path = Paths.get("UserData.json");
+        Charset charset = StandardCharsets.UTF_8;
+        String content = new String(Files.readAllBytes(path), charset);
+        Gson gson = new Gson();
+        User_Model[] list;
+        list = gson.fromJson(content, User_Model[].class);
+        ArrayList<User_Model> arrayList = new ArrayList<>();
+        Collections.addAll(arrayList, list);
+
+        Gson g = new GsonBuilder().setPrettyPrinting().create();
+
+        for(User_Model user:arrayList){
+            if(user.getUsername().equals(username)){
+                ArrayList<Watchlist_Model> watchlistList;
+                watchlistList = user.getListOfWatchlists();
+                for(Watchlist_Model watchlist: watchlistList){
+                    if(watchlist.getName().equals(watchlistName)){
+                        if(listOfMovies == null){
+                            watchlist.removeMovies();
+                        }
+                        watchlist.removeMovies();
+                        for(String movie: listOfMovies){
+                            watchlist.addMovie(movie);
+                        }
+                    }
+                }
+            }
         }
-        else {
-            //movie is already in list
-            Watchlist_View errorMessage = null;
-            errorMessage.displayError("That movie is already in this list.");
-        }
+        String json = g.toJson(arrayList);
+        FileWriter file = new FileWriter("UserData.json");
+        file.write(json);
+        file.flush();
     }
     public void RemoveMovieFromList(Movie_Model movieModel) {
         ListOfMovies.remove(movieModel);
