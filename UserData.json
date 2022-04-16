@@ -2,7 +2,12 @@
   {
     "username": "example",
     "password": "example",
-    "listOfWatchlists": [],
+    "listOfWatchlists": [
+      {
+        "Name": "x",
+        "ListOfMovies": []
+      }
+    ],
     "listOfUserReviews": [
       {
         "moviename": "Spiderman",
@@ -18,6 +23,11 @@
         "moviename": "Toy Story",
         "numericalrating": "5",
         "userinputreview": "good"
+      },
+      {
+        "moviename": "Star Wars: Episode I - The Phantom Menace,1999",
+        "numericalrating": "1",
+        "userinputreview": "eh"
       }
     ]
   },
