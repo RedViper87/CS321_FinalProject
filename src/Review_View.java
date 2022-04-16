@@ -45,9 +45,10 @@ public class Review_View extends JPanel {
 
         /* put the titles in the list */
         ArrayList<String> titles = new ArrayList<>();
-        for(Movie_Model Titles:arrayList){
-            String Title = Titles.getTitle();
-            titles.add(Title);
+        for(Movie_Model movies:arrayList){
+            String Title = movies.getTitle();
+            String Year = movies.getYear();
+            titles.add(Title+","+Year);
         }
         Object[] listOfTitles = titles.toArray();
 
