@@ -25,7 +25,6 @@ public class User_Reviews {
     public String getMovieName(){
         return moviename;
     }
-
 }
 
 

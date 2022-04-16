@@ -1,24 +1,7 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  *  This is the Controller class that handles the
@@ -26,33 +9,20 @@ import java.util.Collections;
  *  and the models.
  */
 public class Controller {
-    /* Movie Functions */
-    //Get movie data from the Movie_Model
-    //Send movie data to the Movie_View
 
-    /* Watchlist Functions */
-    //Get watchlist name from Watchlist_Model
-    //Add movie to watchlist, updates both Watchlist_Model & Watchlist_View
-    //Remove movie from watchlist, updates Watchlist_Model & Watchlist_View
-    //Get titles in watchlist from Watchlist_Model, send to Watchlist_View
+    private final Movie_Library movieLibrary;
+    private final Movie_View movieView;
+    private final Watchlist_View watchlistView;
+    private final Watchlist_Model watchlistModel;
+    private final Review_View reviewView;
+    private final Review_Model reviewModel;
+    private final Search_View searchView;
+    private final Search_Model searchModel;
+    private final Recommendations_Model recommendationsModel;
+    private final Recommendations_View recommendationsView;
+    private final User_View userView;
+    private final User_Model userModel;
 
-    /* User Profile Functions */
-    //Add new user profile, update both User_Model & User_View
-    private Movie_Library movieLibrary;
-    private Movie_View movieView;
-    private Movie_Model movieModel;
-    private Watchlist_View watchlistView;
-    private Watchlist_Model watchlistModel;
-    private Review_View reviewView;
-    private Review_Model reviewModel;
-    private Search_View searchView;
-    private Search_Model searchModel;
-    private Recommendations_Model recommendationsModel;
-    private Recommendations_View recommendationsView;
-    private User_View userView;
-    private User_Model userModel;
-
-    // other views and models will go in this controller
     public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel, Watchlist_View watchlistView, Watchlist_Model watchlistModel, Recommendations_View recommendationsView,Recommendations_Model recommendationsModel ,Search_View searchView, Search_Model searchModel,Movie_View movieView, Movie_Library movieLibrary){
         this.userView = userView;
         this.userModel = userModel;
@@ -69,26 +39,31 @@ public class Controller {
         this.watchlistView.deleteWatchlistListener(new deleteWatchlistListener());
         this.watchlistView.saveWatchlistListener(new saveWatchlistListener());
 
-
         this.recommendationsModel = recommendationsModel;
         this.recommendationsView = recommendationsView;
         this.recommendationsView.refreshListener(new refreshListener());
+
         this.searchView = searchView;
         this.searchModel = searchModel;
+        this.searchView.searchListener(new searchListener());
+
         this.movieView = movieView;
         this.movieLibrary = movieLibrary;
         this.movieLibrary.logoutListener(new logoutListener());
-        this.searchView.searchListener(new searchListener());
-
     }
 
+    /* User Profile Functions */
     class checkListener implements ActionListener{
-
+        /**
+         * Invoked when Check for User action occurs.
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
-            String UserReviews = "";
+            String UserReviews;
             ArrayList<Watchlist_Model> UserWatchlists;
-            ArrayList <Movie_Model> movies = new ArrayList<>();
+            ArrayList <Movie_Model> movies;
             String watchlistName = watchlistView.getWatchlistName();
             String username;
             String password;
@@ -123,7 +98,7 @@ public class Controller {
 
                         UserWatchlists = userModel.grabUserWatchlists(username);
                         movies = watchlistModel.returnMovies(userModel.getUsername(), watchlistName);
-                        watchlistView.updateWatchlists(UserWatchlists, movies, userModel.getUsername(), watchlistName);
+                        watchlistView.updateWatchlists(UserWatchlists, movies, userModel.getUsername());
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -134,7 +109,11 @@ public class Controller {
         }
     }
     class addUserListener implements ActionListener{
-
+        /**
+         * Invoked when Add User action occurs.
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             String username;
@@ -151,13 +130,11 @@ public class Controller {
                 userModel.setPassword(password);
                 try {
                     check = userModel.addNewUser();
-                } catch (FileNotFoundException ex) {
-                    ex.printStackTrace();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
                 if(check){
-                    userView.displaySuccess("Account successfully created! Please login.");
+                    userView.displaySuccess();
                 }else{
                     userView.displayError("User already exists.");
                 }
@@ -165,8 +142,13 @@ public class Controller {
         }
     }
 
+    /* Review Functions */
     class addReviewListener implements ActionListener{
-
+        /**
+         * Invoked when Add Review action occurs.
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             String userdata = "";
@@ -190,22 +172,14 @@ public class Controller {
             reviewView.updateReview(userdata); // update review in view
         }
     }
-    class logoutListener implements ActionListener{
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            reviewView.setVisible(false);
-            watchlistView.setVisible(false);
-            searchView.setVisible(false);
-            recommendationsView.setVisible(false);
-            movieView.setVisible(false);
-            movieLibrary.setLogoutFalse();
-            userView.setVisible(true);
-        }
-    }
-
+    /* Search Functions */
     class searchListener implements ActionListener{
-
+        /**
+         * Invoked when Search action occurs.
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean cb1 = searchView.getcb1();
@@ -226,14 +200,20 @@ public class Controller {
                     ex.printStackTrace();
                 }
             }else{
-                searchView.displayError("No results from search.");
+                searchView.displayError();
             }
             searchView.revalidate();
             searchView.repaint();
         }
     }
 
+    /* Watchlist Functions */
     class addWatchlistListener implements ActionListener{
+        /**
+         * Invoked when Add Watchlist action occurs.
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean add = true;
@@ -264,7 +244,7 @@ public class Controller {
                         ex.printStackTrace();
                     }
                     //add button to the list of watchlists
-                    watchlistView.updateWatchlists(watchlists, movies, userModel.getUsername(),watchlistName);
+                    watchlistView.updateWatchlists(watchlists, movies, userModel.getUsername());
                 }else{
                     watchlistView.displayError(watchlistName+": already exists.");
 
@@ -276,6 +256,11 @@ public class Controller {
         }
     }
     class deleteWatchlistListener implements ActionListener{
+        /**
+         * Invoked when Delete Watchlist action occurs.
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             ArrayList <Watchlist_Model> watchlists = new ArrayList<>();
@@ -304,7 +289,7 @@ public class Controller {
                         ex.printStackTrace();
                     }
                     // delete button from panel
-                    watchlistView.updateWatchlists(watchlists, movies, userModel.getUsername(), watchlistName);
+                    watchlistView.updateWatchlists(watchlists, movies, userModel.getUsername());
                     watchlistView.setMiddlePanel();
                     watchlistView.setCurrentWatchlistName();
                 }else{
@@ -316,9 +301,8 @@ public class Controller {
         }
     }
     class saveWatchlistListener implements ActionListener{
-
         /**
-         * Invoked when an action occurs.
+         * Invoked when Save Watchlist action occurs.
          *
          * @param e the event to be processed
          */
@@ -334,19 +318,23 @@ public class Controller {
         }
     }
 
-
-
+    /* Recommendations Functions */
     class refreshListener implements ActionListener{
+        /**
+         * Invoked when Get Recommendations action occurs.
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             ArrayList<Movie_Model> movies = new ArrayList<>();
             try {
-                movies = recommendationsModel.getReccomendations(userModel.getUsername());
+                movies = recommendationsModel.getRecommendations(userModel.getUsername());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             if(movies.size() == 0){
-                recommendationsView.displayError("Please enter in a review to get recommended movies.");
+                recommendationsView.displayError();
             }
             try {
                 recommendationsView.displayReccomendedMovies(movies);
@@ -358,21 +346,22 @@ public class Controller {
         }
     }
 
-    /* Review Functions */
-    //Add new review to a movie, update Review_Model & Review_View
-    //Edit your review, update Review_Model & Review_View
-    //Delete your review, update Review_Model & Review_View
-
-    /* Search Functions */
-    //Filter by Title, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Year, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Rated, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Genre, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Director, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Writer, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Actor, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Language, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Country, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Awards, ask Search_Model to search database, return list of matching movies to Search_View
-    //Filter by Ratings, ask Search_Model to search database, return list of matching movies to Search_View
+    /* Logout Functions */
+    class logoutListener implements ActionListener{
+        /**
+         * Invoked when Logout action occurs.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            reviewView.setVisible(false);
+            watchlistView.setVisible(false);
+            searchView.setVisible(false);
+            recommendationsView.setVisible(false);
+            movieView.setVisible(false);
+            movieLibrary.setLogoutFalse();
+            userView.setVisible(true);
+        }
+    }
 }

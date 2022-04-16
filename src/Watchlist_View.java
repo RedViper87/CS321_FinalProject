@@ -16,30 +16,20 @@ import javax.swing.*;
 public class Watchlist_View extends JPanel{
 
     JLabel watchlistTitleLabel = new JLabel("Watchlist View");
-    private JLabel watchlistNameLabel = new JLabel("Watchlist Name to Add or Delete:");
-    private JTextField watchlistNameField = new JTextField(10);
-    private JButton addWatchlistButton = new JButton("Add Watchlist");
-    private JButton deleteWatchlistButton = new JButton("Delete Watchlist");
-    private JButton saveWatchlistButton = new JButton("Save Watchlist");
-    private JLabel currentWatchlistName = new JLabel();
-    private JTextField movie = new JTextField();
-    private JTextArea movieInList;
-    private JButton watchlistButton;
+    JLabel watchlistNameLabel = new JLabel("Watchlist Name to Add or Delete:");
+    JTextField watchlistNameField = new JTextField(10);
+    JButton addWatchlistButton = new JButton("Add Watchlist");
+    JButton deleteWatchlistButton = new JButton("Delete Watchlist");
+    JButton saveWatchlistButton = new JButton("Save Watchlist");
+    JLabel currentWatchlistName = new JLabel();
+    JTextField movie = new JTextField();
+    JTextArea movieInList;
+    JButton watchlistButton;
     JPanel watchlistPanel = new JPanel();
     JPanel cwlMoviesPanel = new JPanel();
     JPanel moviesPanel = new JPanel();  //holds all the movies as buttons
 
-    Watchlist_View() throws IOException {
-        /* Get movie data from json and put in arrayList */
-        Path path = Paths.get("SampleMovieFile.json");
-        Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
-        Gson gson = new Gson();
-        Movie_Model[] list;
-        list = gson.fromJson(content, Movie_Model[].class);
-        ArrayList<Movie_Model> arrayList = new ArrayList<>();
-        Collections.addAll(arrayList, list);
-
+    Watchlist_View(){
         /* Create borderlines */
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
@@ -50,13 +40,11 @@ public class Watchlist_View extends JPanel{
         titlePanel.add(watchlistTitleLabel);
 
         /* This panel is on the left side of the main panel */
-
         //Create a border to go around movies panel
         moviesPanel.setBorder(blackline1);
         //Set movies panel layout
         BoxLayout moviesPanelLayout = new BoxLayout(moviesPanel, BoxLayout.Y_AXIS);
         moviesPanel.setLayout(moviesPanelLayout);
-        // add text field
 
         // watchlist of movies field
         movieInList = new JTextArea();
@@ -96,9 +84,6 @@ public class Watchlist_View extends JPanel{
 
         GridLayout watchlistGridLayout = new GridLayout(0, 1);
         cwlMoviesPanel.setLayout(watchlistGridLayout);
-        //TO DO: add movies in the currently selected watchlist
-        //grab movies that are in the watchlist, for each movie add to cwlMoviesPanel
-
 
         //add scroll bar to cwlMoviesPanel
         JScrollPane cwlMovieScroller = new JScrollPane(cwlMoviesPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -112,7 +97,6 @@ public class Watchlist_View extends JPanel{
         watchlistDisplayPanel.add(cwlMovieScroller);
 
         /* This panel is on the right side of the main panel */
-
         //Create a border to go around watchlist panel
         watchlistPanel.setBorder(blackline1);
         //Set watchlist panel layout
@@ -122,9 +106,6 @@ public class Watchlist_View extends JPanel{
         JScrollPane watchlistScroller = new JScrollPane(watchlistPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         watchlistScroller.setPreferredSize(new Dimension(400, 400));
         watchlistScroller.getVerticalScrollBar().setUnitIncrement(32);
-        //add a test button
-        /*JButton testButton = new JButton("Test Button");
-        watchlistPanel.add(testButton);*/
 
         /* This main panel holds the movies panel, watchlist display panel, and watchlists panel */
         JPanel mainPanel = new JPanel();
@@ -152,10 +133,6 @@ public class Watchlist_View extends JPanel{
         watchlistNameField.setText("");
     }
 
-    public void setCurrentWatchlistName(String currentName) {
-        currentWatchlistName.setText(currentName);
-    }
-
     /* Get the watchlist name that is entered in the box */
     public String getWatchlistName() {
         return watchlistNameField.getText();
@@ -179,11 +156,9 @@ public class Watchlist_View extends JPanel{
         return movieInList.getText();
     }
 
-
-    public void updateWatchlists(ArrayList<Watchlist_Model> watchlists, ArrayList<Movie_Model> Movies, String username, String watchlistname){
+    public void updateWatchlists(ArrayList<Watchlist_Model> watchlists, ArrayList<Movie_Model> Movies, String username){
         watchlistPanel.removeAll();
         for(Watchlist_Model wl:watchlists){
-            //do some stuff
             String Name = wl.getName();
 
             watchlistButton = new JButton(Name);
@@ -201,9 +176,6 @@ public class Watchlist_View extends JPanel{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                // TO DO: Populate currentWatchlistPanel with buttons of movies in the watchlist 'wl'
-                // and left panel of movies
-
             });
         }
     }
@@ -222,7 +194,7 @@ public class Watchlist_View extends JPanel{
         movieInList.setText("");
         Path path = Paths.get("UserData.json");
         Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
+        String content = Files.readString(path, charset);
         Gson gson = new Gson();
         User_Model[] list;
         list = gson.fromJson(content, User_Model[].class);

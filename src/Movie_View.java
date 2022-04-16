@@ -13,40 +13,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Movie_View extends JPanel {
-    private JLabel movieLibraryLabel = new JLabel("Browse Movies!");
-    private JLabel movieDetailsLabel = new JLabel("Movie Details:");
-    private JButton movie = new JButton();
-    private JLabel title = new JLabel("Title:");
-    private JLabel year = new JLabel("Year:");
-    private JLabel rated = new JLabel("Rated:");
-    private JLabel released = new JLabel("Released:");
-    private JLabel runtime = new JLabel("Runtime:");
-    private JLabel genre = new JLabel("Genre:");
-    private JLabel director = new JLabel("Director:");
-    private JLabel writer = new JLabel("Writer:");
-    private JLabel actors = new JLabel("Actors:");
-    private JLabel plot = new JLabel("Plot:");
-    private JLabel language = new JLabel("Language:");
-    private JLabel country = new JLabel("Country:");
-    private JLabel awards = new JLabel("Awards:");
-    private JLabel ratings = new JLabel("Ratings:");
-    private JLabel metascore = new JLabel("Metascore:");
-    private JLabel imdbrating = new JLabel("imdbRating:");
-    private JLabel imdbvotes = new JLabel("imdbVotes:");
-    private JLabel imdbid = new JLabel("imbdID:");
-    private JLabel type = new JLabel("Type:");
-    private JLabel dvd = new JLabel("DVD:");
-    private JLabel boxoffice = new JLabel("BoxOffice:");
-    private JLabel production = new JLabel("Production:");
-    private JLabel website = new JLabel("Website:");
-    private JLabel response = new JLabel("Response:");
 
+    JLabel movieLibraryLabel = new JLabel("Browse Movies!");
+    JLabel movieDetailsLabel = new JLabel("Movie Details:");
+    JButton movie;
+    JLabel title = new JLabel("Title:");
+    JLabel year = new JLabel("Year:");
+    JLabel rated = new JLabel("Rated:");
+    JLabel released = new JLabel("Released:");
+    JLabel runtime = new JLabel("Runtime:");
+    JLabel genre = new JLabel("Genre:");
+    JLabel director = new JLabel("Director:");
+    JLabel writer = new JLabel("Writer:");
+    JLabel actors = new JLabel("Actors:");
+    JLabel plot = new JLabel("Plot:");
+    JLabel language = new JLabel("Language:");
+    JLabel country = new JLabel("Country:");
+    JLabel awards = new JLabel("Awards:");
+    JLabel ratings = new JLabel("Ratings:");
+    JLabel metascore = new JLabel("Metascore:");
+    JLabel imdbrating = new JLabel("imdbRating:");
+    JLabel imdbvotes = new JLabel("imdbVotes:");
+    JLabel imdbid = new JLabel("imbdID:");
+    JLabel type = new JLabel("Type:");
+    JLabel dvd = new JLabel("DVD:");
+    JLabel boxoffice = new JLabel("BoxOffice:");
+    JLabel production = new JLabel("Production:");
+    JLabel website = new JLabel("Website:");
+    JLabel response = new JLabel("Response:");
 
     Movie_View() throws IOException {
+
         /* Get movie data from json */
         Path path = Paths.get("SampleMovieFile.json");
         Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
+        String content = Files.readString(path, charset);
         Gson gson = new Gson();
         Movie_Model[] list;
         list = gson.fromJson(content,Movie_Model[].class);
@@ -98,8 +99,8 @@ public class Movie_View extends JPanel {
             String Production = movies.getProduction();
             String Website = movies.getWebsite();
             String Response = movies.getResponse();
-            String s = null;
-            String v = null;
+            String s;
+            String v;
             String Ratings;
             ArrayList <String> rate = new ArrayList<>();
             for(Rating r: movies.getRatings()){
@@ -107,7 +108,7 @@ public class Movie_View extends JPanel {
                 v = r.getValue();
                 rate.add("{Source: "+s+", Value: "+v+"} ");
             }
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for(String string: rate){
                 sb.append(string);
             }
@@ -220,5 +221,4 @@ public class Movie_View extends JPanel {
         this.setVisible(false);
         this.add(outer);
     }
-
 }

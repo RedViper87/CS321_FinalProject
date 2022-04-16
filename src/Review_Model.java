@@ -1,6 +1,5 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,31 +21,20 @@ public class Review_Model extends Movie_Model{
     public void setNumericalRating(String numericalRating) {
         NumericalRating = numericalRating;
     }
-    public String getNumericalRating() {
-        return NumericalRating;
-    }
 
     public void setUserInputReview(String userInputReview) {
         UserInputReview = userInputReview;
-    }
-    public String getUserInputReview() {
-        return UserInputReview;
     }
 
     public void setMovieName(String movieName){
         MovieName = movieName;
     }
-    public String getMovieName(){
-        return MovieName;
-    }
 
     public void addUserReview(String username) throws IOException {
-        // when dropdown button for movie is clicked and button to enter review is clicked
-
-        // add review
+        // when dropdown button for movie is clicked and button to enter review is clicked, add review
         Path path2 = Paths.get("UserData.json");
         Charset charset2 = StandardCharsets.UTF_8;
-        String content2 = new String(Files.readAllBytes(path2), charset2);
+        String content2 = Files.readString(path2, charset2);
         Gson gson2 = new Gson();
         User_Model[] list2;
         list2 = gson2.fromJson(content2, User_Model[].class);
@@ -69,7 +57,7 @@ public class Review_Model extends Movie_Model{
         /* get user data into arraylist*/
         Path path2 = Paths.get("UserData.json");
         Charset charset2 = StandardCharsets.UTF_8;
-        String content2 = new String(Files.readAllBytes(path2), charset2);
+        String content2 = Files.readString(path2, charset2);
         Gson gson2 = new Gson();
         User_Model[] list2;
         list2 = gson2.fromJson(content2, User_Model[].class);
@@ -78,9 +66,9 @@ public class Review_Model extends Movie_Model{
 
         for(User_Model user: arrayList2){
             if(user.getUsername().equals(username)){
-                String movieName = null;
-                String number = null;
-                String comment = null;
+                String movieName;
+                String number;
+                String comment;
                 String Ratings;
                 ArrayList <String> rate = new ArrayList<>();
                 for(User_Reviews r: user.getRatings()){
@@ -91,7 +79,7 @@ public class Review_Model extends Movie_Model{
                         rate.add("{Movie Name: "+movieName+", Score: "+number+"/10, "+"Comment: "+comment+"}");
                     }
                 }
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 for(String string: rate){
                     sb.append(string);
                 }
@@ -99,7 +87,6 @@ public class Review_Model extends Movie_Model{
                 return Ratings;
             }
         }
-
         return "";
     }
 }

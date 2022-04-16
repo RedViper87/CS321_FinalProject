@@ -1,20 +1,19 @@
 //separate struct for Ratings, composed of 2 strings each
 public class Rating {
     //attributes
-    private String Source;
-    private String Value;
+    private final String Source;
+    private final String Value;
+
+    public Rating(String source, String value) {
+        Source = source;
+        Value = value;
+    }
 
     //functions
-    public void setSource(String source) {
-        Source = source;
-    }
     public String getSource() {
         return Source;
     }
 
-    public void setValue(String value) {
-        Value = value;
-    }
     public String getValue() {
         return Value;
     }

@@ -3,7 +3,6 @@ import com.google.gson.GsonBuilder;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,7 +14,7 @@ import java.util.Collections;
 public class Watchlist_Model{
     /* ATTRIBUTES */
     private String Name;
-    private ArrayList<Movie_Model> ListOfMovies;
+    private final ArrayList<Movie_Model> ListOfMovies;
 
     public Watchlist_Model() {
         this.ListOfMovies = new ArrayList<>();
@@ -44,7 +43,7 @@ public class Watchlist_Model{
     public void AddMovieToList(String [] listOfMovies, String username, String watchlistName) throws IOException {
         Path path = Paths.get("UserData.json");
         Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
+        String content = Files.readString(path, charset);
         Gson gson = new Gson();
         User_Model[] list;
         list = gson.fromJson(content, User_Model[].class);
@@ -63,6 +62,7 @@ public class Watchlist_Model{
                             watchlist.removeMovies();
                         }
                         watchlist.removeMovies();
+                        assert listOfMovies != null;
                         for(String movie: listOfMovies){
                             watchlist.addMovie(movie);
                         }
@@ -75,16 +75,13 @@ public class Watchlist_Model{
         file.write(json);
         file.flush();
     }
-    public void RemoveMovieFromList(Movie_Model movieModel) {
-        ListOfMovies.remove(movieModel);
-    }
 
     public boolean addUserWatchlist(String username, String watchlist) throws IOException {
         boolean add = true;
         //add watchlist
         Path path = Paths.get("UserData.json");
         Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
+        String content = Files.readString(path, charset);
         Gson gson = new Gson();
         User_Model[] list;
         list = gson.fromJson(content, User_Model[].class);
@@ -109,7 +106,7 @@ public class Watchlist_Model{
         //add watchlist
         Path path = Paths.get("UserData.json");
         Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
+        String content = Files.readString(path, charset);
         Gson gson = new Gson();
         User_Model[] list;
         list = gson.fromJson(content, User_Model[].class);
@@ -135,14 +132,12 @@ public class Watchlist_Model{
         // get userdata
         Path path = Paths.get("UserData.json");
         Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
+        String content = Files.readString(path, charset);
         Gson gson = new Gson();
         User_Model[] list;
         list = gson.fromJson(content, User_Model[].class);
         ArrayList<User_Model> arrayList = new ArrayList<>();
         Collections.addAll(arrayList, list);
-
-        Gson g = new GsonBuilder().setPrettyPrinting().create();
 
         for(User_Model user:arrayList){
             if(user.getUsername().equals(username)){
@@ -156,7 +151,7 @@ public class Watchlist_Model{
         ArrayList<Movie_Model> MovieList = new ArrayList<>();
         Path path = Paths.get("UserData.json");
         Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
+        String content = Files.readString(path, charset);
         Gson gson = new Gson();
         User_Model[] list;
         list = gson.fromJson(content, User_Model[].class);
@@ -166,7 +161,7 @@ public class Watchlist_Model{
         /* get movie data into arraylist*/
         Path path2 = Paths.get("SampleMovieFile.json");
         Charset charset2 = StandardCharsets.UTF_8;
-        String content2 = new String(Files.readAllBytes(path2), charset2);
+        String content2 = Files.readString(path2, charset2);
         Gson gson2 = new Gson();
         Movie_Model[] list2;
         list2 = gson2.fromJson(content2,Movie_Model[].class);
@@ -186,15 +181,9 @@ public class Watchlist_Model{
             }
         }
         // take out the movies that are already in the watchlist
-        for(int i = 0; i < MovieList.size(); i++){
-            for(Movie_Model movie:arrayList2){
-                if(MovieList.get(i).getTitle().equals(movie.getTitle()) && MovieList.get(i).getYear().equals(movie.getYear())){
-                    arrayList2.remove(movie);
-                }
-            }
+        for (Movie_Model movieModel : MovieList) {
+            arrayList2.removeIf(movie -> movieModel.getTitle().equals(movie.getTitle()) && movieModel.getYear().equals(movie.getYear()));
         }
-
         return arrayList2;
     }
-
 }

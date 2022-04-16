@@ -8,37 +8,36 @@ import java.util.ArrayList;
 
 public class Recommendations_View extends JPanel{
 
-    private JLabel recViewLabel = new JLabel("Recommendations View");
-    private JPanel resultsPanel = new JPanel();
-    private JButton movieButton;
-    private JButton refresh = new JButton("Refresh");
-    private JLabel title = new JLabel("Title:");
-    private JLabel year = new JLabel("Year:");
-    private JLabel rated = new JLabel("Rated:");
-    private JLabel released = new JLabel("Released:");
-    private JLabel runtime = new JLabel("Runtime:");
-    private JLabel genre = new JLabel("Genre:");
-    private JLabel director = new JLabel("Director:");
-    private JLabel writer = new JLabel("Writer:");
-    private JLabel actors = new JLabel("Actors:");
-    private JLabel plot = new JLabel("Plot:");
-    private JLabel language = new JLabel("Language:");
-    private JLabel country = new JLabel("Country:");
-    private JLabel awards = new JLabel("Awards:");
-    private JLabel ratings = new JLabel("Ratings:");
-    private JLabel metascore = new JLabel("Metascore:");
-    private JLabel imdbrating = new JLabel("imdbRating:");
-    private JLabel imdbvotes = new JLabel("imdbVotes:");
-    private JLabel imdbid = new JLabel("imbdID:");
-    private JLabel type = new JLabel("Type:");
-    private JLabel dvd = new JLabel("DVD:");
-    private JLabel boxoffice = new JLabel("BoxOffice:");
-    private JLabel production = new JLabel("Production:");
-    private JLabel website = new JLabel("Website:");
-    private JLabel response = new JLabel("Response:");
+    JLabel recViewLabel = new JLabel("Recommendations View");
+    JPanel resultsPanel = new JPanel();
+    JButton movieButton;
+    JButton refresh = new JButton("Refresh");
+    JLabel title = new JLabel("Title:");
+    JLabel year = new JLabel("Year:");
+    JLabel rated = new JLabel("Rated:");
+    JLabel released = new JLabel("Released:");
+    JLabel runtime = new JLabel("Runtime:");
+    JLabel genre = new JLabel("Genre:");
+    JLabel director = new JLabel("Director:");
+    JLabel writer = new JLabel("Writer:");
+    JLabel actors = new JLabel("Actors:");
+    JLabel plot = new JLabel("Plot:");
+    JLabel language = new JLabel("Language:");
+    JLabel country = new JLabel("Country:");
+    JLabel awards = new JLabel("Awards:");
+    JLabel ratings = new JLabel("Ratings:");
+    JLabel metascore = new JLabel("Metascore:");
+    JLabel imdbrating = new JLabel("imdbRating:");
+    JLabel imdbvotes = new JLabel("imdbVotes:");
+    JLabel imdbid = new JLabel("imbdID:");
+    JLabel type = new JLabel("Type:");
+    JLabel dvd = new JLabel("DVD:");
+    JLabel boxoffice = new JLabel("BoxOffice:");
+    JLabel production = new JLabel("Production:");
+    JLabel website = new JLabel("Website:");
+    JLabel response = new JLabel("Response:");
 
     Recommendations_View() {
-        Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
         recViewLabel.setFont(new Font(null, Font.BOLD, 20));
 
@@ -131,8 +130,8 @@ public class Recommendations_View extends JPanel{
             String Production = movie.getProduction();
             String Website = movie.getWebsite();
             String Response = movie.getResponse();
-            String s = null;
-            String v = null;
+            String s;
+            String v;
             String Ratings;
             ArrayList <String> rate = new ArrayList<>();
             for(Rating r: movie.getRatings()){
@@ -140,7 +139,7 @@ public class Recommendations_View extends JPanel{
                 v = r.getValue();
                 rate.add("{Source: "+s+", Value: "+v+"} ");
             }
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for(String string: rate){
                 sb.append(string);
             }
@@ -189,8 +188,8 @@ public class Recommendations_View extends JPanel{
 
     }
     /* display error */
-    void displayError(String error){
-        JOptionPane.showMessageDialog(this,error);
+    void displayError(){
+        JOptionPane.showMessageDialog(this, "Please enter in a review to get recommended movies.");
     }
 }
 
