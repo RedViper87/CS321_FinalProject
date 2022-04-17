@@ -11,7 +11,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ * Class used to represent the viewable panel for browsing movies
+ */
 public class Movie_View extends JPanel {
 
     JLabel movieLibraryLabel = new JLabel("Browse Movies!");
@@ -42,6 +44,10 @@ public class Movie_View extends JPanel {
     JLabel website = new JLabel("Website:");
     JLabel response = new JLabel("Response:");
 
+    /**
+     * Constructs the movie browsing panel
+     * @throws IOException used for try catch
+     */
     Movie_View() throws IOException {
 
         /* Get movie data from json */

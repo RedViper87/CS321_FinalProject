@@ -23,6 +23,21 @@ public class Controller {
     private final User_View userView;
     private final User_Model userModel;
 
+    /**
+     * Constructs a Controller object used to interface between various Views and Models.
+     * @param userView the view for the user login
+     * @param userModel the model for the user login
+     * @param reviewView the view for the review section
+     * @param reviewModel the model for a review
+     * @param watchlistView the view for the watchlist section
+     * @param watchlistModel the model for a watchlist
+     * @param recommendationsView the view for the recommendations section
+     * @param recommendationsModel the model for a recommendation
+     * @param searchView the view for the search section
+     * @param searchModel the model for a search
+     * @param movieView the view for the movie browsing section
+     * @param movieLibrary the main movie library frame
+     */
     public Controller(User_View userView, User_Model userModel, Review_View reviewView, Review_Model reviewModel, Watchlist_View watchlistView, Watchlist_Model watchlistModel, Recommendations_View recommendationsView,Recommendations_Model recommendationsModel ,Search_View searchView, Search_Model searchModel,Movie_View movieView, Movie_Library movieLibrary){
         this.userView = userView;
         this.userModel = userModel;
@@ -53,6 +68,9 @@ public class Controller {
     }
 
     /* User Profile Functions */
+    /**
+     * checkListener checks if a username and password matches entries in the database or if it already exists or not
+     */
     class checkListener implements ActionListener{
         /**
          * Invoked when Check for User action occurs.
@@ -108,6 +126,10 @@ public class Controller {
             }
         }
     }
+
+    /**
+     * addUserListener checks is a user exists when Add User button is pressed
+     */
     class addUserListener implements ActionListener{
         /**
          * Invoked when Add User action occurs.
@@ -143,6 +165,9 @@ public class Controller {
     }
 
     /* Review Functions */
+    /**
+     * addReviewListener updates the reviewModel and reviewView for Add Review action
+     */
     class addReviewListener implements ActionListener{
         /**
          * Invoked when Add Review action occurs.
@@ -174,6 +199,9 @@ public class Controller {
     }
 
     /* Search Functions */
+    /**
+     * searchListener updates searchView and searchModel for Search action
+     */
     class searchListener implements ActionListener{
         /**
          * Invoked when Search action occurs.
@@ -208,6 +236,9 @@ public class Controller {
     }
 
     /* Watchlist Functions */
+    /**
+     * addWatchlistListener updates the watchlistView and watchlistModel for an Add Watchlist action
+     */
     class addWatchlistListener implements ActionListener{
         /**
          * Invoked when Add Watchlist action occurs.
@@ -255,6 +286,9 @@ public class Controller {
             watchlistView.repaint();
         }
     }
+    /**
+     * deleteWatchlistListener updates the watchlistView and watchlistModel for a Delete Watchlist action
+     */
     class deleteWatchlistListener implements ActionListener{
         /**
          * Invoked when Delete Watchlist action occurs.
@@ -300,6 +334,9 @@ public class Controller {
             watchlistView.repaint();
         }
     }
+    /**
+     * saveWatchlistListener updates the watchlistView and watchlistModel for Save Watchlist action
+     */
     class saveWatchlistListener implements ActionListener{
         /**
          * Invoked when Save Watchlist action occurs.
@@ -319,6 +356,9 @@ public class Controller {
     }
 
     /* Recommendations Functions */
+    /**
+     * refreshListener updates recommendationsView and recommendationsModel for Get Recommendations action
+     */
     class refreshListener implements ActionListener{
         /**
          * Invoked when Get Recommendations action occurs.
@@ -347,6 +387,9 @@ public class Controller {
     }
 
     /* Logout Functions */
+    /**
+     * logoutListener waits for Logout action and sets view panel visibilities to false, and user login panel to true
+     */
     class logoutListener implements ActionListener{
         /**
          * Invoked when Logout action occurs.
