@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.*;
 
+/**
+ * Class used to represent the viewable panel for Watchlists
+ */
 public class Watchlist_View extends JPanel{
 
     JLabel watchlistTitleLabel = new JLabel("Watchlist View");
@@ -29,6 +32,9 @@ public class Watchlist_View extends JPanel{
     JPanel cwlMoviesPanel = new JPanel();
     JPanel moviesPanel = new JPanel();  //holds all the movies as buttons
 
+    /**
+     * Constructs the Watchlist view panel
+     */
     Watchlist_View(){
         /* Create borderlines */
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
@@ -129,33 +135,59 @@ public class Watchlist_View extends JPanel{
         this.add(outer);
     }
 
+    /**
+     * Erases the entered text in watchlist name field
+     */
     public void eraseWatchlistName() {
         watchlistNameField.setText("");
     }
 
-    /* Get the watchlist name that is entered in the box */
+    /**
+     * Returns the name from the watchlist name field
+     * @return watchlistNameField
+     */
     public String getWatchlistName() {
         return watchlistNameField.getText();
     }
 
-    /* alert controller that this button is pressed */
+    /**
+     * Alerts Controller that the Add Watchlist button has been pressed
+     * @param listenerForAddWatchlist the Add Watchlist listener
+     */
     void addWatchlistListener(ActionListener listenerForAddWatchlist) {
         addWatchlistButton.addActionListener(listenerForAddWatchlist);
     }
 
-    /* alert controller that this button is pressed */
+    /**
+     * Alerts the controller that the Delete Watchlist button has been pressed
+     * @param listenerForDeleteWatchlist the Delete Watchlist listener
+     */
     void deleteWatchlistListener(ActionListener listenerForDeleteWatchlist) {
         deleteWatchlistButton.addActionListener(listenerForDeleteWatchlist);
     }
-    /* alert controller that this button is pressed */
+
+    /**
+     * Alerts the controller that the Save Watchlist button has been pressed
+     * @param listenerForSaveWatchlist Save Watchlist listener
+     */
     void saveWatchlistListener(ActionListener listenerForSaveWatchlist) {
         saveWatchlistButton.addActionListener(listenerForSaveWatchlist);
     }
 
+    /**
+     * Returns a list of movies in a watchlist
+     * @return movieInList
+     */
     public String getWatchlistMovies(){
         return movieInList.getText();
     }
 
+    /**
+     * Updates the watchlist panel
+     * @param watchlists array of watchlist models to update
+     * @param Movies array of movie models to update to watchlist
+     * @param username String passed in of username
+     */
     public void updateWatchlists(ArrayList<Watchlist_Model> watchlists, ArrayList<Movie_Model> Movies, String username){
         watchlistPanel.removeAll();
         for(Watchlist_Model wl:watchlists){
@@ -180,6 +212,10 @@ public class Watchlist_View extends JPanel{
         }
     }
 
+    /**
+     * Populates the left movie panel with full list of movie names
+     * @param movies array of movie models passed in
+     */
     public void populateLeftMoviePanel(ArrayList<Movie_Model> movies){
         moviesPanel.removeAll();
         for(Movie_Model theMovie:movies) {
@@ -190,6 +226,13 @@ public class Watchlist_View extends JPanel{
             movie.setAlignmentX(Component.CENTER_ALIGNMENT);
         }
     }
+
+    /**
+     * Populates the middle movie panel with watchlist info
+     * @param username String passed in of username
+     * @param watchlistName String passed in of watchlist name
+     * @throws IOException used for try catch
+     */
     public void populateMiddlePanel(String username, String watchlistName) throws IOException {
         movieInList.setText("");
         Path path = Paths.get("UserData.json");
@@ -223,24 +266,41 @@ public class Watchlist_View extends JPanel{
         }
     }
 
+    /**
+     * Returns the current watchlist's name
+     * @return currentWatchlistName
+     */
     public String getCurrentWatchlistName(){
         return currentWatchlistName.getText();
     }
 
+    /**
+     * Sets the current watchlist's name
+     */
     public void setCurrentWatchlistName(){
         currentWatchlistName.setText("");
     }
+
+    /**
+     * Sets the text in the middle panel to blank
+     */
     public void setMiddlePanel(){
         movieInList.setText("");
     }
 
-    /* display success */
+    /**
+     * Used to display success message panel
+     * @param success String for message to display
+     */
     void displaySuccess(String success) {
         JOptionPane.showMessageDialog(this, success);
     }
-    /* display error */
+
+    /**
+     * Used to display error message panel
+     * @param error String for message to display
+     */
     void displayError(String error) {
         JOptionPane.showMessageDialog(this, error);
     }
-
 }

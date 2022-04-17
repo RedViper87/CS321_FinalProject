@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Class used to represent the viewable panel for the Search area
+ */
 public class Search_View extends JPanel{
 
     JLabel searchViewLabel = new JLabel("Search View");
@@ -43,6 +46,9 @@ public class Search_View extends JPanel{
     JLabel response = new JLabel("Response:");
     JPanel resultsPanel = new JPanel();
 
+    /**
+     * Constructs the viewable panel for the search area
+     */
     Search_View(){
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
 
@@ -151,25 +157,51 @@ public class Search_View extends JPanel{
         this.add(format);
     }
 
-    /* alert controller that this button is pressed */
+    /**
+     * Alerts the controller that the Search button has been pressed
+     * @param listenerForSearch passed in ActionListener
+     */
     void searchListener(ActionListener listenerForSearch){
         searchButton.addActionListener(listenerForSearch);
     }
 
-    /* get the status of the check boxes */
+    /**
+     * Gets the status of the checkbox 1, Title
+     * @return cb1 if selected or not
+     */
     public boolean getcb1(){
         return cb1.isSelected();
     }
+
+    /**
+     * Gets the status of the checkbox 2, Actor
+     * @return cb2 if selected or not
+     */
     public boolean getcb2(){
         return cb2.isSelected();
     }
+
+    /**
+     * Gets the status of the checkbox 3, Genre
+     * @return cb3 if selected or not
+     */
     public boolean getcb3(){
         return cb3.isSelected();
     }
+
+    /**
+     * Gets the status of the checkbox 4, Year
+     * @return cb4 if selected or not
+     */
     public boolean getcb4(){
         return cb4.isSelected();
     }
 
+    /**
+     * Displays the movies searched for
+     * @param movies array of movie models
+     * @throws IOException used for try catch
+     */
     public void displaySearchMovies(ArrayList<Movie_Model> movies) throws IOException {
         resultsPanel.removeAll();
         for(Movie_Model movie: movies){
@@ -253,11 +285,18 @@ public class Search_View extends JPanel{
             });
         }
     }
+
+    /**
+     * Returns the text in the Search field
+     * @return searchField text
+     */
     public String getSearch(){
         return searchField.getText();
     }
 
-    /* display error */
+    /**
+     * Used to display error message panel
+     */
     void displayError(){
         JOptionPane.showMessageDialog(this, "No results from search.");
     }
