@@ -47,8 +47,7 @@ public class Review_View extends JPanel {
         ArrayList<String> titles = new ArrayList<>();
         for(Movie_Model movies:arrayList){
             String Title = movies.getTitle();
-            String Year = movies.getYear();
-            titles.add(Title+","+Year);
+            titles.add(Title);
         }
         Object[] listOfTitles = titles.toArray();
 
