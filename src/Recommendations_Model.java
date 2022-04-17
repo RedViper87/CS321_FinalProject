@@ -1,5 +1,4 @@
 import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -9,10 +8,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Class for making User Recommendations
+ */
 public class Recommendations_Model {
-
+    /**
+     *
+     * @param username the username of the current user
+     * @return returnMovies the movies from that are similar in genre that are from a User Reviews
+     * @throws IOException
+     */
     public ArrayList<Movie_Model> getRecommendations(String username) throws IOException {
-
         ArrayList<Movie_Model> Movies = new ArrayList<>();
         ArrayList<Movie_Model> returnMovies = new ArrayList<>();
         ArrayList<String> movieNames = new ArrayList<>();

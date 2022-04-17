@@ -3,27 +3,47 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ *  This is the main driver class for CS321 Final Project ~ My Movie Library
+ */
 public class Movie_Library extends JPanel{
 
     private static final JButton Logout = new JButton("Logout");
 
+    /**
+     * Constructs a Movie_Library object
+     * The logout button visability is set to false
+     */
     Movie_Library(){
         Logout.setVisible(false);
     }
 
+    /**
+     * Adds an actionlistener to the logout button to be used in the Controller
+     * @param listenerForLogout the actionlistener for the logout button
+     */
     void logoutListener(ActionListener listenerForLogout){
         Logout.addActionListener(listenerForLogout);
     }
 
+    /**
+     * Sets the visibility of the Logout button to false
+     */
     void setLogoutFalse(){
         Logout.setVisible(false);
     }
 
+    /**
+     * Sets the visability of the logout button to true
+     */
     void setLogoutTrue(){
         Logout.setVisible(true);
     }
+
     /**
-     *  This is the main driver for CS321 Final Project ~ My Movie Library
+     * Main Driver for the project that contructs all of the objects that will be used in Controller
+     * @param args
+     * @throws IOException
      */
     public static void main(String[] args) throws IOException {
         Movie_Library movieLibrary = new Movie_Library();
@@ -45,7 +65,6 @@ public class Movie_Library extends JPanel{
         JPanel all = new JPanel();
         library.setTitle("CPE 321 Final Project - My Movie Library");
         library.setLayout(new BorderLayout());
-        library.getContentPane().setBackground(new Color(70, 70, 70));    //change color of background
 
         logout.add(Logout);
 

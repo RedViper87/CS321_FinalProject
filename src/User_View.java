@@ -3,6 +3,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+/**
+ * A class that creates a JPanel view of the user login page
+ */
 public class User_View extends JPanel{
 
     JLabel usernameLabel = new JLabel("Username:");
@@ -13,6 +16,9 @@ public class User_View extends JPanel{
     JButton newUser = new JButton("Create New User");
     JLabel welcomeLabel = new JLabel("Welcome to My Movie Library!");
 
+    /**
+     * Constructs an User_View oject that will show the login page
+     */
     User_View(){
         Border blackline = BorderFactory.createLineBorder(Color.black, 2);
         JPanel welcomePanel = new JPanel();
@@ -38,39 +44,64 @@ public class User_View extends JPanel{
         this.setVisible(true);
     }
 
+    /**
+     * Erases the usernameField textbox
+     */
     public void eraseUsername(){
         usernameField.setText("");
     }
 
+    /**
+     * Erases the passwordField textbox
+     */
     public void erasePassword(){
         passwordField.setText("");
     }
 
-    /* get the username from what is entered in the box*/
+    /**
+     * returns the usernameField of the username a user has typed in
+     * @return usernameField the username of the user that is trying to login
+     */
     public String getUsername(){
         return usernameField.getText();
     }
 
-    /* get the password from what is entered in the box*/
+    /**
+     * returns the password Field of the username a user has typed in
+     * @return passwordField the password of the user that is trying to login
+     */
     public String getPassword(){
         return passwordField.getText();
     }
 
-    /* alert controller that this button is pressed */
+    /**
+     * Adds an actionlistener to the checkuser button to be used in the controller
+     * @param listenerForCheckUser the actionlistener for the checkuser button
+     */
     void checkUserListener(ActionListener listenerForCheckUser){
         checkUser.addActionListener(listenerForCheckUser);
     }
 
-    /* alert controller that this button is pressed */
+    /**
+     * Adds an actionlistener to the newUser button to be used in the controller
+     * @param listenerForNewUser the actionlistener for the newUser button
+     */
     void newUserListener(ActionListener listenerForNewUser){
         newUser.addActionListener(listenerForNewUser);
     }
 
-    /* display success */
+    /**
+     * displays a success message if the account was created
+     */
     void displaySuccess(){
         JOptionPane.showMessageDialog(this, "Account successfully created! Please login.");
     }
-    /* display error */
+
+    /**
+     * displays an error message if the account could not be created
+     * @param error the error that a user was unable to create an account
+     */
+
     void displayError(String error){
         JOptionPane.showMessageDialog(this,error);
     }

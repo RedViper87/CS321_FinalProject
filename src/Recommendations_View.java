@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * A class that creates a JPanel view of Recommendations
+ */
 public class Recommendations_View extends JPanel{
 
     JLabel recViewLabel = new JLabel("Recommendations View");
@@ -37,6 +40,9 @@ public class Recommendations_View extends JPanel{
     JLabel website = new JLabel("Website:");
     JLabel response = new JLabel("Response:");
 
+    /**
+     * Constructs a Recommendation object that is the View for recommended movies
+     */
     Recommendations_View() {
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
         recViewLabel.setFont(new Font(null, Font.BOLD, 20));
@@ -98,11 +104,19 @@ public class Recommendations_View extends JPanel{
         this.add(outer);
     }
 
-    /* alert controller that this button is pressed */
+    /**
+     * Adds an actionlistener to the refresh button to be used in the controller
+     * @param listenerForRefresh the actionlistener for the refresh button
+     */
     void refreshListener(ActionListener listenerForRefresh){
         refresh.addActionListener(listenerForRefresh);
     }
 
+    /**
+     * Displays the movies that are recommended to a user
+     * @param movies the arraylist of movies that are recommended to a user
+     * @throws IOException
+     */
     public void displayReccomendedMovies(ArrayList<Movie_Model> movies) throws IOException {
         resultsPanel.removeAll();
         for(Movie_Model movie: movies){
@@ -187,7 +201,10 @@ public class Recommendations_View extends JPanel{
         }
 
     }
-    /* display error */
+
+    /**
+     * Displays an error if the user hasn't made any reviews yet
+     */
     void displayError(){
         JOptionPane.showMessageDialog(this, "Please enter in a review to get recommended movies.");
     }
