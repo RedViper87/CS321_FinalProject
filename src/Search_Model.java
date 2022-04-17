@@ -8,9 +8,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ * Class that models a search panel
+ */
 public class Search_Model{
-
+    /**
+     * Constructs layout for the search model
+     * @param cb1 checkbox 1 for Title search
+     * @param cb2 checkbox 2 for Actor search
+     * @param cb3 checkbox 3 for Genre search
+     * @param cb4 checkbox 4 for Year search
+     * @param searchParameter String used to compare and find movies based on which checkbox is checked
+     * @return returnMovies, list of movies that match the criteria searched for
+     * @throws IOException used for try catch
+     */
     public ArrayList<Movie_Model> SearchDatabase(boolean cb1, boolean cb2, boolean cb3, boolean cb4, String searchParameter) throws IOException {
 
         ArrayList<Movie_Model> returnMovies = new ArrayList<>();
