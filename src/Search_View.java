@@ -8,43 +8,42 @@ import java.util.ArrayList;
 
 public class Search_View extends JPanel{
 
-    private JLabel searchViewLabel = new JLabel("Search View");
-    private JLabel searchLabel = new JLabel("Search: ");
-    private JTextField searchField = new JTextField(25);
-    private JButton movieButton;
-    private JCheckBox cb1 = new JCheckBox("Title");
-    private JCheckBox cb2 = new JCheckBox("Actor");
-    private JCheckBox cb3 = new JCheckBox("Genre");
-    private JCheckBox cb4 = new JCheckBox("Year");
-    private JButton searchButton = new JButton("Search");
-    private JLabel title = new JLabel("Title:");
-    private JLabel year = new JLabel("Year:");
-    private JLabel rated = new JLabel("Rated:");
-    private JLabel released = new JLabel("Released:");
-    private JLabel runtime = new JLabel("Runtime:");
-    private JLabel genre = new JLabel("Genre:");
-    private JLabel director = new JLabel("Director:");
-    private JLabel writer = new JLabel("Writer:");
-    private JLabel actors = new JLabel("Actors:");
-    private JLabel plot = new JLabel("Plot:");
-    private JLabel language = new JLabel("Language:");
-    private JLabel country = new JLabel("Country:");
-    private JLabel awards = new JLabel("Awards:");
-    private JLabel ratings = new JLabel("Ratings:");
-    private JLabel metascore = new JLabel("Metascore:");
-    private JLabel imdbrating = new JLabel("imdbRating:");
-    private JLabel imdbvotes = new JLabel("imdbVotes:");
-    private JLabel imdbid = new JLabel("imbdID:");
-    private JLabel type = new JLabel("Type:");
-    private JLabel dvd = new JLabel("DVD:");
-    private JLabel boxoffice = new JLabel("BoxOffice:");
-    private JLabel production = new JLabel("Production:");
-    private JLabel website = new JLabel("Website:");
-    private JLabel response = new JLabel("Response:");
-    private JPanel resultsPanel = new JPanel();
+    JLabel searchViewLabel = new JLabel("Search View");
+    JLabel searchLabel = new JLabel("Search: ");
+    JTextField searchField = new JTextField(25);
+    JButton movieButton;
+    JCheckBox cb1 = new JCheckBox("Title");
+    JCheckBox cb2 = new JCheckBox("Actor");
+    JCheckBox cb3 = new JCheckBox("Genre");
+    JCheckBox cb4 = new JCheckBox("Year");
+    JButton searchButton = new JButton("Search");
+    JLabel title = new JLabel("Title:");
+    JLabel year = new JLabel("Year:");
+    JLabel rated = new JLabel("Rated:");
+    JLabel released = new JLabel("Released:");
+    JLabel runtime = new JLabel("Runtime:");
+    JLabel genre = new JLabel("Genre:");
+    JLabel director = new JLabel("Director:");
+    JLabel writer = new JLabel("Writer:");
+    JLabel actors = new JLabel("Actors:");
+    JLabel plot = new JLabel("Plot:");
+    JLabel language = new JLabel("Language:");
+    JLabel country = new JLabel("Country:");
+    JLabel awards = new JLabel("Awards:");
+    JLabel ratings = new JLabel("Ratings:");
+    JLabel metascore = new JLabel("Metascore:");
+    JLabel imdbrating = new JLabel("imdbRating:");
+    JLabel imdbvotes = new JLabel("imdbVotes:");
+    JLabel imdbid = new JLabel("imbdID:");
+    JLabel type = new JLabel("Type:");
+    JLabel dvd = new JLabel("DVD:");
+    JLabel boxoffice = new JLabel("BoxOffice:");
+    JLabel production = new JLabel("Production:");
+    JLabel website = new JLabel("Website:");
+    JLabel response = new JLabel("Response:");
+    JPanel resultsPanel = new JPanel();
 
     Search_View(){
-        Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
 
         // Create panels
@@ -125,13 +124,11 @@ public class Search_View extends JPanel{
         scroll.getVerticalScrollBar().setUnitIncrement(32);
         scroll.setBorder(blackline2);
 
-
         // configure main panel
         BoxLayout mainPanelLayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
         mainPanel.setLayout(mainPanelLayout);
         mainPanel.add(searchPanel);
         mainPanel.add(scroll2);
-
 
         /* Main Outer Panel */
         outer.setPreferredSize(new Dimension(1250, 350));
@@ -149,7 +146,6 @@ public class Search_View extends JPanel{
 
         format.add(outer);
         format.add(scroll);
-
 
         this.setVisible(false);
         this.add(format);
@@ -201,8 +197,8 @@ public class Search_View extends JPanel{
             String Production = movie.getProduction();
             String Website = movie.getWebsite();
             String Response = movie.getResponse();
-            String s = null;
-            String v = null;
+            String s;
+            String v;
             String Ratings;
             ArrayList <String> rate = new ArrayList<>();
             for(Rating r: movie.getRatings()){
@@ -210,7 +206,7 @@ public class Search_View extends JPanel{
                 v = r.getValue();
                 rate.add("{Source: "+s+", Value: "+v+"} ");
             }
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for(String string: rate){
                 sb.append(string);
             }
@@ -256,15 +252,14 @@ public class Search_View extends JPanel{
                 response.setText("Response: " + Response);
             });
         }
-
     }
     public String getSearch(){
         return searchField.getText();
     }
 
     /* display error */
-    void displayError(String error){
-        JOptionPane.showMessageDialog(this,error);
+    void displayError(){
+        JOptionPane.showMessageDialog(this, "No results from search.");
     }
 }
 

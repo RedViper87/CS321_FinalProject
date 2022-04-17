@@ -2,27 +2,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.*;
 
 public class Movie_Library extends JPanel{
-    /**
-     *  This is the main driver for CS321 Final Project ~ My Movie Library
-     */
-    private static JButton Logout = new JButton("Logout");
+
+    private static final JButton Logout = new JButton("Logout");
+
     Movie_Library(){
         Logout.setVisible(false);
     }
-    /* alert controller that this button is pressed */
+
     void logoutListener(ActionListener listenerForLogout){
         Logout.addActionListener(listenerForLogout);
     }
+
     void setLogoutFalse(){
         Logout.setVisible(false);
     }
+
     void setLogoutTrue(){
         Logout.setVisible(true);
     }
-
+    /**
+     *  This is the main driver for CS321 Final Project ~ My Movie Library
+     */
     public static void main(String[] args) throws IOException {
         Movie_Library movieLibrary = new Movie_Library();
         User_View  userView = new User_View();
@@ -40,9 +42,6 @@ public class Movie_Library extends JPanel{
 
         JFrame library = new JFrame();
         JPanel logout = new JPanel();
-        JPanel topPanel = new JPanel();
-        JPanel midPanel = new JPanel();
-        JPanel botPanel = new JPanel();
         JPanel all = new JPanel();
         library.setTitle("CPE 321 Final Project - My Movie Library");
         library.setLayout(new BorderLayout());
@@ -71,6 +70,4 @@ public class Movie_Library extends JPanel{
         library.setVisible(true);
         library.setExtendedState(library.getExtendedState() | JFrame.MAXIMIZED_BOTH); //auto maximize screen
     }
-
-
 }

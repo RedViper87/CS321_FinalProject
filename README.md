@@ -1,3 +1,3 @@
-# CS321_FinalProject
+# CS321_FinalProject ~ My Movie Library
 
-Team Members: Shane Parten, Ethan Alexander, Zach Weissend, Lily Jaiswal
+Team Members: Shane Parten, Lily Jaiswal, Zach Weissend, Ethan Alexander

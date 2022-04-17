@@ -5,13 +5,13 @@ import javax.swing.border.Border;
 
 public class User_View extends JPanel{
 
-    private JLabel usernameLabel = new JLabel("Username:");
-    private JTextField usernameField = new JTextField(10);
-    private JLabel passwordLabel = new JLabel("Password:");
-    private JTextField passwordField = new JTextField(10);
-    private JButton checkUser = new JButton("Returning User");
-    private JButton newUser = new JButton("Create New User");
-    private JLabel welcomeLabel = new JLabel("Welcome to My Movie Library!");
+    JLabel usernameLabel = new JLabel("Username:");
+    JTextField usernameField = new JTextField(10);
+    JLabel passwordLabel = new JLabel("Password:");
+    JTextField passwordField = new JTextField(10);
+    JButton checkUser = new JButton("Returning User");
+    JButton newUser = new JButton("Create New User");
+    JLabel welcomeLabel = new JLabel("Welcome to My Movie Library!");
 
     User_View(){
         Border blackline = BorderFactory.createLineBorder(Color.black, 2);
@@ -34,7 +34,6 @@ public class User_View extends JPanel{
         outer.add(loginPanel);
         outer.add(buttonPanel);
         outer.setBorder(blackline);
-        JButton n = new JButton();
         this.add(outer);
         this.setVisible(true);
     }
@@ -68,13 +67,11 @@ public class User_View extends JPanel{
     }
 
     /* display success */
-    void displaySuccess(String success){
-        JOptionPane.showMessageDialog(this,success);
+    void displaySuccess(){
+        JOptionPane.showMessageDialog(this, "Account successfully created! Please login.");
     }
     /* display error */
     void displayError(String error){
         JOptionPane.showMessageDialog(this,error);
     }
-
-
 }

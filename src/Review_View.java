@@ -5,7 +5,6 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -13,19 +12,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Review_View extends JPanel {
 
-    private JLabel reviewViewLabel = new JLabel("Review View");
-    private JLabel chooseMovieLabel = new JLabel("Choose a movie: ");
-    private JLabel ratingLabel = new JLabel("Rating out of 10: ");
-    private JLabel commentsLabel = new JLabel("Comments: ");
-    private JButton addReview = new JButton("Add Review");
-    private JLabel reviewsLabel = new JLabel("Your User Reviews: ");
-    private JLabel userReview = new JLabel();
-    private JComboBox movieList;
-    private JComboBox ratingList = new JComboBox();
-    private JTextField commentField = new JTextField(20);
+    JLabel reviewViewLabel = new JLabel("Review View");
+    JLabel chooseMovieLabel = new JLabel("Choose a movie: ");
+    JLabel ratingLabel = new JLabel("Rating out of 10: ");
+    JLabel commentsLabel = new JLabel("Comments: ");
+    JButton addReview = new JButton("Add Review");
+    JLabel reviewsLabel = new JLabel("Your User Reviews: ");
+    JLabel userReview = new JLabel();
+    JComboBox<Object> movieList;
+    JComboBox<Object> ratingList = new JComboBox<>();
+    JTextField commentField = new JTextField(20);
 
 
     Review_View() throws IOException {
@@ -36,7 +36,7 @@ public class Review_View extends JPanel {
         /* get movie data into arraylist*/
         Path path = Paths.get("SampleMovieFile.json");
         Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
+        String content = Files.readString(path, charset);
         Gson gson = new Gson();
         Movie_Model[] list;
         list = gson.fromJson(content,Movie_Model[].class);
@@ -52,7 +52,7 @@ public class Review_View extends JPanel {
         }
         Object[] listOfTitles = titles.toArray();
 
-        movieList = new JComboBox(listOfTitles);
+        movieList = new JComboBox<>(listOfTitles);
 
         /* add numbers to rating list*/
         for(int i = 1; i < 11; i++){
@@ -116,7 +116,7 @@ public class Review_View extends JPanel {
         userReview.setText(userReview.getText()+s);
     }
     public String getMovie(){
-        return movieList.getSelectedItem().toString();
+        return Objects.requireNonNull(movieList.getSelectedItem()).toString();
     }
     public Integer getRating(){
         return (Integer) ratingList.getSelectedItem();

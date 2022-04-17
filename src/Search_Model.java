@@ -10,33 +10,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Search_Model{
-    /* ATTRIBUTES */
-    private String SearchParameter;
-    private String UserInputSearch;
 
-    /* FUNCTIONS */
-    public void setSearchParameter(String searchParameter) {
-        SearchParameter = searchParameter;
-    }
-    public String getSearchParameter() {
-        return SearchParameter;
-    }
-
-    public void setUserInputSearch(String userInputSearch) {
-        UserInputSearch = userInputSearch;
-    }
-    public String getUserInputSearch() {
-        return UserInputSearch;
-    }
-
-    public ArrayList SearchDatabase(boolean cb1, boolean cb2, boolean cb3, boolean cb4, String searchParameter) throws IOException {
+    public ArrayList<Movie_Model> SearchDatabase(boolean cb1, boolean cb2, boolean cb3, boolean cb4, String searchParameter) throws IOException {
 
         ArrayList<Movie_Model> returnMovies = new ArrayList<>();
 
         /* get movie data into arraylist*/
         Path path = Paths.get("SampleMovieFile.json");
         Charset charset = StandardCharsets.UTF_8;
-        String content = new String(Files.readAllBytes(path), charset);
+        String content = Files.readString(path, charset);
         Gson gson = new Gson();
         Movie_Model[] list;
         list = gson.fromJson(content,Movie_Model[].class);
@@ -224,8 +206,6 @@ public class Search_Model{
                 }
             }
         }
-
     return returnMovies;
-
     }
 }
