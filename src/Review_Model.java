@@ -11,25 +11,44 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Class that models a review
+ */
 public class Review_Model extends Movie_Model{
     /* ATTRIBUTES */
     private String MovieName;
     private String NumericalRating;
     private String UserInputReview;
 
-    /* FUNCTIONS */
+    /**
+     * Sets the numerical rating of a user review
+     * @param numericalRating String of number 1-10
+     */
     public void setNumericalRating(String numericalRating) {
         NumericalRating = numericalRating;
     }
 
+    /**
+     * Sets the user input review
+     * @param userInputReview String passed in to set input
+     */
     public void setUserInputReview(String userInputReview) {
         UserInputReview = userInputReview;
     }
 
+    /**
+     * Sets the name of the movie for the review
+     * @param movieName String passed in to set name
+     */
     public void setMovieName(String movieName){
         MovieName = movieName;
     }
 
+    /**
+     * Adds a user review to the UserData.json
+     * @param username String passed in to find correct user
+     * @throws IOException used for try catch
+     */
     public void addUserReview(String username) throws IOException {
         // when dropdown button for movie is clicked and button to enter review is clicked, add review
         Path path2 = Paths.get("UserData.json");
@@ -53,6 +72,13 @@ public class Review_Model extends Movie_Model{
         file.write(json);
         file.flush();
     }
+
+    /**
+     * Grabs all of a single user's data from UserData.json
+     * @param username String of username to find
+     * @return empty if no user available
+     * @throws IOException used for try catch
+     */
     public String grabUserData(String username) throws IOException {
         /* get user data into arraylist*/
         Path path2 = Paths.get("UserData.json");

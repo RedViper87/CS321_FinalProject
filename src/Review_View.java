@@ -13,7 +13,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-
+/**
+ * Class used to represent the viewable panel for Reviews
+ */
 public class Review_View extends JPanel {
 
     JLabel reviewViewLabel = new JLabel("Review View");
@@ -27,7 +29,10 @@ public class Review_View extends JPanel {
     JComboBox<Object> ratingList = new JComboBox<>();
     JTextField commentField = new JTextField(20);
 
-
+    /**
+     * Constructs the Review view panel
+     * @throws IOException used for try catch
+     */
     Review_View() throws IOException {
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
@@ -105,26 +110,56 @@ public class Review_View extends JPanel {
         this.add(outer);
     }
 
-    /* alert controller that this button is pressed */
+    /**
+     * Alerts the Controller that button for Add Review has been pressed
+     * @param listenerForAddReview the Action Listener to be added
+     */
     void addReviewListener(ActionListener listenerForAddReview){
         addReview.addActionListener(listenerForAddReview);
     }
+
+    /**
+     * Erases the user review text
+     */
     public void erase(){
         userReview.setText("");
     }
+
+    /**
+     * Updates the review text
+     * @param s String passed in as value to set text
+     */
     public void updateReview(String s){
         userReview.setText(userReview.getText()+s);
     }
+
+    /**
+     * Returns a string of movie lists
+     * @return movieList
+     */
     public String getMovie(){
         return Objects.requireNonNull(movieList.getSelectedItem()).toString();
     }
+
+    /**
+     * Returns numerical rating for a movie review
+     * @return Integer 1-10
+     */
     public Integer getRating(){
         return (Integer) ratingList.getSelectedItem();
     }
+
+    /**
+     * Returns comment entered for movie review
+     * @return commentField
+     */
     public String getComment(){
         return commentField.getText();
     }
-    /* erase comment */
+
+    /**
+     * Erases the comment field of a review
+     */
     public void eraseComment(){
         commentField.setText("");
     }
