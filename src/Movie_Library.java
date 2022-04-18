@@ -67,6 +67,7 @@ public class Movie_Library extends JPanel{
         library.setLayout(new BorderLayout());
 
         logout.add(Logout);
+        logout.setBackground(Color.darkGray);
 
         all.add(logout);
         all.add(userView);
@@ -81,6 +82,7 @@ public class Movie_Library extends JPanel{
         JScrollPane scroll = new JScrollPane(all, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setPreferredSize(new Dimension(960,540));
         scroll.getVerticalScrollBar().setUnitIncrement(32);
+        scroll.setBackground(Color.darkGray);
         library.add(scroll);
         library.pack();
 

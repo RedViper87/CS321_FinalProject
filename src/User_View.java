@@ -40,6 +40,7 @@ public class User_View extends JPanel{
         outer.add(loginPanel);
         outer.add(buttonPanel);
         outer.setBorder(blackline);
+        this.setBackground(Color.darkGray);
         this.add(outer);
         this.setVisible(true);
     }

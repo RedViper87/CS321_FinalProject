@@ -100,6 +100,7 @@ public class Review_View extends JPanel {
         //add stuff to outer panel
         outer.add(reviewViewLabel);
         outer.add(scroll);
+        this.setBackground(Color.darkGray);
         this.setVisible(false);
         this.add(outer);
     }

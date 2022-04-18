@@ -100,6 +100,7 @@ public class Recommendations_View extends JPanel{
         outer.add(refresh);
         outer.add(scroll);
         outer.add(scroll2);
+        this.setBackground(Color.darkGray);
         this.setVisible(false);
         this.add(outer);
     }

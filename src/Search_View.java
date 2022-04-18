@@ -152,7 +152,7 @@ public class Search_View extends JPanel{
 
         format.add(outer);
         format.add(scroll);
-
+        this.setBackground(Color.darkGray);
         this.setVisible(false);
         this.add(format);
     }
