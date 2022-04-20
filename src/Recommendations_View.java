@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Recommendations_View extends JPanel{
 
-    JLabel recViewLabel = new JLabel("Recommendations View");
+    JLabel recViewLabel = new JLabel("Get recommendations based on the movies you review!");
     JPanel resultsPanel = new JPanel();
     JButton movieButton;
     JButton refresh = new JButton("Refresh");
@@ -45,7 +45,10 @@ public class Recommendations_View extends JPanel{
      */
     Recommendations_View() {
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
+
+        JPanel titlePanel = new JPanel();
         recViewLabel.setFont(new Font(null, Font.BOLD, 20));
+        titlePanel.add(recViewLabel);
 
         BoxLayout moviesPanelLayout = new BoxLayout(resultsPanel, BoxLayout.X_AXIS);
         resultsPanel.setLayout(moviesPanelLayout);
@@ -96,7 +99,7 @@ public class Recommendations_View extends JPanel{
         outer.setPreferredSize(new Dimension(1250, 600));
         outer.setBorder(blackline2);
         //add stuff to outer panel
-        outer.add(recViewLabel);
+        outer.add(titlePanel);
         outer.add(refresh);
         outer.add(scroll);
         outer.add(scroll2);
@@ -118,7 +121,7 @@ public class Recommendations_View extends JPanel{
      * @param movies the arraylist of movies that are recommended to a user
      * @throws IOException
      */
-    public void displayReccomendedMovies(ArrayList<Movie_Model> movies) throws IOException {
+    public void displayRecommendedMovies(ArrayList<Movie_Model> movies) throws IOException {
         resultsPanel.removeAll();
         for(Movie_Model movie: movies){
             String Icon = movie.getPoster();

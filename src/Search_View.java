@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Search_View extends JPanel{
 
-    JLabel searchViewLabel = new JLabel("Search View");
+    JLabel searchViewLabel = new JLabel("Search Movies!");
     JLabel searchLabel = new JLabel("Search: ");
     JTextField searchField = new JTextField(25);
     JButton movieButton;

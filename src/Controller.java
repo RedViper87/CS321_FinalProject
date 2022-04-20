@@ -377,7 +377,7 @@ public class Controller {
                 recommendationsView.displayError();
             }
             try {
-                recommendationsView.displayReccomendedMovies(movies);
+                recommendationsView.displayRecommendedMovies(movies);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

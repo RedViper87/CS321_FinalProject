@@ -18,7 +18,7 @@ import java.util.Objects;
  */
 public class Review_View extends JPanel {
 
-    JLabel reviewViewLabel = new JLabel("Review View");
+    JLabel reviewViewLabel = new JLabel("Leave a review!");
     JLabel chooseMovieLabel = new JLabel("Choose a movie: ");
     JLabel ratingLabel = new JLabel("Rating out of 10: ");
     JLabel commentsLabel = new JLabel("Comments: ");
@@ -36,7 +36,9 @@ public class Review_View extends JPanel {
     Review_View() throws IOException {
         Border blackline1 = BorderFactory.createLineBorder(Color.black, 1);
         Border blackline2 = BorderFactory.createLineBorder(Color.black, 2);
+        JPanel titlePanel = new JPanel();
         reviewViewLabel.setFont(new Font(null, Font.BOLD, 20));
+        titlePanel.add(reviewViewLabel);
 
         /* get movie data into arraylist*/
         Path path = Paths.get("SampleMovieFile.json");
@@ -103,7 +105,7 @@ public class Review_View extends JPanel {
         outer.setPreferredSize(new Dimension(1250, 300));
         outer.setBorder(blackline2);
         //add stuff to outer panel
-        outer.add(reviewViewLabel);
+        outer.add(titlePanel);
         outer.add(scroll);
         this.setBackground(Color.darkGray);
         this.setVisible(false);

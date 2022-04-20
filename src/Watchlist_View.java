@@ -18,7 +18,7 @@ import javax.swing.*;
  */
 public class Watchlist_View extends JPanel{
 
-    JLabel watchlistTitleLabel = new JLabel("Watchlist View");
+    JLabel watchlistTitleLabel = new JLabel("Add, Delete, and Modify Watchlists!");
     JLabel watchlistNameLabel = new JLabel("Watchlist Name to Add or Delete:");
     JTextField watchlistNameField = new JTextField(10);
     JButton addWatchlistButton = new JButton("Add Watchlist");
