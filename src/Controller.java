@@ -146,7 +146,7 @@ public class Controller {
             password = userView.getPassword();
             userView.erasePassword();
             if(username.length() == 0 || password.length() == 0){
-                userView.displayError("You Must Enter a Username AND Password when creating account.");
+                userView.displayError("You must enter a Username AND Password when creating account.");
             }else{
                 userView.eraseUsername();
                 userModel.setUsername(username);
