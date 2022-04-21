@@ -33,7 +33,12 @@ public class User_View extends JPanel{
         loginPanel.add(usernameField);
         loginPanel.add(passwordLabel);
         loginPanel.add(passwordField);
-        hidePassword();
+        JCheckBox show_password = new JCheckBox("Show Password");
+        show_password.addActionListener(PWListener -> {
+            JCheckBox box = (JCheckBox) PWListener.getSource();
+            passwordField.setEchoChar(box.isSelected() ? '\u0000' : (Character) UIManager.get("PasswordField.echoChar"));
+        });
+        loginPanel.add(show_password, BorderLayout.SOUTH);
         buttonPanel.add(checkUser);
         buttonPanel.add(newUser);
 
