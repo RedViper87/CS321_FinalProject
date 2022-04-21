@@ -88,11 +88,11 @@ public class Controller {
             boolean check = false;
             username = userView.getUsername();
             password = userView.getPassword();
-            userView.eraseUsername();
             userView.erasePassword();
             if(username.length() == 0 || password.length() == 0){
                 userView.displayError("Please Enter a Username AND Password");
             }else{
+                userView.eraseUsername();
                 try {
                     userModel.setUsername(username);
                     userModel.setPassword(password);
@@ -102,6 +102,7 @@ public class Controller {
                 }
                 if(check){
                     // set other views equal to true
+                    userView.displayMessage(String.format("Welcome back, %s! \nPress OK to start browsing your movies.", username));
                     reviewView.setVisible(true);
                     watchlistView.setVisible(true);
                     searchView.setVisible(true);
@@ -143,11 +144,11 @@ public class Controller {
             boolean check = false;
             username = userView.getUsername();
             password = userView.getPassword();
-            userView.eraseUsername();
             userView.erasePassword();
             if(username.length() == 0 || password.length() == 0){
-                userView.displayError("Please Enter a Username AND Password");
+                userView.displayError("You Must Enter a Username AND Password when creating account.");
             }else{
+                userView.eraseUsername();
                 userModel.setUsername(username);
                 userModel.setPassword(password);
                 try {
@@ -156,9 +157,9 @@ public class Controller {
                     ex.printStackTrace();
                 }
                 if(check){
-                    userView.displaySuccess();
+                    userView.displayMessage(String.format("Welcome %s! Enjoy the movies!", username));
                 }else{
-                    userView.displayError("User already exists.");
+                    userView.displayError(String.format("User '%s' already exists.", username));
                 }
             }
         }
@@ -398,6 +399,7 @@ public class Controller {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            userView.displayMessage(String.format("Goodbye, %s!", userModel.getUsername()));
             reviewView.setVisible(false);
             watchlistView.setVisible(false);
             searchView.setVisible(false);

@@ -11,7 +11,7 @@ public class User_View extends JPanel{
     JLabel usernameLabel = new JLabel("Username:");
     JTextField usernameField = new JTextField(10);
     JLabel passwordLabel = new JLabel("Password:");
-    JTextField passwordField = new JTextField(10);
+    JPasswordField passwordField = new JPasswordField(10);
     JButton checkUser = new JButton("Returning User");
     JButton newUser = new JButton("Create New User");
     JLabel welcomeLabel = new JLabel("Welcome to My Movie Library!");
@@ -33,6 +33,7 @@ public class User_View extends JPanel{
         loginPanel.add(usernameField);
         loginPanel.add(passwordLabel);
         loginPanel.add(passwordField);
+        hidePassword();
         buttonPanel.add(checkUser);
         buttonPanel.add(newUser);
 
@@ -76,6 +77,12 @@ public class User_View extends JPanel{
     }
 
     /**
+     * returns the password Field of the username a user has typed in
+     * @return passwordField the password of the user that is trying to login
+     */
+    public void hidePassword(){passwordField.setEchoChar('*');}
+
+    /**
      * Adds an actionlistener to the checkuser button to be used in the controller
      * @param listenerForCheckUser the actionlistener for the checkuser button
      */
@@ -97,6 +104,12 @@ public class User_View extends JPanel{
     void displaySuccess(){
         JOptionPane.showMessageDialog(this, "Account successfully created! Please login.");
     }
+
+    /**
+     * displays a success message if the account was created
+     * @param msg the message to display when a user action completes
+     */
+    void displayMessage(String msg){JOptionPane.showMessageDialog(this, msg); }
 
     /**
      * displays an error message if the account could not be created
