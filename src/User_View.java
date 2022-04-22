@@ -33,6 +33,7 @@ public class User_View extends JPanel{
         loginPanel.add(usernameField);
         loginPanel.add(passwordLabel);
         loginPanel.add(passwordField);
+        hidePassword();
         JCheckBox show_password = new JCheckBox("Show Password");
         show_password.addActionListener(PWListener -> {
             JCheckBox box = (JCheckBox) PWListener.getSource();
@@ -81,6 +82,7 @@ public class User_View extends JPanel{
     public String getPassword(){
         return passwordField.getText();
     }
+
 
     /**
      * returns the password Field of the username a user has typed in
